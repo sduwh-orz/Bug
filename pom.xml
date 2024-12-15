@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>cn.edu.sdu.orz</groupId>
 	<artifactId>Bug</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Bug</name>
 	<description>Bug</description>
 	<url/>
