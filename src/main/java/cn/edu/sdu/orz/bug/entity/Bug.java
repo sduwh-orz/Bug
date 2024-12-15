@@ -42,7 +42,7 @@ public class Bug implements Serializable {
     @Column(name = "created", nullable = false)
     private Date created;
 
-    @Column(name = "modified", nullable = false)
+    @Column(name = "modified")
     private Date modified;
 
     public void setId(String id) {

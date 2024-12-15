@@ -1,14 +1,20 @@
 package cn.edu.sdu.orz.bug.controller;
 
 import cn.edu.sdu.orz.bug.dto.UserDTO;
+import cn.edu.sdu.orz.bug.entity.User;
 import cn.edu.sdu.orz.bug.service.UserService;
+import cn.edu.sdu.orz.bug.vo.Response;
 import cn.edu.sdu.orz.bug.vo.UserQueryVO;
 import cn.edu.sdu.orz.bug.vo.UserUpdateVO;
 import cn.edu.sdu.orz.bug.vo.UserVO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.util.DigestUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.nio.charset.StandardCharsets;
 
 @Validated
 @RestController
@@ -43,5 +49,28 @@ public class UserController {
     @GetMapping
     public Page<UserDTO> query(UserQueryVO vO) {
         return userService.query(vO);
+    }
+
+    @PostMapping("/login")
+    public Response login(
+            @RequestParam String username,
+            @RequestParam String password,
+            HttpSession session
+    ) {
+        if (userService.isLoggedIn(session)) {
+            return new Response(false, "已登录");
+        } else {
+            if (userService.login(username, password, session)) {
+                return new Response(true);
+            }
+            return new Response(false, "用户名或密码错误");
+        }
+    }
+
+    @GetMapping("/logout")
+    public Response logout(HttpSession session) {
+        session.removeAttribute("user");
+        session.removeAttribute("password");
+        return new Response(true);
     }
 }

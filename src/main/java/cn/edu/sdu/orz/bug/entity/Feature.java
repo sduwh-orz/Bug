@@ -27,7 +27,7 @@ public class Feature implements Serializable {
     @Column(name = "hours", nullable = false)
     private BigDecimal hours;
 
-    @Column(name = "owner", nullable = false)
+    @Column(name = "owner")
     private String owner;
 
     public void setId(String id) {
