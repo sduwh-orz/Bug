@@ -1,7 +1,6 @@
 package cn.edu.sdu.orz.bug.controller;
 
 import cn.edu.sdu.orz.bug.dto.UserDTO;
-import cn.edu.sdu.orz.bug.entity.User;
 import cn.edu.sdu.orz.bug.service.UserService;
 import cn.edu.sdu.orz.bug.vo.Response;
 import cn.edu.sdu.orz.bug.vo.UserQueryVO;
@@ -10,7 +9,6 @@ import cn.edu.sdu.orz.bug.vo.UserVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.util.DigestUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,8 +67,7 @@ public class UserController {
 
     @GetMapping("/logout")
     public Response logout(HttpSession session) {
-        session.removeAttribute("user");
-        session.removeAttribute("password");
+        userService.logout(session);
         return new Response(true);
     }
 }

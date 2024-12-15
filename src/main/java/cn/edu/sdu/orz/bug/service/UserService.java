@@ -96,6 +96,11 @@ public class UserService {
         }
     }
 
+    public void logout(HttpSession session) {
+        session.removeAttribute("user");
+        session.removeAttribute("password");
+    }
+
     public boolean isAdmin(String id) {
         User user = userRepository.findById(id).orElse(null);
         if (user == null)
