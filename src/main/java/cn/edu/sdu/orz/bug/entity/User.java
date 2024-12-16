@@ -1,9 +1,6 @@
 package cn.edu.sdu.orz.bug.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 
@@ -26,8 +23,9 @@ public class User implements Serializable {
     @Column(name = "real_name", nullable = false)
     private String realName;
 
-    @Column(name = "role", nullable = false)
-    private Integer role;
+    @ManyToOne
+    @JoinColumn(name = "role", nullable = false)
+    private UserRole role;
 
     @Column(name = "email", nullable = false)
     private String email;
@@ -67,12 +65,12 @@ public class User implements Serializable {
         return realName;
     }
 
-    public void setRole(Integer role) {
-        this.role = role;
+    public String getRole() {
+        return role.getName();
     }
 
-    public Integer getRole() {
-        return role;
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public void setEmail(String email) {
