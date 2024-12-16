@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -39,6 +40,12 @@ public class BugService {
     public BugDTO getById(String id) {
         Bug original = requireOne(id);
         return toDTO(original);
+    }
+
+    public List<Bug> list(String projectId, String name, Integer grade) {
+        return bugRepository.findByFeature_Module_Project_IdAndNameContainingIgnoreCaseAndGrade_IdNotNullOrGrade_Id(
+                projectId, name, grade
+        );
     }
 
     public Page<BugDTO> query(BugQueryVO vO) {

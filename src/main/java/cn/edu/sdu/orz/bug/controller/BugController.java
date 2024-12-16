@@ -1,6 +1,7 @@
 package cn.edu.sdu.orz.bug.controller;
 
 import cn.edu.sdu.orz.bug.dto.BugDTO;
+import cn.edu.sdu.orz.bug.entity.Bug;
 import cn.edu.sdu.orz.bug.service.BugService;
 import cn.edu.sdu.orz.bug.vo.BugQueryVO;
 import cn.edu.sdu.orz.bug.vo.BugUpdateVO;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Validated
 @RestController
@@ -38,6 +41,13 @@ public class BugController {
     @GetMapping("/{id}")
     public BugDTO getById(@PathVariable("id") String id) {
         return bugService.getById(id);
+    }
+
+    @GetMapping("/list")
+    public List<Bug> list(@RequestParam("id") String projectId,
+                          @RequestParam(value = "name", required = false) String name,
+                          @RequestParam(value = "grade", required = false) Integer grade) {
+        return bugService.list(projectId, name, grade);
     }
 
     @GetMapping

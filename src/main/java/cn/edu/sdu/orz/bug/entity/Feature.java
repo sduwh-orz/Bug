@@ -45,12 +45,12 @@ public class Feature implements Serializable {
         return name;
     }
 
-    public Module getModule() {
-        return module;
-    }
-
     public void setModule(Module module) {
         this.module = module;
+    }
+
+    public Module getModule() {
+        return module;
     }
 
     public void setHours(BigDecimal hours) {

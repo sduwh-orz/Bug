@@ -57,12 +57,4 @@ public class Module implements Serializable {
         this.features = features;
     }
 
-    @Override
-    public String toString() {
-        return "Module{" +
-                "id=" + id + '\'' +
-                "name=" + name + '\'' +
-                "project=" + (project != null ? project.getId() : null) + '\'' +
-                '}';
-    }
 }
