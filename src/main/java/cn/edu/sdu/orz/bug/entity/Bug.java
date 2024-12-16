@@ -3,7 +3,9 @@ package cn.edu.sdu.orz.bug.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "bug")
@@ -18,7 +20,7 @@ public class Bug implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
     private String description;
 
     @ManyToOne
@@ -38,14 +40,17 @@ public class Bug implements Serializable {
     private BugSolveType solveType;
 
     @Column(name = "created", nullable = false)
-    private Date created;
+    private Timestamp created;
 
     @Column(name = "modified")
-    private Date modified;
+    private Timestamp modified;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "feature", nullable = false)
     private Feature feature;
+
+    @OneToMany(mappedBy = "bug", fetch = FetchType.EAGER)
+    private List<BugRecord> records;
 
     public void setId(String id) {
         this.id = id;
@@ -103,19 +108,19 @@ public class Bug implements Serializable {
         this.solveType = solveType;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
-    public Date getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setModified(Date modified) {
+    public void setModified(Timestamp modified) {
         this.modified = modified;
     }
 
-    public Date getModified() {
+    public Timestamp getModified() {
         return modified;
     }
 
@@ -125,6 +130,14 @@ public class Bug implements Serializable {
 
     public void setFeature(Feature feature) {
         this.feature = feature;
+    }
+
+    public List<BugRecord> getRecords() {
+        return records;
+    }
+
+    public void setRecords(List<BugRecord> records) {
+        this.records = records;
     }
 
     @Override

@@ -3,7 +3,7 @@ package cn.edu.sdu.orz.bug.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "bug_record")
@@ -15,8 +15,9 @@ public class BugRecord implements Serializable {
     @Column(name = "id", nullable = false)
     private String id;
 
-    @Column(name = "bug", nullable = false)
-    private String bug;
+    @ManyToOne
+    @JoinColumn(name = "bug", nullable = false)
+    private Bug bug;
 
     @ManyToOne
     @JoinColumn(name = "type", nullable = false)
@@ -37,11 +38,12 @@ public class BugRecord implements Serializable {
     @Column(name = "comment", nullable = false)
     private String comment;
 
-    @Column(name = "user", nullable = false)
-    private String user;
+    @ManyToOne
+    @JoinColumn(name = "user", nullable = false)
+    private User user;
 
     @Column(name = "time", nullable = false)
-    private Date time;
+    private Timestamp time;
 
     public void setId(String id) {
         this.id = id;
@@ -51,11 +53,11 @@ public class BugRecord implements Serializable {
         return id;
     }
 
-    public void setBug(String bug) {
+    public void setBug(Bug bug) {
         this.bug = bug;
     }
 
-    public String getBug() {
+    public Bug getBug() {
         return bug;
     }
 
@@ -99,19 +101,19 @@ public class BugRecord implements Serializable {
         return comment;
     }
 
-    public void setUser(String user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 
-    public Date getTime() {
+    public Timestamp getTime() {
         return time;
     }
 

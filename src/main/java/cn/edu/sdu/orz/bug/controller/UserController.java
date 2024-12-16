@@ -1,5 +1,7 @@
 package cn.edu.sdu.orz.bug.controller;
 
+import cn.edu.sdu.orz.bug.dto.Response;
+import cn.edu.sdu.orz.bug.dto.UserBriefDTO;
 import cn.edu.sdu.orz.bug.dto.UserDTO;
 import cn.edu.sdu.orz.bug.service.UserService;
 import cn.edu.sdu.orz.bug.vo.*;
@@ -76,7 +78,7 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public List<UserDTO> all() {
+    public List<UserBriefDTO> all() {
         return userService.all();
     }
 }

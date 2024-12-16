@@ -51,7 +51,7 @@ public class FeatureService {
         return bean;
     }
 
-    private Feature requireOne(String id) {
+    public Feature requireOne(String id) {
         return featureRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Resource not found: " + id));
     }

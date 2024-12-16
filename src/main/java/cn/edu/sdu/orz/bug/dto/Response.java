@@ -1,4 +1,4 @@
-package cn.edu.sdu.orz.bug.vo;
+package cn.edu.sdu.orz.bug.dto;
 
 public class Response {
     public boolean success;

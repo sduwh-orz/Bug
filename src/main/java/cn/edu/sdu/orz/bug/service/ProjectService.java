@@ -71,7 +71,7 @@ public class ProjectService {
         return bean;
     }
 
-    private Project requireOne(String id) {
+    public Project requireOne(String id) {
         return projectRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Resource not found: " + id));
     }
