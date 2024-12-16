@@ -76,7 +76,7 @@ public class ProjectController {
         return new Response(projectService.modify(id, vO, httpSession));
     }
 
-    @PostMapping("/remove/{id}")
+    @GetMapping("/remove/{id}")
     public Response remove(@PathVariable("id") String id, HttpSession httpSession) {
         return new Response(projectService.remove(id, httpSession));
     }
