@@ -46,72 +46,52 @@ public class BugService {
         return toDTO(original);
     }
 
-    public Map<String, Object> search(
-            String projectId,
-            String name,
-            Integer grade,
-            String module,
-            String feature,
-            String owner,
-            String reporter,
-            Integer status,
-            Integer solveType,
-            Integer page,
-            Integer size
-    ) {
+    public Map<String, Object> search(BugQueryVO vO) {
         Bug example = new Bug();
+        BeanUtils.copyProperties(vO, example);
 
-        if (projectId != null) {
-            Feature featureExample = new Feature();
-            Module moduleExample = new Module();
-            Project projectExample = new Project();
-            projectExample.setId(projectId);
-
-            moduleExample.setProject(projectExample);
-            if (module != null)
-                moduleExample.setId(module);
-
-            featureExample.setModule(moduleExample);
-            if (feature != null)
-                featureExample.setId(feature);
-
-            if (owner != null) {
-                User ownerExample = new User();
-                ownerExample.setId(owner);
-                featureExample.setOwner(ownerExample);
-            }
+        if (vO.getProjectId() != null) {
+            Feature featureExample = getFeatureExample(vO);
             example.setFeature(featureExample);
         }
 
-        if (reporter != null) {
+        if (vO.getReporter() != null) {
             User reporterExample = new User();
-            reporterExample.setId(reporter);
+            reporterExample.setId(vO.getReporter());
             example.setReporter(reporterExample);
         }
-
-        example.setName(name);
-
-        BugGrade gradeExample = new BugGrade();
-        gradeExample.setId(grade);
-        example.setGrade(gradeExample);
-
-        BugStatus statusExample = new BugStatus();
-        statusExample.setId(status);
-        example.setStatus(statusExample);
-
-        BugSolveType solveTypeExample = new BugSolveType();
-        solveTypeExample.setId(solveType);
-        example.setSolveType(solveTypeExample);
 
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
 
         return Utils.pagination(
-                page,
-                size,
+                vO.getSize(),
+                vO.getPage(),
                 pageable -> bugRepository.findAll(Example.of(example, matcher), pageable),
                 this::toDTO
         );
+    }
+
+    private static Feature getFeatureExample(BugQueryVO vO) {
+        Feature featureExample = new Feature();
+        Module moduleExample = new Module();
+        Project projectExample = new Project();
+        projectExample.setId(vO.getProjectId());
+
+        moduleExample.setProject(projectExample);
+        if (vO.getModule() != null)
+            moduleExample.setId(vO.getModule());
+
+        featureExample.setModule(moduleExample);
+        if (vO.getFeature() != null)
+            featureExample.setId(vO.getFeature());
+
+        if (vO.getDeveloper() != null) {
+            User ownerExample = new User();
+            ownerExample.setId(vO.getDeveloper());
+            featureExample.setOwner(ownerExample);
+        }
+        return featureExample;
     }
 
     public Page<BugDTO> query(BugQueryVO vO) {

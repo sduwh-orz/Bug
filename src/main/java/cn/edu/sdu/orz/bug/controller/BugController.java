@@ -45,24 +45,8 @@ public class BugController {
         return bugService.getById(id);
     }
 
-    @GetMapping("/search")
-    public Map<String, Object> search(@RequestParam("id") String projectId,
-                                      @RequestParam(value = "name", required = false) String name,
-                                      @RequestParam(value = "grade", required = false) Integer grade,
-                                      @RequestParam(value = "module", required = false) String module,
-                                      @RequestParam(value = "feature", required = false) String feature,
-                                      @RequestParam(value = "developer", required = false) String owner,
-                                      @RequestParam(value = "reporter", required = false) String reporter,
-                                      @RequestParam(value = "status", required = false) Integer status,
-                                      @RequestParam(value = "solve_type", required = false) Integer solveType,
-                                      @RequestParam(value = "page", required = false) Integer page,
-                                      @RequestParam(value = "size", required = false) Integer size) {
-        return bugService.search(projectId, name, grade, module, feature, owner, reporter, status, solveType,
-                page, size);
-    }
-
-    @GetMapping
-    public Page<BugDTO> query(BugQueryVO vO) {
-        return bugService.query(vO);
+    @PostMapping("/search")
+    public Map<String, Object> search(@RequestBody BugQueryVO vO) {
+        return bugService.search(vO);
     }
 }
