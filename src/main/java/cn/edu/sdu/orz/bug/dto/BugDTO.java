@@ -1,10 +1,12 @@
 package cn.edu.sdu.orz.bug.dto;
 
 import cn.edu.sdu.orz.bug.entity.*;
+import cn.edu.sdu.orz.bug.utils.Utils;
 import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class BugDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -18,7 +20,7 @@ public class BugDTO implements Serializable {
 
     private BugGradeDTO grade;
 
-    private UserDTO reporter;
+    private UserBriefDTO reporter;
 
     private BugStatusDTO status;
 
@@ -27,6 +29,8 @@ public class BugDTO implements Serializable {
     private Timestamp created;
 
     private Timestamp modified;
+
+    private List<BugRecordDTO> records;
 
     public String getId() {
         return id;
@@ -62,8 +66,8 @@ public class BugDTO implements Serializable {
         this.description = description;
     }
 
-    public String getGrade() {
-        return grade.getName();
+    public BugGradeDTO getGrade() {
+        return grade;
     }
 
     public void setGrade(BugGrade original) {
@@ -72,18 +76,18 @@ public class BugDTO implements Serializable {
         this.grade = bean;
     }
 
-    public UserDTO getReporter() {
+    public UserBriefDTO getReporter() {
         return reporter;
     }
 
     public void setReporter(User original) {
-        UserDTO bean = new UserDTO();
+        UserBriefDTO bean = new UserBriefDTO();
         BeanUtils.copyProperties(original, bean);
         this.reporter = bean;
     }
 
-    public String getStatus() {
-        return status.getName();
+    public BugStatusDTO getStatus() {
+        return status;
     }
 
     public void setStatus(BugStatus original) {
@@ -92,29 +96,49 @@ public class BugDTO implements Serializable {
         this.status = bean;
     }
 
-    public String getSolveType() {
-        return solveType.getName();
+    public BugSolveTypeDTO getSolveType() {
+        return solveType;
     }
 
     public void setSolveType(BugSolveType original) {
-        BugSolveTypeDTO bean = new BugSolveTypeDTO();
-        BeanUtils.copyProperties(original, bean);
-        this.solveType = bean;
+        if (original != null) {
+            BugSolveTypeDTO bean = new BugSolveTypeDTO();
+            BeanUtils.copyProperties(original, bean);
+            this.solveType = bean;
+        }
     }
 
-    public Timestamp getCreated() {
-        return created;
+    public String getCreated() {
+        if (created != null) {
+            return Utils.dateFormat.format(created);
+        }
+        return "";
     }
 
     public void setCreated(Timestamp created) {
         this.created = created;
     }
 
-    public Timestamp getModified() {
-        return modified;
+    public String getModified() {
+        if (modified != null) {
+            return Utils.dateFormat.format(modified);
+        }
+        return "";
     }
 
     public void setModified(Timestamp modified) {
         this.modified = modified;
+    }
+
+    public List<BugRecordDTO> getRecords() {
+        return records;
+    }
+
+    public void setRecords(List<BugRecord> records) {
+        this.records = records.stream().map(r->{
+            BugRecordDTO bean = new BugRecordDTO();
+            BeanUtils.copyProperties(r, bean);
+            return bean;
+        }).toList();
     }
 }

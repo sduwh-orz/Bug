@@ -8,7 +8,7 @@ public class UserQueryVO implements Serializable {
 
     private String username;
 
-    private String password;
+    private String realName;
 
     private Integer role;
 
@@ -26,12 +26,12 @@ public class UserQueryVO implements Serializable {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     public Integer getRole() {

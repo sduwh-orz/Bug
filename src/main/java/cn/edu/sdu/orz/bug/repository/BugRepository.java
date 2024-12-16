@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 
 public interface BugRepository extends JpaRepository<Bug, String>, JpaSpecificationExecutor<Bug> {
-    
+    List<Bug> findByFeature_Module_Project_Id(String projectId);
 }

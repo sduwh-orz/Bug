@@ -51,7 +51,7 @@ public class ModuleService {
         return bean;
     }
 
-    private Module requireOne(String id) {
+    public Module requireOne(String id) {
         return moduleRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Resource not found: " + id));
     }

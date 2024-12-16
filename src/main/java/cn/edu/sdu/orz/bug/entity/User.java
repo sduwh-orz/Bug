@@ -69,8 +69,8 @@ public class User implements Serializable {
         return realName;
     }
 
-    public String getRole() {
-        return role.getName();
+    public UserRole getRole() {
+        return role;
     }
 
     public void setRole(UserRole role) {
