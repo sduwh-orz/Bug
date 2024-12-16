@@ -38,12 +38,11 @@ public class UserController {
         return new Response(userService.create(vO, session));
     }
 
-    @PostMapping("/modify/{id}")
-    public Response modify(@PathVariable("id") String id,
-                           @RequestBody UserUpdateVO vO,
+    @PostMapping("/modify")
+    public Response modify(@RequestBody UserUpdateVO vO,
                            HttpSession session
     ) {
-        return new Response(userService.modify(id, vO, session));
+        return new Response(userService.modify(vO, session));
     }
 
     @GetMapping("/remove/{id}")

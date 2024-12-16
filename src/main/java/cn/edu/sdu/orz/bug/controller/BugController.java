@@ -6,7 +6,6 @@ import cn.edu.sdu.orz.bug.service.BugService;
 import cn.edu.sdu.orz.bug.vo.BugCreateVO;
 import cn.edu.sdu.orz.bug.vo.BugQueryVO;
 import cn.edu.sdu.orz.bug.vo.BugUpdateVO;
-import cn.edu.sdu.orz.bug.vo.BugVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

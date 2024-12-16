@@ -79,11 +79,11 @@ public class UserService {
         return true;
     }
 
-    public boolean modify(String id, UserUpdateVO vO, HttpSession session) {
+    public boolean modify(UserUpdateVO vO, HttpSession session) {
         if (isLoggedInUserNotAdmin(session))
             return false;
         try {
-            User bean = requireOne(id);
+            User bean = requireOne(vO.getId());
             BeanUtils.copyProperties(vO, bean, Utils.getNullPropertyNames(vO));
             userRepository.save(bean);
         } catch (Exception e) {
@@ -208,7 +208,7 @@ public class UserService {
         return bean;
     }
 
-    private User requireOne(String id) {
+    public User requireOne(String id) {
         return userRepository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new NoSuchElementException("Resource not found: " + id));
     }
