@@ -15,10 +15,6 @@ public class Bug implements Serializable {
     @Column(name = "id", nullable = false)
     private String id;
 
-    @OneToOne
-    @JoinColumn(name = "feature", nullable = false)
-    private Feature feature;
-
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -47,6 +43,10 @@ public class Bug implements Serializable {
     @Column(name = "modified")
     private Date modified;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "feature", nullable = false)
+    private Feature feature;
+
     public void setId(String id) {
         this.id = id;
     }
@@ -62,7 +62,7 @@ public class Bug implements Serializable {
     public Feature getFeature() {
         return feature;
     }
-
+  
     public void setName(String name) {
         this.name = name;
     }
@@ -127,11 +127,19 @@ public class Bug implements Serializable {
         return modified;
     }
 
+    public Feature getFeature() {
+        return feature;
+    }
+
+    public void setFeature(Feature feature) {
+        this.feature = feature;
+    }
+
     @Override
     public String toString() {
         return "Bug{" +
                 "id=" + id + '\'' +
-                "feature=" + feature + '\'' +
+                "feature=" + (feature != null ? feature.getId() : null) + '\'' +
                 "name=" + name + '\'' +
                 "description=" + description + '\'' +
                 "grade=" + grade + '\'' +

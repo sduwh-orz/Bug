@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "feature")
@@ -28,6 +29,9 @@ public class Feature implements Serializable {
     @ManyToOne
     @JoinColumn(name = "owner", nullable = false)
     private User owner;
+
+    @OneToMany(mappedBy = "feature", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Bug> bugs;
 
     public void setId(String id) {
         this.id = id;

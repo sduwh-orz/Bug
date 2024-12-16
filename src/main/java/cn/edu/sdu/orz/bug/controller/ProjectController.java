@@ -1,6 +1,7 @@
 package cn.edu.sdu.orz.bug.controller;
 
 import cn.edu.sdu.orz.bug.dto.ProjectDTO;
+import cn.edu.sdu.orz.bug.dto.ProjectInBugListDTO;
 import cn.edu.sdu.orz.bug.dto.ProjectInTaskListDTO;
 import cn.edu.sdu.orz.bug.entity.Project;
 import cn.edu.sdu.orz.bug.service.ProjectService;
@@ -50,14 +51,17 @@ public class ProjectController {
     }
 
     @GetMapping("/search")
-    public List<Project> search(@RequestParam(value = "name") String projectName) {
+    public List<ProjectDTO> search(@RequestParam(value = "name") String projectName) {
         return projectService.findByName(projectName);
     }
 
-    @GetMapping("/task/list")
-    public List<ProjectInTaskListDTO> getProjectListInTaskList(
-            @RequestParam(value = "name") String projectName
-    ) {
+    @GetMapping("/task_search")
+    public List<ProjectInTaskListDTO> searchProjectsInTaskList(@RequestParam(value = "name") String projectName) {
         return projectService.findProjectsWithModuleAndOwnerCount(projectName);
+    }
+
+    @GetMapping("/bug_search")
+    public List<ProjectInBugListDTO> searchProjectsInBugList(@RequestParam(value = "name") String projectName) {
+        return projectService.findProjectsWithBugCount(projectName);
     }
 }
