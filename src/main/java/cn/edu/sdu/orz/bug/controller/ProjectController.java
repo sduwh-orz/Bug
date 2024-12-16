@@ -3,7 +3,7 @@ package cn.edu.sdu.orz.bug.controller;
 import cn.edu.sdu.orz.bug.dto.ProjectDTO;
 import cn.edu.sdu.orz.bug.dto.ProjectInBugListDTO;
 import cn.edu.sdu.orz.bug.dto.ProjectInTaskListDTO;
-import cn.edu.sdu.orz.bug.entity.Project;
+import cn.edu.sdu.orz.bug.dto.Response;
 import cn.edu.sdu.orz.bug.service.ProjectService;
 import cn.edu.sdu.orz.bug.vo.*;
 import jakarta.servlet.http.HttpSession;
