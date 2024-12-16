@@ -63,12 +63,15 @@ public class BugService {
             Module moduleExample = new Module();
             Project projectExample = new Project();
             projectExample.setId(projectId);
+
             moduleExample.setProject(projectExample);
             if (module != null)
                 moduleExample.setId(module);
+
             featureExample.setModule(moduleExample);
             if (feature != null)
                 featureExample.setId(feature);
+
             if (owner != null) {
                 User ownerExample = new User();
                 ownerExample.setId(owner);
@@ -76,28 +79,27 @@ public class BugService {
             }
             example.setFeature(featureExample);
         }
-        if (name != null)
-            example.setName(name);
-        if (grade != null) {
-            BugGrade gradeExample = new BugGrade();
-            gradeExample.setId(grade);
-            example.setGrade(gradeExample);
-        }
+
         if (reporter != null) {
             User reporterExample = new User();
             reporterExample.setId(reporter);
             example.setReporter(reporterExample);
         }
-        if (grade != null) {
-            BugStatus statusExample = new BugStatus();
-            statusExample.setId(status);
-            example.setStatus(statusExample);
-        }
-        if (solveType != null) {
-            BugSolveType solveTypeExample = new BugSolveType();
-            solveTypeExample.setId(solveType);
-            example.setSolveType(solveTypeExample);
-        }
+
+        example.setName(name);
+
+        BugGrade gradeExample = new BugGrade();
+        gradeExample.setId(grade);
+        example.setGrade(gradeExample);
+
+        BugStatus statusExample = new BugStatus();
+        statusExample.setId(status);
+        example.setStatus(statusExample);
+
+        BugSolveType solveTypeExample = new BugSolveType();
+        solveTypeExample.setId(solveType);
+        example.setSolveType(solveTypeExample);
+
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
         return bugRepository.findAll(Example.of(example, matcher)).stream().map(this::toDTO).toList();
