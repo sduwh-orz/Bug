@@ -2,7 +2,7 @@ package cn.edu.sdu.orz.bug.dto;
 
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class ProjectDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -16,7 +16,7 @@ public class ProjectDTO implements Serializable {
 
     private String owner;
 
-    private Date created;
+    private Timestamp created;
 
     public String getId() {
         return id;
@@ -58,18 +58,18 @@ public class ProjectDTO implements Serializable {
         this.owner = owner;
     }
 
-    public Date getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
     public ProjectDTO() {
     }
 
-    public ProjectDTO(String id, String name, String keyword, String description, String owner, Date created) {
+    public ProjectDTO(String id, String name, String keyword, String description, String owner, Timestamp created) {
         this.id = id;
         this.name = name;
         this.keyword = keyword;
