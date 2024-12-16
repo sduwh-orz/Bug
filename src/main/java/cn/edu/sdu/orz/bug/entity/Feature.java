@@ -27,7 +27,7 @@ public class Feature implements Serializable {
     private Module module;
 
     @ManyToOne
-    @JoinColumn(name = "owner", nullable = false)
+    @JoinColumn(name = "owner")
     private User owner;
 
     @OneToMany(mappedBy = "feature", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
