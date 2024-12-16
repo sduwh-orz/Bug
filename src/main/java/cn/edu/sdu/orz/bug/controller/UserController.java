@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Validated
@@ -72,5 +73,10 @@ public class UserController {
     public Response password(@RequestBody UserPasswordVO vO,
                              HttpSession session) {
         return new Response(userService.password(vO, session));
+    }
+
+    @GetMapping("/all")
+    public List<UserDTO> all() {
+        return userService.all();
     }
 }
