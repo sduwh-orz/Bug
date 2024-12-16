@@ -1,11 +1,9 @@
 package cn.edu.sdu.orz.bug.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -34,6 +32,9 @@ public class User implements Serializable {
 
     @Column(name = "deleted", nullable = false)
     private Integer deleted;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Feature> features;
 
     public void setId(String id) {
         this.id = id;

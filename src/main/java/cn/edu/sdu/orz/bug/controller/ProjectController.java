@@ -1,6 +1,8 @@
 package cn.edu.sdu.orz.bug.controller;
 
 import cn.edu.sdu.orz.bug.dto.ProjectDTO;
+import cn.edu.sdu.orz.bug.dto.ProjectInTaskListDTO;
+import cn.edu.sdu.orz.bug.entity.Project;
 import cn.edu.sdu.orz.bug.service.ProjectService;
 import cn.edu.sdu.orz.bug.vo.ProjectQueryVO;
 import cn.edu.sdu.orz.bug.vo.ProjectUpdateVO;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Validated
 @RestController
@@ -43,5 +47,17 @@ public class ProjectController {
     @GetMapping
     public Page<ProjectDTO> query(ProjectQueryVO vO) {
         return projectService.query(vO);
+    }
+
+    @GetMapping("/search")
+    public List<Project> search(@RequestParam(value = "name") String projectName) {
+        return projectService.findByName(projectName);
+    }
+
+    @GetMapping("/task/list")
+    public List<ProjectInTaskListDTO> getProjectListInTaskList(
+            @RequestParam(value = "name") String projectName
+    ) {
+        return projectService.findProjectsWithModuleAndOwnerCount(projectName);
     }
 }

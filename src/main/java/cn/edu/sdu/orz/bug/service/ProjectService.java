@@ -1,6 +1,7 @@
 package cn.edu.sdu.orz.bug.service;
 
 import cn.edu.sdu.orz.bug.dto.ProjectDTO;
+import cn.edu.sdu.orz.bug.dto.ProjectInTaskListDTO;
 import cn.edu.sdu.orz.bug.entity.Project;
 import cn.edu.sdu.orz.bug.repository.ProjectRepository;
 import cn.edu.sdu.orz.bug.vo.ProjectQueryVO;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -43,6 +45,14 @@ public class ProjectService {
 
     public Page<ProjectDTO> query(ProjectQueryVO vO) {
         throw new UnsupportedOperationException();
+    }
+
+    public List<Project> findByName(String projectName) {
+        return projectRepository.findByName(projectName);
+    }
+
+    public List<ProjectInTaskListDTO> findProjectsWithModuleAndOwnerCount(String projectName) {
+        return projectRepository.findProjectsWithModuleAndOwnerCount(projectName);
     }
 
     private ProjectDTO toDTO(Project original) {
