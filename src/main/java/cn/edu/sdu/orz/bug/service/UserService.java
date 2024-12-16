@@ -118,6 +118,13 @@ public class UserService {
         return true;
     }
 
+    public UserDTO myInfo(HttpSession session) {
+        User user = getLoggedInUser(session);
+        if (user == null)
+            return null;
+        return toDTO(user);
+    }
+
     public User getByUsername(String username) {
         return userRepository.findByUsernameAndDeletedFalse(username);
     }

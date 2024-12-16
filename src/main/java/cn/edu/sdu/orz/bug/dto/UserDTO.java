@@ -1,5 +1,7 @@
 package cn.edu.sdu.orz.bug.dto;
 
+import cn.edu.sdu.orz.bug.entity.UserRole;
+import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 
@@ -11,7 +13,7 @@ public class UserDTO implements Serializable {
 
     private String realName;
 
-    private String role;
+    private UserRoleDTO role;
 
     private String email;
 
@@ -39,12 +41,14 @@ public class UserDTO implements Serializable {
         this.realName = realName;
     }
 
-    public String getRole() {
+    public UserRoleDTO getRole() {
         return role;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRole(UserRole role) {
+        UserRoleDTO bean = new UserRoleDTO();
+        BeanUtils.copyProperties(role, bean);
+        this.role = bean;
     }
 
     public String getEmail() {
