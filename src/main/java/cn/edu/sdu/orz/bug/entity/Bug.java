@@ -54,14 +54,6 @@ public class Bug implements Serializable {
     public String getId() {
         return id;
     }
-
-    public void setFeature(Feature feature) {
-        this.feature = feature;
-    }
-
-    public Feature getFeature() {
-        return feature;
-    }
   
     public void setName(String name) {
         this.name = name;
