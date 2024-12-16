@@ -21,11 +21,11 @@ public class Feature implements Serializable {
     @Column(name = "hours", nullable = false)
     private BigDecimal hours;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "module", nullable = false)
     private Module module;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "owner", nullable = false)
     private User owner;
 

@@ -29,8 +29,9 @@ public class Bug implements Serializable {
     @JoinColumn(name = "grade", nullable = false)
     private BugGrade grade;
 
-    @Column(name = "reporter", nullable = false)
-    private String reporter;
+    @ManyToOne
+    @JoinColumn(name = "reporter", nullable = false)
+    private User reporter;
 
     @ManyToOne
     @JoinColumn(name = "status", nullable = false)
@@ -78,11 +79,11 @@ public class Bug implements Serializable {
         return description;
     }
 
-    public void setReporter(String reporter) {
+    public void setReporter(User reporter) {
         this.reporter = reporter;
     }
 
-    public String getReporter() {
+    public User getReporter() {
         return reporter;
     }
 

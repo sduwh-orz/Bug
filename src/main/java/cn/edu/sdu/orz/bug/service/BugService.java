@@ -1,13 +1,16 @@
 package cn.edu.sdu.orz.bug.service;
 
 import cn.edu.sdu.orz.bug.dto.BugDTO;
-import cn.edu.sdu.orz.bug.entity.Bug;
-import cn.edu.sdu.orz.bug.repository.BugRepository;
+import cn.edu.sdu.orz.bug.entity.*;
+import cn.edu.sdu.orz.bug.entity.Module;
+import cn.edu.sdu.orz.bug.repository.*;
 import cn.edu.sdu.orz.bug.vo.BugQueryVO;
 import cn.edu.sdu.orz.bug.vo.BugUpdateVO;
 import cn.edu.sdu.orz.bug.vo.BugVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -42,10 +45,62 @@ public class BugService {
         return toDTO(original);
     }
 
-    public List<Bug> list(String projectId, String name, Integer grade) {
-        return bugRepository.findByFeature_Module_Project_IdAndNameContainingIgnoreCaseAndGrade_IdNotNullOrGrade_Id(
-                projectId, name, grade
-        );
+    public List<BugDTO> search(
+            String projectId,
+            String name,
+            Integer grade,
+            String module,
+            String feature,
+            String owner,
+            String reporter,
+            Integer status,
+            Integer solveType
+    ) {
+        Bug example = new Bug();
+
+        if (projectId != null) {
+            Feature featureExample = new Feature();
+            Module moduleExample = new Module();
+            Project projectExample = new Project();
+            projectExample.setId(projectId);
+            moduleExample.setProject(projectExample);
+            if (module != null)
+                moduleExample.setId(module);
+            featureExample.setModule(moduleExample);
+            if (feature != null)
+                featureExample.setId(feature);
+            if (owner != null) {
+                User ownerExample = new User();
+                ownerExample.setId(owner);
+                featureExample.setOwner(ownerExample);
+            }
+            example.setFeature(featureExample);
+        }
+        if (name != null)
+            example.setName(name);
+        if (grade != null) {
+            BugGrade gradeExample = new BugGrade();
+            gradeExample.setId(grade);
+            example.setGrade(gradeExample);
+        }
+        if (reporter != null) {
+            User reporterExample = new User();
+            reporterExample.setId(reporter);
+            example.setReporter(reporterExample);
+        }
+        if (grade != null) {
+            BugStatus statusExample = new BugStatus();
+            statusExample.setId(status);
+            example.setStatus(statusExample);
+        }
+        if (solveType != null) {
+            BugSolveType solveTypeExample = new BugSolveType();
+            solveTypeExample.setId(solveType);
+            example.setSolveType(solveTypeExample);
+        }
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
+        return bugRepository.findAll(Example.of(example, matcher)).stream().map(this::toDTO).toList();
     }
 
     public Page<BugDTO> query(BugQueryVO vO) {

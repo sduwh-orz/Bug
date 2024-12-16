@@ -20,6 +20,14 @@ public class BugSolveType implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    public BugSolveType() {
+
+    }
+
+    public BugSolveType(Integer id) {
+        this.id = id;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
