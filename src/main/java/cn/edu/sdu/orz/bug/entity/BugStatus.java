@@ -20,6 +20,14 @@ public class BugStatus implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    public BugStatus() {
+
+    }
+
+    public BugStatus(Integer id) {
+        this.id = id;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
