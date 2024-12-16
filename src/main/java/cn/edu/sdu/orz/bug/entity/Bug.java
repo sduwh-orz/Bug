@@ -1,9 +1,6 @@
 package cn.edu.sdu.orz.bug.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -17,9 +14,6 @@ public class Bug implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     private String id;
-
-    @Column(name = "feature", nullable = false)
-    private String feature;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -45,20 +39,16 @@ public class Bug implements Serializable {
     @Column(name = "modified")
     private Date modified;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "feature", nullable = false)
+    private Feature feature;
+
     public void setId(String id) {
         this.id = id;
     }
 
     public String getId() {
         return id;
-    }
-
-    public void setFeature(String feature) {
-        this.feature = feature;
-    }
-
-    public String getFeature() {
-        return feature;
     }
 
     public void setName(String name) {
@@ -125,11 +115,19 @@ public class Bug implements Serializable {
         return modified;
     }
 
+    public Feature getFeature() {
+        return feature;
+    }
+
+    public void setFeature(Feature feature) {
+        this.feature = feature;
+    }
+
     @Override
     public String toString() {
         return "Bug{" +
                 "id=" + id + '\'' +
-                "feature=" + feature + '\'' +
+                "feature=" + (feature != null ? feature.getId() : null) + '\'' +
                 "name=" + name + '\'' +
                 "description=" + description + '\'' +
                 "grade=" + grade + '\'' +
