@@ -50,7 +50,7 @@ public class UserService {
     }
 
     public boolean create(UserVO vO, HttpSession session) {
-        if (!isLoggedIn(session))
+        if (isLoggedInUserNotAdmin(session))
             return false;
         try {
             User bean = new User();
@@ -63,7 +63,7 @@ public class UserService {
     }
 
     public boolean modify(String id, UserUpdateVO vO, HttpSession session) {
-        if (!isLoggedIn(session))
+        if (isLoggedInUserNotAdmin(session))
             return false;
         try {
             User bean = requireOne(id);
@@ -76,7 +76,7 @@ public class UserService {
     }
 
     public boolean remove(String id, HttpSession session) {
-        if (!isLoggedIn(session))
+        if (isLoggedInUserNotAdmin(session))
             return false;
         try {
             User bean = requireOne(id);
@@ -121,6 +121,10 @@ public class UserService {
         if (user == null)
             return false;
         return user.getRole().equals("管理员");
+    }
+
+    public boolean isLoggedInUserNotAdmin(HttpSession session) {
+        return !isLoggedInUserAdmin(session);
     }
 
     public boolean isAdmin(String id) {
