@@ -5,9 +5,8 @@ import cn.edu.sdu.orz.bug.dto.ProjectInBugListDTO;
 import cn.edu.sdu.orz.bug.dto.ProjectInTaskListDTO;
 import cn.edu.sdu.orz.bug.entity.Project;
 import cn.edu.sdu.orz.bug.service.ProjectService;
-import cn.edu.sdu.orz.bug.vo.ProjectQueryVO;
-import cn.edu.sdu.orz.bug.vo.ProjectUpdateVO;
-import cn.edu.sdu.orz.bug.vo.ProjectVO;
+import cn.edu.sdu.orz.bug.vo.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
@@ -63,5 +62,22 @@ public class ProjectController {
     @GetMapping("/bug_search")
     public List<ProjectInBugListDTO> searchProjectsInBugList(@RequestParam(value = "name") String projectName) {
         return projectService.findProjectsWithBugCount(projectName);
+    }
+
+    @PostMapping("/create")
+    public Response create(@RequestBody ProjectCreateVO vO, HttpSession httpSession) {
+        return new Response(projectService.create(vO, httpSession));
+    }
+
+    @PostMapping("/modify/{id}")
+    public Response modify(@PathVariable("id") String id,
+                           @RequestBody ProjectUpdateVO vO,
+                           HttpSession httpSession) {
+        return new Response(projectService.modify(id, vO, httpSession));
+    }
+
+    @PostMapping("/remove/{id}")
+    public Response remove(@PathVariable("id") String id, HttpSession httpSession) {
+        return new Response(projectService.remove(id, httpSession));
     }
 }
