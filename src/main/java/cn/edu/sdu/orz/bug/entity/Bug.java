@@ -3,7 +3,7 @@ package cn.edu.sdu.orz.bug.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "bug")
@@ -38,10 +38,10 @@ public class Bug implements Serializable {
     private BugSolveType solveType;
 
     @Column(name = "created", nullable = false)
-    private Date created;
+    private Timestamp created;
 
     @Column(name = "modified")
-    private Date modified;
+    private Timestamp modified;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "feature", nullable = false)
@@ -103,19 +103,19 @@ public class Bug implements Serializable {
         this.solveType = solveType;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
-    public Date getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setModified(Date modified) {
+    public void setModified(Timestamp modified) {
         this.modified = modified;
     }
 
-    public Date getModified() {
+    public Timestamp getModified() {
         return modified;
     }
 

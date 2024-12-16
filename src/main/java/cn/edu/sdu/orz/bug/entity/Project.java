@@ -3,7 +3,7 @@ package cn.edu.sdu.orz.bug.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -29,7 +29,7 @@ public class Project implements Serializable {
     private String owner;
 
     @Column(name = "created", nullable = false)
-    private Date created;
+    private Timestamp created;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Module> modules;
@@ -74,11 +74,11 @@ public class Project implements Serializable {
         return owner;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
-    public Date getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 

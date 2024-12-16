@@ -3,7 +3,7 @@ package cn.edu.sdu.orz.bug.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "bug_record")
@@ -41,7 +41,7 @@ public class BugRecord implements Serializable {
     private String user;
 
     @Column(name = "time", nullable = false)
-    private Date time;
+    private Timestamp time;
 
     public void setId(String id) {
         this.id = id;
@@ -107,11 +107,11 @@ public class BugRecord implements Serializable {
         return user;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 
-    public Date getTime() {
+    public Timestamp getTime() {
         return time;
     }
 

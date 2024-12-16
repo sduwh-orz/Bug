@@ -4,7 +4,7 @@ import cn.edu.sdu.orz.bug.entity.*;
 import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class BugDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -24,9 +24,9 @@ public class BugDTO implements Serializable {
 
     private BugSolveTypeDTO solveType;
 
-    private Date created;
+    private Timestamp created;
 
-    private Date modified;
+    private Timestamp modified;
 
     public String getId() {
         return id;
@@ -102,19 +102,19 @@ public class BugDTO implements Serializable {
         this.solveType = bean;
     }
 
-    public Date getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
-    public Date getModified() {
+    public Timestamp getModified() {
         return modified;
     }
 
-    public void setModified(Date modified) {
+    public void setModified(Timestamp modified) {
         this.modified = modified;
     }
 }
