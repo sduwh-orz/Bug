@@ -5,11 +5,10 @@ import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.DigestUtils;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.function.Function;
 
 import static java.lang.Math.max;
@@ -53,5 +52,10 @@ public class Utils {
         result.put("start", min((long) page * pageSize + 1, data.getTotalElements()));
         result.put("end", min((long) (page + 1) * pageSize, data.getTotalElements()));
         return result;
+    }
+
+    public static String newRandomID() {
+        return DigestUtils.md5DigestAsHex(String.valueOf(new Random().nextLong()).getBytes(StandardCharsets.UTF_8))
+                .toUpperCase();
     }
 }

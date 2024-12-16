@@ -1,14 +1,19 @@
 package cn.edu.sdu.orz.bug.controller;
 
 import cn.edu.sdu.orz.bug.dto.BugDTO;
+import cn.edu.sdu.orz.bug.entity.Bug;
 import cn.edu.sdu.orz.bug.service.BugService;
 import cn.edu.sdu.orz.bug.vo.BugQueryVO;
 import cn.edu.sdu.orz.bug.vo.BugUpdateVO;
 import cn.edu.sdu.orz.bug.vo.BugVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @Validated
 @RestController
@@ -40,8 +45,8 @@ public class BugController {
         return bugService.getById(id);
     }
 
-    @GetMapping
-    public Page<BugDTO> query(BugQueryVO vO) {
-        return bugService.query(vO);
+    @PostMapping("/search")
+    public Map<String, Object> search(@RequestBody BugQueryVO vO) {
+        return bugService.search(vO);
     }
 }

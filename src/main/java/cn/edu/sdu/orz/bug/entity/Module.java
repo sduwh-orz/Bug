@@ -18,7 +18,7 @@ public class Module implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "project", nullable = false)
     private Project project;
 
@@ -57,12 +57,4 @@ public class Module implements Serializable {
         this.features = features;
     }
 
-    @Override
-    public String toString() {
-        return "Module{" +
-                "id=" + id + '\'' +
-                "name=" + name + '\'' +
-                "project=" + (project != null ? project.getId() : null) + '\'' +
-                '}';
-    }
 }

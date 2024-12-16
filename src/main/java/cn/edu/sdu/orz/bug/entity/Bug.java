@@ -21,17 +21,21 @@ public class Bug implements Serializable {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "grade", nullable = false)
-    private Integer grade;
+    @ManyToOne
+    @JoinColumn(name = "grade", nullable = false)
+    private BugGrade grade;
 
-    @Column(name = "reporter", nullable = false)
-    private String reporter;
+    @ManyToOne
+    @JoinColumn(name = "reporter", nullable = false)
+    private User reporter;
 
-    @Column(name = "status", nullable = false)
-    private Integer status;
+    @ManyToOne
+    @JoinColumn(name = "status", nullable = false)
+    private BugStatus status;
 
-    @Column(name = "solve_type")
-    private Integer solveType;
+    @ManyToOne
+    @JoinColumn(name = "solve_type")
+    private BugSolveType solveType;
 
     @Column(name = "created", nullable = false)
     private Date created;
@@ -51,6 +55,14 @@ public class Bug implements Serializable {
         return id;
     }
 
+    public void setFeature(Feature feature) {
+        this.feature = feature;
+    }
+
+    public Feature getFeature() {
+        return feature;
+    }
+  
     public void setName(String name) {
         this.name = name;
     }
@@ -67,36 +79,36 @@ public class Bug implements Serializable {
         return description;
     }
 
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
-
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setReporter(String reporter) {
+    public void setReporter(User reporter) {
         this.reporter = reporter;
     }
 
-    public String getReporter() {
+    public User getReporter() {
         return reporter;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public BugGrade getGrade() {
+        return grade;
     }
 
-    public Integer getStatus() {
+    public void setGrade(BugGrade grade) {
+        this.grade = grade;
+    }
+
+    public BugStatus getStatus() {
         return status;
     }
 
-    public void setSolveType(Integer solveType) {
-        this.solveType = solveType;
+    public void setStatus(BugStatus status) {
+        this.status = status;
     }
 
-    public Integer getSolveType() {
+    public BugSolveType getSolveType() {
         return solveType;
+    }
+
+    public void setSolveType(BugSolveType solveType) {
+        this.solveType = solveType;
     }
 
     public void setCreated(Date created) {

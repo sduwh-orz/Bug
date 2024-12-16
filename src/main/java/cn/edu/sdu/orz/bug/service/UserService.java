@@ -3,12 +3,14 @@ package cn.edu.sdu.orz.bug.service;
 import cn.edu.sdu.orz.bug.dto.UserDTO;
 import cn.edu.sdu.orz.bug.entity.User;
 import cn.edu.sdu.orz.bug.repository.UserRepository;
+import cn.edu.sdu.orz.bug.repository.UserRoleRepository;
 import cn.edu.sdu.orz.bug.utils.Utils;
-import cn.edu.sdu.orz.bug.vo.UserUpdateVO;
-import cn.edu.sdu.orz.bug.vo.UserVO;
+import cn.edu.sdu.orz.bug.vo.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -16,30 +18,30 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
+
 @Service
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
 
-    public Map<String, Object> search(
-            String username,
-            String realName,
-            String role,
-            String email,
-            Integer queryPage,
-            Integer querySize
-    ) {
+    @Autowired
+    private UserRoleRepository userRoleRepository;
+
+    public Map<String, Object> search(UserQueryVO vO) {
+        User example = new User();
+        BeanUtils.copyProperties(vO, example);
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("username", contains().ignoreCase())
+                .withMatcher("realName", contains().ignoreCase())
+                .withMatcher("email", contains().ignoreCase());
+
         return Utils.pagination(
-                queryPage,
-                querySize,
-                pageable -> userRepository.findByUsernameContainingIgnoreCaseAndRealNameContainingIgnoreCaseAndRoleNameContainingAndEmailContainingIgnoreCaseAndDeletedFalse(
-                        username != null ? username : "",
-                        realName != null ? realName : "",
-                        role != null ? role : "",
-                        email != null ? email : "",
-                        pageable
-                ),
+                vO.getPage(),
+                vO.getSize(),
+                pageable -> userRepository.findAll(Example.of(example, matcher), pageable),
                 UserService::toDTO
         );
     }
@@ -49,12 +51,15 @@ public class UserService {
         return toDTO(original);
     }
 
-    public boolean create(UserVO vO, HttpSession session) {
+    public boolean create(UserCreateVO vO, HttpSession session) {
         if (isLoggedInUserNotAdmin(session))
             return false;
         try {
             User bean = new User();
             BeanUtils.copyProperties(vO, bean);
+            bean.setId(newID());
+            bean.setDeleted(0);
+            bean.setRole(userRoleRepository.findById(vO.getRole()).orElseThrow());
             userRepository.save(bean);
         } catch (Exception e) {
             return false;
@@ -69,6 +74,19 @@ public class UserService {
             User bean = requireOne(id);
             BeanUtils.copyProperties(vO, bean, Utils.getNullPropertyNames(vO));
             userRepository.save(bean);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean password(UserPasswordVO vO, HttpSession session) {
+        User user = getLoggedInUser(session);
+        if (user == null)
+            return false;
+        try {
+            user.setPassword(DigestUtils.md5DigestAsHex(vO.getPassword().getBytes(StandardCharsets.UTF_8)));
+            userRepository.save(user);
         } catch (Exception e) {
             return false;
         }
@@ -116,6 +134,10 @@ public class UserService {
         return getLoggedInUser(session) != null;
     }
 
+    public boolean isNotLoggedIn(HttpSession session) {
+        return !isLoggedIn(session);
+    }
+
     public boolean isLoggedInUserAdmin(HttpSession session) {
         User user = getLoggedInUser(session);
         if (user == null)
@@ -150,6 +172,15 @@ public class UserService {
     public void logout(HttpSession session) {
         session.removeAttribute("user");
         session.removeAttribute("password");
+    }
+
+    private String newID() {
+        while (true) {
+            String id = Utils.newRandomID();
+            if (!userRepository.existsById(id)) {
+                return id;
+            }
+        }
     }
 
     private static UserDTO toDTO(User original) {

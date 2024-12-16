@@ -22,11 +22,11 @@ public class Feature implements Serializable {
     @Column(name = "hours", nullable = false)
     private BigDecimal hours;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "module", nullable = false)
     private Module module;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "owner", nullable = false)
     private User owner;
 
@@ -49,12 +49,12 @@ public class Feature implements Serializable {
         return name;
     }
 
-    public Module getModule() {
-        return module;
-    }
-
     public void setModule(Module module) {
         this.module = module;
+    }
+
+    public Module getModule() {
+        return module;
     }
 
     public void setHours(BigDecimal hours) {
