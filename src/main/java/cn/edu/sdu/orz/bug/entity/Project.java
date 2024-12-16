@@ -1,12 +1,10 @@
 package cn.edu.sdu.orz.bug.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "project")
@@ -32,6 +30,9 @@ public class Project implements Serializable {
 
     @Column(name = "created", nullable = false)
     private Date created;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Module> modules;
 
     public void setId(String id) {
         this.id = id;
@@ -79,6 +80,14 @@ public class Project implements Serializable {
 
     public Date getCreated() {
         return created;
+    }
+
+    public List<Module> getModules() {
+        return modules;
+    }
+
+    public void setModules(List<Module> modules) {
+        this.modules = modules;
     }
 
     @Override

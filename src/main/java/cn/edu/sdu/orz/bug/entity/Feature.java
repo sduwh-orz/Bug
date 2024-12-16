@@ -1,9 +1,6 @@
 package cn.edu.sdu.orz.bug.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -21,14 +18,16 @@ public class Feature implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "module", nullable = false)
-    private String module;
-
     @Column(name = "hours", nullable = false)
     private BigDecimal hours;
 
-    @Column(name = "owner")
-    private String owner;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "module", nullable = false)
+    private Module module;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner", nullable = false)
+    private User owner;
 
     public void setId(String id) {
         this.id = id;
@@ -46,12 +45,12 @@ public class Feature implements Serializable {
         return name;
     }
 
-    public void setModule(String module) {
-        this.module = module;
+    public Module getModule() {
+        return module;
     }
 
-    public String getModule() {
-        return module;
+    public void setModule(Module module) {
+        this.module = module;
     }
 
     public void setHours(BigDecimal hours) {
@@ -62,12 +61,12 @@ public class Feature implements Serializable {
         return hours;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public User getOwner() {
+        return owner;
     }
 
-    public String getOwner() {
-        return owner;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     @Override
@@ -75,9 +74,9 @@ public class Feature implements Serializable {
         return "Feature{" +
                 "id=" + id + '\'' +
                 "name=" + name + '\'' +
-                "module=" + module + '\'' +
+                "module=" + (module != null ? module.getId() : null) + '\'' +
                 "hours=" + hours + '\'' +
-                "owner=" + owner + '\'' +
+                "owner=" + (owner != null ? owner.getId() : null) + '\'' +
                 '}';
     }
 }

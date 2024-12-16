@@ -1,11 +1,9 @@
 package cn.edu.sdu.orz.bug.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "module")
@@ -20,8 +18,12 @@ public class Module implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "project", nullable = false)
-    private String project;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project", nullable = false)
+    private Project project;
+
+    @OneToMany(mappedBy = "module", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Feature> features;
 
     public void setId(String id) {
         this.id = id;
@@ -39,12 +41,20 @@ public class Module implements Serializable {
         return name;
     }
 
-    public void setProject(String project) {
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
         this.project = project;
     }
 
-    public String getProject() {
-        return project;
+    public List<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(List<Feature> features) {
+        this.features = features;
     }
 
     @Override
@@ -52,7 +62,7 @@ public class Module implements Serializable {
         return "Module{" +
                 "id=" + id + '\'' +
                 "name=" + name + '\'' +
-                "project=" + project + '\'' +
+                "project=" + (project != null ? project.getId() : null) + '\'' +
                 '}';
     }
 }
