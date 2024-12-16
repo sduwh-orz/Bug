@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Validated
 @RestController
@@ -45,16 +46,19 @@ public class BugController {
     }
 
     @GetMapping("/search")
-    public List<BugDTO> search(@RequestParam("id") String projectId,
-                             @RequestParam(value = "name", required = false) String name,
-                             @RequestParam(value = "grade", required = false) Integer grade,
-                             @RequestParam(value = "module", required = false) String module,
-                             @RequestParam(value = "feature", required = false) String feature,
-                             @RequestParam(value = "developer", required = false) String owner,
-                             @RequestParam(value = "reporter", required = false) String reporter,
-                             @RequestParam(value = "status", required = false) Integer status,
-                             @RequestParam(value = "solve_type", required = false) Integer solveType) {
-        return bugService.search(projectId, name, grade, module, feature, owner, reporter, status, solveType);
+    public Map<String, Object> search(@RequestParam("id") String projectId,
+                                      @RequestParam(value = "name", required = false) String name,
+                                      @RequestParam(value = "grade", required = false) Integer grade,
+                                      @RequestParam(value = "module", required = false) String module,
+                                      @RequestParam(value = "feature", required = false) String feature,
+                                      @RequestParam(value = "developer", required = false) String owner,
+                                      @RequestParam(value = "reporter", required = false) String reporter,
+                                      @RequestParam(value = "status", required = false) Integer status,
+                                      @RequestParam(value = "solve_type", required = false) Integer solveType,
+                                      @RequestParam(value = "page", required = false) Integer page,
+                                      @RequestParam(value = "size", required = false) Integer size) {
+        return bugService.search(projectId, name, grade, module, feature, owner, reporter, status, solveType,
+                page, size);
     }
 
     @GetMapping

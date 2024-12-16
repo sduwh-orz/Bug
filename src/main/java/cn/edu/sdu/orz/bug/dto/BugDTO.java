@@ -1,5 +1,7 @@
 package cn.edu.sdu.orz.bug.dto;
 
+import cn.edu.sdu.orz.bug.entity.*;
+import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -8,19 +10,19 @@ public class BugDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private String id;
 
-    private String feature;
+    private FeatureDTO feature;
 
     private String name;
 
     private String description;
 
-    private Integer grade;
+    private BugGradeDTO grade;
 
-    private String reporter;
+    private UserDTO reporter;
 
-    private Integer status;
+    private BugStatusDTO status;
 
-    private Integer solveType;
+    private BugSolveTypeDTO solveType;
 
     private Date created;
 
@@ -34,12 +36,14 @@ public class BugDTO implements Serializable {
         this.id = id;
     }
 
-    public String getFeature() {
+    public FeatureDTO getFeature() {
         return feature;
     }
 
-    public void setFeature(String feature) {
-        this.feature = feature;
+    public void setFeature(Feature original) {
+        FeatureDTO bean = new FeatureDTO();
+        BeanUtils.copyProperties(original, bean);
+        this.feature = bean;
     }
 
     public String getName() {
@@ -58,36 +62,44 @@ public class BugDTO implements Serializable {
         this.description = description;
     }
 
-    public Integer getGrade() {
-        return grade;
+    public String getGrade() {
+        return grade.getName();
     }
 
-    public void setGrade(Integer grade) {
-        this.grade = grade;
+    public void setGrade(BugGrade original) {
+        BugGradeDTO bean = new BugGradeDTO();
+        BeanUtils.copyProperties(original, bean);
+        this.grade = bean;
     }
 
-    public String getReporter() {
+    public UserDTO getReporter() {
         return reporter;
     }
 
-    public void setReporter(String reporter) {
-        this.reporter = reporter;
+    public void setReporter(User original) {
+        UserDTO bean = new UserDTO();
+        BeanUtils.copyProperties(original, bean);
+        this.reporter = bean;
     }
 
-    public Integer getStatus() {
-        return status;
+    public String getStatus() {
+        return status.getName();
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setStatus(BugStatus original) {
+        BugStatusDTO bean = new BugStatusDTO();
+        BeanUtils.copyProperties(original, bean);
+        this.status = bean;
     }
 
-    public Integer getSolveType() {
-        return solveType;
+    public String getSolveType() {
+        return solveType.getName();
     }
 
-    public void setSolveType(Integer solveType) {
-        this.solveType = solveType;
+    public void setSolveType(BugSolveType original) {
+        BugSolveTypeDTO bean = new BugSolveTypeDTO();
+        BeanUtils.copyProperties(original, bean);
+        this.solveType = bean;
     }
 
     public Date getCreated() {

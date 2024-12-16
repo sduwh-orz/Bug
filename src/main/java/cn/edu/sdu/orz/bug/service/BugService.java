@@ -4,6 +4,7 @@ import cn.edu.sdu.orz.bug.dto.BugDTO;
 import cn.edu.sdu.orz.bug.entity.*;
 import cn.edu.sdu.orz.bug.entity.Module;
 import cn.edu.sdu.orz.bug.repository.*;
+import cn.edu.sdu.orz.bug.utils.Utils;
 import cn.edu.sdu.orz.bug.vo.BugQueryVO;
 import cn.edu.sdu.orz.bug.vo.BugUpdateVO;
 import cn.edu.sdu.orz.bug.vo.BugVO;
@@ -14,7 +15,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @Service
@@ -45,7 +46,7 @@ public class BugService {
         return toDTO(original);
     }
 
-    public List<BugDTO> search(
+    public Map<String, Object> search(
             String projectId,
             String name,
             Integer grade,
@@ -54,7 +55,9 @@ public class BugService {
             String owner,
             String reporter,
             Integer status,
-            Integer solveType
+            Integer solveType,
+            Integer page,
+            Integer size
     ) {
         Bug example = new Bug();
 
@@ -102,7 +105,13 @@ public class BugService {
 
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
-        return bugRepository.findAll(Example.of(example, matcher)).stream().map(this::toDTO).toList();
+
+        return Utils.pagination(
+                page,
+                size,
+                pageable -> bugRepository.findAll(Example.of(example, matcher), pageable),
+                this::toDTO
+        );
     }
 
     public Page<BugDTO> query(BugQueryVO vO) {
@@ -112,6 +121,10 @@ public class BugService {
     private BugDTO toDTO(Bug original) {
         BugDTO bean = new BugDTO();
         BeanUtils.copyProperties(original, bean);
+        bean.setFeature(original.getFeature());
+        bean.setGrade(original.getGrade());
+        bean.setStatus(original.getStatus());
+        bean.setSolveType(original.getSolveType());
         return bean;
     }
 
