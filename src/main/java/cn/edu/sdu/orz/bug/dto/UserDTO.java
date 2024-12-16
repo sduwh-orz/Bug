@@ -11,11 +11,9 @@ public class UserDTO implements Serializable {
 
     private String realName;
 
-    private Integer role;
+    private String role;
 
     private String email;
-
-    private Integer deleted;
 
     public String getId() {
         return id;
@@ -41,11 +39,11 @@ public class UserDTO implements Serializable {
         this.realName = realName;
     }
 
-    public Integer getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Integer role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -55,13 +53,5 @@ public class UserDTO implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Integer getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Integer deleted) {
-        this.deleted = deleted;
     }
 }

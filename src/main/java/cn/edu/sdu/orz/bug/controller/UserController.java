@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @Validated
 @RestController
 @CrossOrigin
@@ -22,6 +25,16 @@ public class UserController {
     @GetMapping("/{id}")
     public UserDTO getById(@PathVariable("id") String id) {
         return userService.getById(id);
+    }
+
+    @GetMapping("/search")
+    public Map<String, Object> search(@RequestParam(value = "username", required = false) String username,
+                                      @RequestParam(value = "realName", required = false) String realName,
+                                      @RequestParam(value = "role", required = false) String role,
+                                      @RequestParam(value = "email", required = false) String email,
+                                      @RequestParam(value = "page", required = false) Integer page,
+                                      @RequestParam(value = "size", required = false) Integer size) {
+        return userService.search(username, realName, role, email, page, size);
     }
 
     @PostMapping("/create")

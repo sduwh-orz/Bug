@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @Service
@@ -20,6 +21,28 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    public Map<String, Object> search(
+            String username,
+            String realName,
+            String role,
+            String email,
+            Integer queryPage,
+            Integer querySize
+    ) {
+        return Utils.pagination(
+                queryPage,
+                querySize,
+                pageable -> userRepository.findByUsernameContainingIgnoreCaseAndRealNameContainingIgnoreCaseAndRoleNameContainingAndEmailContainingIgnoreCaseAndDeletedFalse(
+                        username != null ? username : "",
+                        realName != null ? realName : "",
+                        role != null ? role : "",
+                        email != null ? email : "",
+                        pageable
+                ),
+                UserService::toDTO
+        );
+    }
 
     public UserDTO getById(String id) {
         User original = requireOne(id);
@@ -125,7 +148,7 @@ public class UserService {
         session.removeAttribute("password");
     }
 
-    private UserDTO toDTO(User original) {
+    private static UserDTO toDTO(User original) {
         UserDTO bean = new UserDTO();
         BeanUtils.copyProperties(original, bean);
         return bean;
