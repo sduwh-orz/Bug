@@ -1,5 +1,6 @@
 package cn.edu.sdu.orz.bug.repository;
 
+import cn.edu.sdu.orz.bug.dto.ProjectBriefDTO;
 import cn.edu.sdu.orz.bug.dto.ProjectInBugListDTO;
 import cn.edu.sdu.orz.bug.dto.ProjectInTaskListDTO;
 import cn.edu.sdu.orz.bug.entity.Project;
@@ -42,5 +43,16 @@ public interface ProjectRepository extends JpaRepository<Project, String>, JpaSp
         group by p.id, p.name, u.realName
     """)
     List<ProjectInBugListDTO> findProjectsWithBugCount(@Param("name") String name);
+
+    @Query("""
+        select p.id, p.name, m.id, m.name, f.id, f.name, f.hours
+        from Project p
+        left join Module m on m.project.id = p.id
+        left join Feature f on f.module.id = m.id
+        where p.id = :id
+        group by p.id, p.name, m.id, m.name, f.id, f.name, f.hours
+    """)
+    List<Object[]> getProjectDetails(@Param("id") String id);
+
 
 }
