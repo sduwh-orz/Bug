@@ -14,13 +14,13 @@ public class BugRecordDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private String id;
 
-    private BugRecordType type;
+    private TypeDTO type;
 
-    private BugStatusDTO previous;
+    private TypeDTO previous;
 
-    private BugStatusDTO after;
+    private TypeDTO after;
 
-    private BugSolveTypeDTO solveType;
+    private TypeDTO solveType;
 
     private String comment;
 
@@ -36,45 +36,37 @@ public class BugRecordDTO implements Serializable {
         this.id = id;
     }
 
-    public BugRecordType getType() {
+    public TypeDTO getType() {
         return type;
     }
 
     public void setType(BugRecordType type) {
-        BugRecordType bean = new BugRecordType();
-        BeanUtils.copyProperties(type, bean);
-        this.type = bean;
+        this.type = TypeDTO.toDTO(type);
     }
 
-    public BugStatusDTO getPrevious() {
+    public TypeDTO getPrevious() {
         return previous;
     }
 
     public void setPrevious(BugStatus previous) {
-        BugStatusDTO bean = new BugStatusDTO();
-        BeanUtils.copyProperties(previous, bean);
-        this.previous = bean;
+        this.previous = TypeDTO.toDTO(previous);
     }
 
-    public BugStatusDTO getAfter() {
+    public TypeDTO getAfter() {
         return after;
     }
 
     public void setAfter(BugStatus after) {
-        BugStatusDTO bean = new BugStatusDTO();
-        BeanUtils.copyProperties(after, bean);
-        this.after = bean;
+        this.after = TypeDTO.toDTO(after);
     }
 
-    public BugSolveTypeDTO getSolveType() {
+    public TypeDTO getSolveType() {
         return solveType;
     }
 
     public void setSolveType(BugSolveType solveType) {
         if (solveType != null) {
-            BugSolveTypeDTO bean = new BugSolveTypeDTO();
-            BeanUtils.copyProperties(solveType, bean);
-            this.solveType = bean;
+            this.solveType = TypeDTO.toDTO(solveType);
         }
     }
 

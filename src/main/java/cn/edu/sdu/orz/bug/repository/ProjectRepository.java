@@ -18,30 +18,30 @@ public interface ProjectRepository extends JpaRepository<Project, String>, JpaSp
     List<Project> findByName(String name);
 
     @Query("""
-        select new cn.edu.sdu.orz.bug.dto.ProjectInTaskListDTO (
-            p.id, p.name, uu.realName, count(distinct m.id), count(distinct u.id)
-        ) from Project p
-        left join Module m on p.id = m.project.id
-        left join Feature f on m.id = f.module.id
-        left join User u on u.id = f.owner.id
-        left join User uu on uu.id = p.owner
-        where p.name like %:name%
-        group by p.id, p.name, uu.realName
-    """)
+                select new cn.edu.sdu.orz.bug.dto.ProjectInTaskListDTO (
+                    p.id, p.name, uu.realName, count(distinct m.id), count(distinct u.id)
+                ) from Project p
+                left join Module m on p.id = m.project.id
+                left join Feature f on m.id = f.module.id
+                left join User u on u.id = f.owner.id
+                left join User uu on uu.id = p.owner
+                where p.name like %:name%
+                group by p.id, p.name, uu.realName
+            """)
     List<ProjectInTaskListDTO> findProjectsWithModuleAndOwnerCount(@Param("name") String name);
 
     @Query("""
-        select new cn.edu.sdu.orz.bug.dto.ProjectInBugListDTO (
-            p.id, p.name, u.realName, count(distinct b.id)
-        )
-        from Project p
-        left join Module m on p.id = m.project.id
-        left join Feature f on m.id = f.module.id
-        left join Bug b on f.id = b.feature.id
-        left join User u on u.id = p.owner
-        where p.name like %:name%
-        group by p.id, p.name, u.realName
-    """)
+                select new cn.edu.sdu.orz.bug.dto.ProjectInBugListDTO (
+                    p.id, p.name, u.realName, count(distinct b.id)
+                )
+                from Project p
+                left join Module m on p.id = m.project.id
+                left join Feature f on m.id = f.module.id
+                left join Bug b on f.id = b.feature.id
+                left join User u on u.id = p.owner
+                where p.name like %:name%
+                group by p.id, p.name, u.realName
+            """)
     List<ProjectInBugListDTO> findProjectsWithBugCount(@Param("name") String name);
 
     @Query("""

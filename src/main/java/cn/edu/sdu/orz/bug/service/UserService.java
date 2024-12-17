@@ -1,5 +1,6 @@
 package cn.edu.sdu.orz.bug.service;
 
+import cn.edu.sdu.orz.bug.dto.TypeDTO;
 import cn.edu.sdu.orz.bug.dto.UserBriefDTO;
 import cn.edu.sdu.orz.bug.dto.UserDTO;
 import cn.edu.sdu.orz.bug.entity.User;
@@ -7,7 +8,10 @@ import cn.edu.sdu.orz.bug.entity.UserRole;
 import cn.edu.sdu.orz.bug.repository.UserRepository;
 import cn.edu.sdu.orz.bug.repository.UserRoleRepository;
 import cn.edu.sdu.orz.bug.utils.Utils;
-import cn.edu.sdu.orz.bug.vo.*;
+import cn.edu.sdu.orz.bug.vo.UserCreateVO;
+import cn.edu.sdu.orz.bug.vo.UserPasswordVO;
+import cn.edu.sdu.orz.bug.vo.UserQueryVO;
+import cn.edu.sdu.orz.bug.vo.UserUpdateVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,10 +98,14 @@ public class UserService {
 
     public boolean password(UserPasswordVO vO, HttpSession session) {
         User user = getLoggedInUser(session);
-        if (user == null)
+        if (user == null || vO.getPrevious() == null || vO.getPassword() == null)
             return false;
         try {
-            user.setPassword(DigestUtils.md5DigestAsHex(vO.getPassword().getBytes(StandardCharsets.UTF_8)));
+            String hashedPrevious = DigestUtils.md5DigestAsHex(vO.getPrevious().getBytes(StandardCharsets.UTF_8));
+            if (!hashedPrevious.equals(user.getPassword()))
+                return false;
+            String hashedNow = DigestUtils.md5DigestAsHex(vO.getPassword().getBytes(StandardCharsets.UTF_8));
+            user.setPassword(hashedNow);
             userRepository.save(user);
         } catch (Exception e) {
             return false;
@@ -116,6 +124,13 @@ public class UserService {
             return false;
         }
         return true;
+    }
+
+    public UserDTO myInfo(HttpSession session) {
+        User user = getLoggedInUser(session);
+        if (user == null)
+            return null;
+        return toDTO(user);
     }
 
     public User getByUsername(String username) {
@@ -183,6 +198,10 @@ public class UserService {
     public void logout(HttpSession session) {
         session.removeAttribute("user");
         session.removeAttribute("password");
+    }
+
+    public List<TypeDTO> getUserRoles() {
+        return userRoleRepository.findAll().stream().map(TypeDTO::toDTO).toList();
     }
 
     private String newID() {

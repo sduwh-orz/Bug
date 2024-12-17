@@ -1,6 +1,7 @@
 package cn.edu.sdu.orz.bug.controller;
 
 import cn.edu.sdu.orz.bug.dto.Response;
+import cn.edu.sdu.orz.bug.dto.TypeDTO;
 import cn.edu.sdu.orz.bug.dto.UserBriefDTO;
 import cn.edu.sdu.orz.bug.dto.UserDTO;
 import cn.edu.sdu.orz.bug.service.UserService;
@@ -25,6 +26,11 @@ public class UserController {
     @GetMapping("/{id}")
     public UserDTO getById(@PathVariable("id") String id) {
         return userService.getById(id);
+    }
+
+    @GetMapping("/me")
+    public UserDTO myInfo(HttpSession session) {
+        return userService.myInfo(session);
     }
 
     @PostMapping("/search")
@@ -79,5 +85,10 @@ public class UserController {
     @GetMapping("/all")
     public List<UserBriefDTO> all() {
         return userService.all();
+    }
+
+    @GetMapping("/roles")
+    public List<TypeDTO> roles() {
+        return userService.getUserRoles();
     }
 }

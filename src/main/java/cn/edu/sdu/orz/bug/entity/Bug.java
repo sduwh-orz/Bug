@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -59,7 +58,7 @@ public class Bug implements Serializable {
     public String getId() {
         return id;
     }
-  
+
     public void setName(String name) {
         this.name = name;
     }

@@ -2,7 +2,6 @@ package cn.edu.sdu.orz.bug.vo;
 
 
 import java.io.Serializable;
-import java.sql.Date;
 
 
 public class BugCreateVO implements Serializable {

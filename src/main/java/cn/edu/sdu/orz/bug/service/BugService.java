@@ -1,11 +1,14 @@
 package cn.edu.sdu.orz.bug.service;
 
 import cn.edu.sdu.orz.bug.dto.BugDTO;
-import cn.edu.sdu.orz.bug.entity.*;
+import cn.edu.sdu.orz.bug.dto.TypeDTO;
 import cn.edu.sdu.orz.bug.entity.Module;
+import cn.edu.sdu.orz.bug.entity.*;
 import cn.edu.sdu.orz.bug.repository.*;
 import cn.edu.sdu.orz.bug.utils.Utils;
-import cn.edu.sdu.orz.bug.vo.*;
+import cn.edu.sdu.orz.bug.vo.BugCreateVO;
+import cn.edu.sdu.orz.bug.vo.BugQueryVO;
+import cn.edu.sdu.orz.bug.vo.BugVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,6 +174,22 @@ public class BugService {
                 Collectors.counting()
         )));
         return result;
+    }
+
+    public List<TypeDTO> getBugGrades() {
+        return bugGradeRepository.findAll().stream().map(TypeDTO::toDTO).toList();
+    }
+
+    public List<TypeDTO> getBugRecordTypes() {
+        return bugRecordTypeRepository.findAll().stream().map(TypeDTO::toDTO).toList();
+    }
+
+    public List<TypeDTO> getBugSolveTypes() {
+        return bugRecordTypeRepository.findAll().stream().map(TypeDTO::toDTO).toList();
+    }
+
+    public List<TypeDTO> getBugStatus() {
+        return bugRecordTypeRepository.findAll().stream().map(TypeDTO::toDTO).toList();
     }
 
     private static Feature getFeatureExample(BugQueryVO vO) {

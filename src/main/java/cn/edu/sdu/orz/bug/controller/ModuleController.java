@@ -21,7 +21,7 @@ public class ModuleController {
 
     @PostMapping
     public String save(@RequestBody ModuleVO vO) {
-        return moduleService.save(vO).toString();
+        return moduleService.save(vO);
     }
 
     @DeleteMapping("/{id}")
