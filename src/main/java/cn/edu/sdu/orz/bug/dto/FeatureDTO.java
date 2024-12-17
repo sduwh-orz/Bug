@@ -1,10 +1,11 @@
 package cn.edu.sdu.orz.bug.dto;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
 import cn.edu.sdu.orz.bug.entity.Module;
 import cn.edu.sdu.orz.bug.entity.User;
 import org.springframework.beans.BeanUtils;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class FeatureDTO implements Serializable {
     private static final long serialVersionUID = 1L;

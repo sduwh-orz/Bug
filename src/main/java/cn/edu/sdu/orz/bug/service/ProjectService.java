@@ -4,7 +4,6 @@ import cn.edu.sdu.orz.bug.dto.ProjectDTO;
 import cn.edu.sdu.orz.bug.dto.ProjectInBugListDTO;
 import cn.edu.sdu.orz.bug.dto.ProjectInTaskListDTO;
 import cn.edu.sdu.orz.bug.entity.Project;
-import cn.edu.sdu.orz.bug.entity.User;
 import cn.edu.sdu.orz.bug.repository.ProjectRepository;
 import cn.edu.sdu.orz.bug.utils.Utils;
 import cn.edu.sdu.orz.bug.vo.ProjectCreateVO;
@@ -17,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +59,9 @@ public class ProjectService {
     public List<ProjectDTO> findByName(String projectName) {
         List<Project> projectList = projectRepository.findByName(projectName);
         List<ProjectDTO> projectDTOList = new ArrayList<>();
-        projectList.forEach(project -> {projectDTOList.add(toDTO(project));});
+        projectList.forEach(project -> {
+            projectDTOList.add(toDTO(project));
+        });
         return projectDTOList;
     }
 

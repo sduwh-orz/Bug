@@ -5,7 +5,10 @@ import cn.edu.sdu.orz.bug.dto.ProjectInBugListDTO;
 import cn.edu.sdu.orz.bug.dto.ProjectInTaskListDTO;
 import cn.edu.sdu.orz.bug.dto.Response;
 import cn.edu.sdu.orz.bug.service.ProjectService;
-import cn.edu.sdu.orz.bug.vo.*;
+import cn.edu.sdu.orz.bug.vo.ProjectCreateVO;
+import cn.edu.sdu.orz.bug.vo.ProjectQueryVO;
+import cn.edu.sdu.orz.bug.vo.ProjectUpdateVO;
+import cn.edu.sdu.orz.bug.vo.ProjectVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,7 +28,7 @@ public class ProjectController {
 
     @PostMapping
     public String save(@RequestBody ProjectVO vO) {
-        return projectService.save(vO).toString();
+        return projectService.save(vO);
     }
 
     @DeleteMapping("/{id}")

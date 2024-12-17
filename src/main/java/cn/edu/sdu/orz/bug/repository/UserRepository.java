@@ -10,7 +10,10 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, String>, JpaSpecificationExecutor<User> {
 
     Optional<User> findByIdAndDeletedFalse(String id);
+
     Optional<User> findByIdAndDeletedFalseAndRoleName(String id, String role);
+
     User findByUsernameAndDeletedFalse(String username);
+
     List<User> findAllyByDeletedFalse();
 }

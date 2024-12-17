@@ -2,6 +2,7 @@ package cn.edu.sdu.orz.bug.controller;
 
 import cn.edu.sdu.orz.bug.dto.BugDTO;
 import cn.edu.sdu.orz.bug.dto.Response;
+import cn.edu.sdu.orz.bug.dto.TypeDTO;
 import cn.edu.sdu.orz.bug.service.BugService;
 import cn.edu.sdu.orz.bug.vo.BugCreateVO;
 import cn.edu.sdu.orz.bug.vo.BugQueryVO;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Validated
@@ -47,6 +49,26 @@ public class BugController {
     @GetMapping("/stats/{id}")
     public Map<String, Object> stats(@PathVariable("id") String id) {
         return bugService.stats(id);
+    }
+
+    @GetMapping("/grades")
+    public List<TypeDTO> grades() {
+        return bugService.getBugGrades();
+    }
+
+    @GetMapping("/record_types")
+    public List<TypeDTO> recordTypes() {
+        return bugService.getBugRecordTypes();
+    }
+
+    @GetMapping("/solve_types")
+    public List<TypeDTO> solveTypes() {
+        return bugService.getBugSolveTypes();
+    }
+
+    @GetMapping("/status")
+    public List<TypeDTO> status() {
+        return bugService.getBugStatus();
     }
 
 }

@@ -18,13 +18,13 @@ public class BugDTO implements Serializable {
 
     private String description;
 
-    private BugGradeDTO grade;
+    private TypeDTO grade;
 
     private UserBriefDTO reporter;
 
-    private BugStatusDTO status;
+    private TypeDTO status;
 
-    private BugSolveTypeDTO solveType;
+    private TypeDTO solveType;
 
     private Timestamp created;
 
@@ -66,14 +66,12 @@ public class BugDTO implements Serializable {
         this.description = description;
     }
 
-    public BugGradeDTO getGrade() {
+    public TypeDTO getGrade() {
         return grade;
     }
 
     public void setGrade(BugGrade original) {
-        BugGradeDTO bean = new BugGradeDTO();
-        BeanUtils.copyProperties(original, bean);
-        this.grade = bean;
+        this.grade = TypeDTO.toDTO(original);
     }
 
     public UserBriefDTO getReporter() {
@@ -86,25 +84,21 @@ public class BugDTO implements Serializable {
         this.reporter = bean;
     }
 
-    public BugStatusDTO getStatus() {
+    public TypeDTO getStatus() {
         return status;
     }
 
     public void setStatus(BugStatus original) {
-        BugStatusDTO bean = new BugStatusDTO();
-        BeanUtils.copyProperties(original, bean);
-        this.status = bean;
+        this.status = TypeDTO.toDTO(original);
     }
 
-    public BugSolveTypeDTO getSolveType() {
+    public TypeDTO getSolveType() {
         return solveType;
     }
 
     public void setSolveType(BugSolveType original) {
         if (original != null) {
-            BugSolveTypeDTO bean = new BugSolveTypeDTO();
-            BeanUtils.copyProperties(original, bean);
-            this.solveType = bean;
+            this.solveType = TypeDTO.toDTO(original);
         }
     }
 
@@ -135,7 +129,7 @@ public class BugDTO implements Serializable {
     }
 
     public void setRecords(List<BugRecord> records) {
-        this.records = records.stream().map(r->{
+        this.records = records.stream().map(r -> {
             BugRecordDTO bean = new BugRecordDTO();
             BeanUtils.copyProperties(r, bean);
             return bean;
