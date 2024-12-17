@@ -1,8 +1,6 @@
 package cn.edu.sdu.orz.bug.service;
 
-import cn.edu.sdu.orz.bug.dto.ProjectDTO;
-import cn.edu.sdu.orz.bug.dto.ProjectInBugListDTO;
-import cn.edu.sdu.orz.bug.dto.ProjectInTaskListDTO;
+import cn.edu.sdu.orz.bug.dto.*;
 import cn.edu.sdu.orz.bug.entity.Project;
 import cn.edu.sdu.orz.bug.repository.ProjectRepository;
 import cn.edu.sdu.orz.bug.utils.Utils;
@@ -16,10 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 @Service
 public class ProjectService {
@@ -80,7 +77,7 @@ public class ProjectService {
 //        }
         try {
             Project bean = new Project();
-            BeanUtils.copyProperties(projectCreateVO, bean);
+            BeanUtils.copyProperties(projectCreateVO, bean, Utils.getNullPropertyNames(projectCreateVO));
             bean.setId(newID());
             bean.setName(projectCreateVO.getName());
             bean.setKeyword(projectCreateVO.getKeyword());
@@ -134,6 +131,53 @@ public class ProjectService {
         }
         return true;
     }
+
+    public ProjectBriefDTO getProjectDetails(String projectId) {
+        List<Object[]> results = projectRepository.getProjectDetails(projectId);
+
+        Map<String, ProjectBriefDTO> projectMap = new HashMap<>();
+
+        for (Object[] result : results) {
+            String currentProjectId = (String) result[0];
+            String projectName = (String) result[1];
+            String moduleId = (String) result[2];
+            String moduleName = (String) result[3];
+            String featureId = (String) result[4];
+            String featureName = (String) result[5];
+            BigDecimal featureHours = (BigDecimal) result[6];
+
+            ProjectBriefDTO projectDTO = projectMap.computeIfAbsent(
+                    currentProjectId,
+                    id -> new ProjectBriefDTO(id, projectName, new ArrayList<>())
+            );
+
+            ModuleBriefDTO moduleDTO = projectDTO.getModules().stream()
+                    .filter(m -> m.getId().equals(moduleId))
+                    .findFirst()
+                    .orElseGet(() -> {
+                        ModuleBriefDTO newModule = new ModuleBriefDTO(
+                                moduleId, moduleName, BigDecimal.ZERO, new ArrayList<>()
+                        );
+                        projectDTO.getModules().add(newModule);
+                        return newModule;
+                    });
+
+            FeatureBriefDTO featureDTO = new FeatureBriefDTO(featureId, featureName, featureHours);
+            moduleDTO.getFeatures().add(featureDTO);
+        }
+
+        projectMap.values().forEach(projectDTO -> {
+            projectDTO.getModules().forEach(moduleDTO -> {
+                BigDecimal totalFeatureHours = moduleDTO.getFeatures().stream()
+                        .map(f -> f.getHours() != null ? f.getHours() : BigDecimal.ZERO)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
+                moduleDTO.setFeatureHoursSum(totalFeatureHours);
+            });
+        });
+
+        return projectMap.get(projectId);
+    }
+
 
     private ProjectDTO toDTO(Project original) {
         ProjectDTO bean = new ProjectDTO();
