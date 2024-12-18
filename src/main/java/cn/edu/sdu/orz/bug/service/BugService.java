@@ -157,16 +157,13 @@ public class BugService {
             BugStatus after = bug.getStatus();
             if (vO.getStatus() != null)
                 after = bugStatusRepository.findById(vO.getStatus()).orElseThrow();
-            BugSolveType solveType = null;
-            if (vO.getSolveType() != null)
-                solveType = bugSolveTypeRepository.findById(vO.getSolveType()).orElseThrow();
             Timestamp time = new Timestamp(System.currentTimeMillis());
             BugRecord record = new BugRecord(
                     newID(), bug, bugRecordTypeRepository.findByName("编辑问题").orElseThrow(),
-                    bug.getStatus(), after, solveType, vO.getComment() != null ? vO.getComment() : "", user, time
+                    bug.getStatus(), after, null, vO.getComment() != null ? vO.getComment() : "", user, time
             );
             bugRecordRepository.save(record);
-            updateBug(vO, bug, after, solveType, time);
+            updateBug(vO, bug, after, null, time);
         } catch (Exception e) {
             return false;
         }
@@ -242,7 +239,8 @@ public class BugService {
         if (feature != null)
             bug.setFeature(featureService.requireOne(vO.getFeature()));
         bug.setStatus(after);
-        bug.setSolveType(solveType);
+        if (solveType != null)
+            bug.setSolveType(solveType);
         bug.setModified(time);
         bugRepository.save(bug);
     }
