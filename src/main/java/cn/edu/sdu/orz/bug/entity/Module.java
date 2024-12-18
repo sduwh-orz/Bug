@@ -22,7 +22,8 @@ public class Module implements Serializable {
     @JoinColumn(name = "project", nullable = false)
     private Project project;
 
-    @OneToMany(mappedBy = "module", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "module", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OrderBy("name")
     private List<Feature> features;
 
     public void setId(String id) {
@@ -55,6 +56,10 @@ public class Module implements Serializable {
 
     public void setFeatures(List<Feature> features) {
         this.features = features;
+    }
+
+    public boolean hasNoPerm(User user) {
+        return project.hasNoPerm(user);
     }
 
 }

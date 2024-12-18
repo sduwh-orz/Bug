@@ -30,7 +30,8 @@ public class Feature implements Serializable {
     @JoinColumn(name = "owner")
     private User owner;
 
-    @OneToMany(mappedBy = "feature", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "feature", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OrderBy("name")
     private List<Bug> bugs;
 
     public void setId(String id) {
@@ -79,6 +80,10 @@ public class Feature implements Serializable {
 
     public void setBugs(List<Bug> bugs) {
         this.bugs = bugs;
+    }
+
+    public boolean hasNoPerm(User user) {
+        return module.hasNoPerm(user);
     }
 
     @Override

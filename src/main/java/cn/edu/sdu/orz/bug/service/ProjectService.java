@@ -13,6 +13,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -29,25 +31,42 @@ public class ProjectService {
     @Autowired
     private UserService userService;
 
-    public Map<String, Object> search(ProjectQueryVO vO) {
+    public Map<String, Object> search(ProjectQueryVO vO, HttpSession session) {
+        User user = userService.getLoggedInUser(session);
+        if (user == null)
+            return null;
+
         Project example = new Project();
         example.setName(vO.getName());
+        if (!user.isAdmin())
+            example.setOwner(user);
         return Utils.pagination(
                 vO.getPage(),
                 vO.getSize(),
                 pageable -> projectRepository.findAll(
                         Example.of(example, ExampleMatcher.matching().withMatcher("name", contains())),
-                        pageable
+                        PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+                                Sort.by(Sort.Direction.DESC, "created"))
                 ),
                 ProjectDTO::toDTO
         );
     }
 
-    public Map<String, Object> findProjectsWithModuleAndOwnerCount(ProjectQueryVO vO) {
+    public Map<String, Object> taskList(ProjectQueryVO vO, HttpSession session) {
+        User user = userService.getLoggedInUser(session);
+        if (user == null)
+            return null;
+        if (user.isAdmin())
+            return Utils.pagination(
+                    vO.getPage(),
+                    vO.getSize(),
+                    pageable -> projectRepository.taskListAdmin(vO.getName(), pageable),
+                    (v) -> v
+            );
         return Utils.pagination(
                 vO.getPage(),
                 vO.getSize(),
-                pageable -> projectRepository.findProjectsWithModuleAndOwnerCount(vO.getName(), pageable),
+                pageable -> projectRepository.taskList(vO.getName(), user.getId(), pageable),
                 (v) -> v
         );
     }
@@ -63,14 +82,14 @@ public class ProjectService {
 
     public boolean create(ProjectCreateVO projectCreateVO, HttpSession httpSession) {
         User user = userService.getLoggedInUser(httpSession);
-        if (user == null) {
+        if (user == null || !user.isAdmin()) {
             return false;
         }
         try {
             Project bean = new Project();
             BeanUtils.copyProperties(projectCreateVO, bean, Utils.getNullPropertyNames(projectCreateVO));
             bean.setId(newID());
-            bean.setOwner(user);
+            bean.setOwner(userService.requireOne(projectCreateVO.getOwner()));
             bean.setCreated(new Timestamp(new java.util.Date(System.currentTimeMillis()).getTime()));
             projectRepository.save(bean);
         } catch (Exception e) {
@@ -80,11 +99,14 @@ public class ProjectService {
     }
 
     public boolean modify(ProjectUpdateVO vO, HttpSession httpSession) {
-        if (userService.isNotLoggedIn(httpSession)) {
+        User user = userService.getLoggedInUser(httpSession);
+        if (user == null) {
             return false;
         }
         try {
             Project bean = requireOne(vO.getId());
+            if (bean.hasNoPerm(user))
+                return false;
             BeanUtils.copyProperties(vO, bean, Utils.getNullPropertyNames(vO));
             bean.setOwner(userService.requireOne(vO.getOwner()));
             projectRepository.save(bean);
@@ -95,7 +117,8 @@ public class ProjectService {
     }
 
     public boolean remove(String id, HttpSession httpSession) {
-        if (userService.isNotLoggedIn(httpSession)) {
+        User user = userService.getLoggedInUser(httpSession);
+        if (user == null || !user.isAdmin()) {
             return false;
         }
         try {
@@ -106,8 +129,14 @@ public class ProjectService {
         return true;
     }
 
-    public ProjectDTO getProjectDetails(String projectId) {
+    public ProjectDTO getProjectDetails(String projectId, HttpSession httpSession) {
+        User user = userService.getLoggedInUser(httpSession);
+        if (user == null) {
+            return null;
+        }
         Project original = projectRepository.findById(projectId).orElse(null);
+        if (original == null || original.hasNoPerm(user))
+            return null;
         return ProjectDTO.toDTO(original);
     }
 

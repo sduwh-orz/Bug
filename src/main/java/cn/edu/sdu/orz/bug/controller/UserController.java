@@ -34,8 +34,8 @@ public class UserController {
     }
 
     @PostMapping("/search")
-    public Map<String, Object> search(@RequestBody UserQueryVO vO) {
-        return userService.search(vO);
+    public Map<String, Object> search(@RequestBody UserQueryVO vO, HttpSession session) {
+        return userService.search(vO, session);
     }
 
     @PostMapping("/create")

@@ -103,10 +103,8 @@ public class BugService {
         Project projectExample = new Project();
 
         if (vO.getFeature() != null) {
-            System.out.println(vO.getFeature());
             featureExample.setId(vO.getFeature());
         } else if (vO.getModule() != null) {
-            System.out.println(vO.getModule());
             moduleExample.setId(vO.getModule());
             featureExample.setModule(moduleExample);
         } else {
@@ -159,18 +157,14 @@ public class BugService {
             BugStatus after = bug.getStatus();
             if (vO.getStatus() != null)
                 after = bugStatusRepository.findById(vO.getStatus()).orElseThrow();
-            BugSolveType solveType = null;
-            if (vO.getSolveType() != null)
-                solveType = bugSolveTypeRepository.findById(vO.getSolveType()).orElseThrow();
             Timestamp time = new Timestamp(System.currentTimeMillis());
             BugRecord record = new BugRecord(
                     newID(), bug, bugRecordTypeRepository.findByName("编辑问题").orElseThrow(),
-                    bug.getStatus(), after, solveType, vO.getComment() != null ? vO.getComment() : "", user, time
+                    bug.getStatus(), after, null, vO.getComment() != null ? vO.getComment() : "", user, time
             );
             bugRecordRepository.save(record);
-            updateBug(vO, bug, after, solveType, time);
+            updateBug(vO, bug, after, null, time);
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
         return true;
@@ -192,7 +186,26 @@ public class BugService {
             bugRecordRepository.save(record);
             updateBug(vO, bug, after, solveType, time);
         } catch (Exception e) {
-            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean open(BugUpdateVO vO, HttpSession session) {
+        User user = userService.getLoggedInUser(session);
+        if (user == null)
+            return false;
+        try {
+            Bug bug = requireOne(vO.getId());
+            BugStatus after = bugStatusRepository.findByName("开放中").orElseThrow();
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            BugRecord record = new BugRecord(
+                    newID(), bug, bugRecordTypeRepository.findByName("打开问题").orElseThrow(),
+                    bug.getStatus(), after, null, vO.getComment(), user, time
+            );
+            bugRecordRepository.save(record);
+            updateBug(vO, bug, after, bug.getSolveType(), time);
+        } catch (Exception e) {
             return false;
         }
         return true;
@@ -213,7 +226,6 @@ public class BugService {
             bugRecordRepository.save(record);
             updateBug(vO, bug, after, bug.getSolveType(), time);
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
         return true;
@@ -233,7 +245,6 @@ public class BugService {
             );
             bugRecordRepository.save(record);
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
         return true;
@@ -248,7 +259,8 @@ public class BugService {
         if (feature != null)
             bug.setFeature(featureService.requireOne(vO.getFeature()));
         bug.setStatus(after);
-        bug.setSolveType(solveType);
+        if (solveType != null)
+            bug.setSolveType(solveType);
         bug.setModified(time);
         bugRepository.save(bug);
     }

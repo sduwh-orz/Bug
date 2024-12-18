@@ -6,21 +6,16 @@ import java.io.Serializable;
 public class ModuleUpdateVO extends ModuleVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String projectId;
+    private String id;
 
     private String name;
 
-    public ModuleUpdateVO(String projectId, String name) {
-        this.projectId = projectId;
-        this.name = name;
+    public String getId() {
+        return id;
     }
 
-    public String getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
+    public void setId(String projectId) {
+        this.id = projectId;
     }
 
     public String getName() {
