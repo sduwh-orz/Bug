@@ -48,7 +48,7 @@ public class Bug implements Serializable {
     @JoinColumn(name = "feature", nullable = false)
     private Feature feature;
 
-    @OneToMany(mappedBy = "bug", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "bug", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<BugRecord> records;
 
     public void setId(String id) {

@@ -103,10 +103,8 @@ public class BugService {
         Project projectExample = new Project();
 
         if (vO.getFeature() != null) {
-            System.out.println(vO.getFeature());
             featureExample.setId(vO.getFeature());
         } else if (vO.getModule() != null) {
-            System.out.println(vO.getModule());
             moduleExample.setId(vO.getModule());
             featureExample.setModule(moduleExample);
         } else {
@@ -170,7 +168,6 @@ public class BugService {
             bugRecordRepository.save(record);
             updateBug(vO, bug, after, solveType, time);
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
         return true;
@@ -192,7 +189,6 @@ public class BugService {
             bugRecordRepository.save(record);
             updateBug(vO, bug, after, solveType, time);
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
         return true;
@@ -213,7 +209,6 @@ public class BugService {
             bugRecordRepository.save(record);
             updateBug(vO, bug, after, bug.getSolveType(), time);
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
         return true;
@@ -233,7 +228,6 @@ public class BugService {
             );
             bugRecordRepository.save(record);
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
         return true;

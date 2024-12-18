@@ -22,10 +22,9 @@ public class ModuleController {
         return new Response(moduleService.create(vO, session));
     }
 
-    @PostMapping("/modify/{id}")
-    public Response modify(@PathVariable(name = "id") String id,
-                           @RequestBody ModuleUpdateVO vO, HttpSession session) {
-        return new Response(moduleService.modify(id, vO, session));
+    @PostMapping("/modify")
+    public Response modify(@RequestBody ModuleUpdateVO vO, HttpSession session) {
+        return new Response(moduleService.modify(vO, session));
     }
 
     @GetMapping("/remove/{id}")

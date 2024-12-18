@@ -10,9 +10,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
-
 public interface ProjectRepository extends JpaRepository<Project, String>, JpaSpecificationExecutor<Project> {
+
     @Query("""
                 select new cn.edu.sdu.orz.bug.dto.ProjectInTaskListDTO (
                     p.id, p.name, uu.realName, count(distinct f.id), count(distinct u.id)
@@ -39,16 +38,5 @@ public interface ProjectRepository extends JpaRepository<Project, String>, JpaSp
                 group by p.id, p.name, u.realName
             """)
     Page<ProjectInBugListDTO> findProjectsWithBugCount(@Param("name") String name, Pageable pageable);
-
-    @Query("""
-        select p.id, p.name, m.id, m.name, f.id, f.name, f.hours
-        from Project p
-        left join Module m on m.project.id = p.id
-        left join Feature f on f.module.id = m.id
-        where p.id = :id
-        group by p.id, p.name, m.id, m.name, f.id, f.name, f.hours
-    """)
-    List<Object[]> getProjectDetails(@Param("id") String id);
-
 
 }

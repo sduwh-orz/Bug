@@ -44,7 +44,6 @@ public class FeatureService {
         if (userService.isNotLoggedIn(session))
             return false;
         try {
-            System.out.println(vO.getHours());
             Feature bean = requireOne(vO.getId());
             BeanUtils.copyProperties(vO, bean, Utils.getNullPropertyNames(vO));
             if (vO.getOwner() != null)

@@ -41,13 +41,13 @@ public class ModuleService {
         return true;
     }
 
-    public boolean modify(String id, ModuleUpdateVO moduleUpdateVO, HttpSession httpSession) {
+    public boolean modify(ModuleUpdateVO vO, HttpSession httpSession) {
         if (userService.isNotLoggedIn(httpSession)) {
             return false;
         }
         try {
-            Module bean = requireOne(id);
-            BeanUtils.copyProperties(moduleUpdateVO, bean, Utils.getNullPropertyNames(moduleUpdateVO));
+            Module bean = requireOne(vO.getId());
+            BeanUtils.copyProperties(vO, bean, Utils.getNullPropertyNames(vO));
             moduleRepository.save(bean);
         } catch (Exception e) {
             return false;

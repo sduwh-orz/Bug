@@ -30,7 +30,7 @@ public class Feature implements Serializable {
     @JoinColumn(name = "owner")
     private User owner;
 
-    @OneToMany(mappedBy = "feature", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "feature", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Bug> bugs;
 
     public void setId(String id) {
