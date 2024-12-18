@@ -13,6 +13,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -43,7 +45,8 @@ public class ProjectService {
                 vO.getSize(),
                 pageable -> projectRepository.findAll(
                         Example.of(example, ExampleMatcher.matching().withMatcher("name", contains())),
-                        pageable
+                        PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+                                Sort.by(Sort.Direction.DESC, "created"))
                 ),
                 ProjectDTO::toDTO
         );
@@ -86,7 +89,7 @@ public class ProjectService {
             Project bean = new Project();
             BeanUtils.copyProperties(projectCreateVO, bean, Utils.getNullPropertyNames(projectCreateVO));
             bean.setId(newID());
-            bean.setOwner(user);
+            bean.setOwner(userService.requireOne(projectCreateVO.getOwner()));
             bean.setCreated(new Timestamp(new java.util.Date(System.currentTimeMillis()).getTime()));
             projectRepository.save(bean);
         } catch (Exception e) {
@@ -108,7 +111,6 @@ public class ProjectService {
             bean.setOwner(userService.requireOne(vO.getOwner()));
             projectRepository.save(bean);
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
         return true;

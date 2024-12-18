@@ -31,6 +31,7 @@ public class Feature implements Serializable {
     private User owner;
 
     @OneToMany(mappedBy = "feature", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OrderBy("name")
     private List<Bug> bugs;
 
     public void setId(String id) {

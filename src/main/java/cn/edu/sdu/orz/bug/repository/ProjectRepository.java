@@ -23,6 +23,7 @@ public interface ProjectRepository extends JpaRepository<Project, String>, JpaSp
                 left join User uu on uu.id = p.owner.id
                 where p.name like %:name%
                 group by p.id, p.name, uu.realName
+                order by p.created DESC
             """)
     Page<ProjectInTaskListDTO> taskListAdmin(@Param("name") String name, Pageable pageable);
     @Query("""
@@ -35,6 +36,7 @@ public interface ProjectRepository extends JpaRepository<Project, String>, JpaSp
                 left join User uu on uu.id = p.owner.id
                 where p.name like %:name% and p.owner.id = :owner
                 group by p.id, p.name, uu.realName
+                order by p.created DESC
             """)
     Page<ProjectInTaskListDTO> taskList(@Param("name") String name, @Param("owner") String user, Pageable pageable);
 
@@ -49,6 +51,7 @@ public interface ProjectRepository extends JpaRepository<Project, String>, JpaSp
                 left join User u on u.id = p.owner.id
                 where p.name like %:name%
                 group by p.id, p.name, u.realName
+                order by p.created DESC
             """)
     Page<ProjectInBugListDTO> findProjectsWithBugCount(@Param("name") String name, Pageable pageable);
 

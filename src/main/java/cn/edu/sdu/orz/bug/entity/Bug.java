@@ -49,6 +49,7 @@ public class Bug implements Serializable {
     private Feature feature;
 
     @OneToMany(mappedBy = "bug", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OrderBy("time DESC")
     private List<BugRecord> records;
 
     public void setId(String id) {

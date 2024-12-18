@@ -33,6 +33,7 @@ public class Project implements Serializable {
     private Timestamp created;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OrderBy("name")
     private List<Module> modules;
 
     public void setId(String id) {

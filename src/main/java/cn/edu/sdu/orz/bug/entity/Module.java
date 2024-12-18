@@ -23,6 +23,7 @@ public class Module implements Serializable {
     private Project project;
 
     @OneToMany(mappedBy = "module", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OrderBy("name")
     private List<Feature> features;
 
     public void setId(String id) {
