@@ -191,6 +191,26 @@ public class BugService {
         return true;
     }
 
+    public boolean open(BugUpdateVO vO, HttpSession session) {
+        User user = userService.getLoggedInUser(session);
+        if (user == null)
+            return false;
+        try {
+            Bug bug = requireOne(vO.getId());
+            BugStatus after = bugStatusRepository.findByName("开放中").orElseThrow();
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            BugRecord record = new BugRecord(
+                    newID(), bug, bugRecordTypeRepository.findByName("打开问题").orElseThrow(),
+                    bug.getStatus(), after, null, vO.getComment(), user, time
+            );
+            bugRecordRepository.save(record);
+            updateBug(vO, bug, after, bug.getSolveType(), time);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
     public boolean close(BugUpdateVO vO, HttpSession session) {
         User user = userService.getLoggedInUser(session);
         if (user == null)

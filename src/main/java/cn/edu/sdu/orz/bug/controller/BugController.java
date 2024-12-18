@@ -46,6 +46,12 @@ public class BugController {
         return new Response(bugService.modify(vO, session));
     }
 
+    @PostMapping("/open")
+    public Response open(@RequestBody BugUpdateVO vO,
+                          HttpSession session) {
+        return new Response(bugService.open(vO, session));
+    }
+
     @PostMapping("/close")
     public Response close(@RequestBody BugUpdateVO vO,
                            HttpSession session) {
