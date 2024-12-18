@@ -1,5 +1,7 @@
 package cn.edu.sdu.orz.bug.dto;
 
+import org.springframework.data.util.Pair;
+
 public class Response {
     public boolean success;
     public String message;
@@ -24,6 +26,11 @@ public class Response {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Response(Pair<Boolean, String> response) {
+        this.success = response.getFirst();
+        this.message = response.getSecond();
     }
 
     public Response(boolean success) {

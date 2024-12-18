@@ -5,6 +5,7 @@ import cn.edu.sdu.orz.bug.dto.UserBriefDTO;
 import cn.edu.sdu.orz.bug.dto.UserDTO;
 import cn.edu.sdu.orz.bug.entity.User;
 import cn.edu.sdu.orz.bug.entity.UserRole;
+import cn.edu.sdu.orz.bug.repository.ProjectRepository;
 import cn.edu.sdu.orz.bug.repository.UserRepository;
 import cn.edu.sdu.orz.bug.repository.UserRoleRepository;
 import cn.edu.sdu.orz.bug.utils.Utils;
@@ -17,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -33,6 +35,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ProjectRepository projectRepository;
 
     @Autowired
     private UserRoleRepository userRoleRepository;
@@ -67,10 +72,12 @@ public class UserService {
         return userRepository.findAllyByDeletedFalse().stream().map(UserBriefDTO::toDTO).toList();
     }
 
-    public boolean create(UserCreateVO vO, HttpSession session) {
+    public Pair<Boolean, String> create(UserCreateVO vO, HttpSession session) {
         if (isLoggedInUserNotAdmin(session))
-            return false;
+            return Pair.of(false, "未登录");
         try {
+            if (userRepository.findByUsername(vO.getUsername()).isPresent())
+                return Pair.of(false, "用户名已存在");
             User bean = new User();
             BeanUtils.copyProperties(vO, bean);
             bean.setId(newID());
@@ -79,9 +86,9 @@ public class UserService {
             bean.setRole(userRoleRepository.findById(vO.getRole()).orElseThrow());
             userRepository.save(bean);
         } catch (Exception e) {
-            return false;
+            return Pair.of(false, "创建用户失败");
         }
-        return true;
+        return Pair.of(true, "");
     }
 
     public boolean modify(UserUpdateVO vO, HttpSession session) {
@@ -98,21 +105,23 @@ public class UserService {
         return true;
     }
 
-    public boolean password(UserPasswordVO vO, HttpSession session) {
+    public Pair<Boolean, String> password(UserPasswordVO vO, HttpSession session) {
         User user = getLoggedInUser(session);
-        if (user == null || vO.getPrevious() == null || vO.getPassword() == null)
-            return false;
+        if (user == null)
+            return Pair.of(false, "未登录");
+        if (vO.getPrevious() == null || vO.getPassword() == null)
+            return Pair.of(false, "缺少参数");
         try {
             String hashedPrevious = DigestUtils.md5DigestAsHex(vO.getPrevious().getBytes(StandardCharsets.UTF_8));
             if (!hashedPrevious.equals(user.getPassword()))
-                return false;
+                return Pair.of(false, "原密码不正确");
             String hashedNow = DigestUtils.md5DigestAsHex(vO.getPassword().getBytes(StandardCharsets.UTF_8));
             user.setPassword(hashedNow);
             userRepository.save(user);
         } catch (Exception e) {
-            return false;
+            return Pair.of(false, "修改失败");
         }
-        return true;
+        return Pair.of(true, "");
     }
 
     public boolean remove(String id, HttpSession session) {
@@ -132,7 +141,9 @@ public class UserService {
         User user = getLoggedInUser(session);
         if (user == null)
             return null;
-        return toDTO(user);
+        UserDTO bean = toDTO(user);
+        bean.setLeader(projectRepository.countProjectByOwner_Id(user.getId()) > 0);
+        return bean;
     }
 
     public User getByUsername(String username) {
@@ -175,10 +186,6 @@ public class UserService {
 
     public boolean isLoggedInUserNotAdmin(HttpSession session) {
         return !isLoggedInUserAdmin(session);
-    }
-
-    public boolean isAdmin(String id) {
-        return userRepository.findByIdAndDeletedFalseAndRoleName(id, "管理员").orElse(null) != null;
     }
 
     public boolean login(String username, String password, HttpSession session) {

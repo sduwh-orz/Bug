@@ -28,13 +28,14 @@ public class ProjectController {
     }
 
     @PostMapping("/search")
-    public Map<String, Object> search(@RequestBody ProjectQueryVO vO) {
-        return projectService.search(vO);
+    public Map<String, Object> search(@RequestBody ProjectQueryVO vO,
+                                      HttpSession session) {
+        return projectService.search(vO, session);
     }
 
     @PostMapping("/task_search")
-    public Map<String, Object> searchProjectsInTaskList(@RequestBody ProjectQueryVO vO) {
-        return projectService.findProjectsWithModuleAndOwnerCount(vO);
+    public Map<String, Object> searchProjectsInTaskList(@RequestBody ProjectQueryVO vO, HttpSession session) {
+        return projectService.taskList(vO, session);
     }
 
     @PostMapping("/bug_search")
@@ -43,18 +44,18 @@ public class ProjectController {
     }
 
     @PostMapping("/create")
-    public Response create(@RequestBody ProjectCreateVO vO, HttpSession httpSession) {
-        return new Response(projectService.create(vO, httpSession));
+    public Response create(@RequestBody ProjectCreateVO vO, HttpSession session) {
+        return new Response(projectService.create(vO, session));
     }
 
     @PostMapping("/modify")
     public Response modify(@RequestBody ProjectUpdateVO vO,
-                           HttpSession httpSession) {
-        return new Response(projectService.modify(vO, httpSession));
+                           HttpSession session) {
+        return new Response(projectService.modify(vO, session));
     }
 
     @GetMapping("/remove/{id}")
-    public Response remove(@PathVariable("id") String id, HttpSession httpSession) {
-        return new Response(projectService.remove(id, httpSession));
+    public Response remove(@PathVariable("id") String id, HttpSession session) {
+        return new Response(projectService.remove(id, session));
     }
 }

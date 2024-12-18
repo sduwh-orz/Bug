@@ -29,9 +29,15 @@ public class ProjectService {
     @Autowired
     private UserService userService;
 
-    public Map<String, Object> search(ProjectQueryVO vO) {
+    public Map<String, Object> search(ProjectQueryVO vO, HttpSession session) {
+        User user = userService.getLoggedInUser(session);
+        if (user == null)
+            return null;
+
         Project example = new Project();
         example.setName(vO.getName());
+        if (!user.isAdmin())
+            example.setOwner(user);
         return Utils.pagination(
                 vO.getPage(),
                 vO.getSize(),
@@ -43,11 +49,21 @@ public class ProjectService {
         );
     }
 
-    public Map<String, Object> findProjectsWithModuleAndOwnerCount(ProjectQueryVO vO) {
+    public Map<String, Object> taskList(ProjectQueryVO vO, HttpSession session) {
+        User user = userService.getLoggedInUser(session);
+        if (user == null)
+            return null;
+        if (user.isAdmin())
+            return Utils.pagination(
+                    vO.getPage(),
+                    vO.getSize(),
+                    pageable -> projectRepository.taskListAdmin(vO.getName(), pageable),
+                    (v) -> v
+            );
         return Utils.pagination(
                 vO.getPage(),
                 vO.getSize(),
-                pageable -> projectRepository.findProjectsWithModuleAndOwnerCount(vO.getName(), pageable),
+                pageable -> projectRepository.taskList(vO.getName(), user.getId(), pageable),
                 (v) -> v
         );
     }

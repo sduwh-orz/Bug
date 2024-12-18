@@ -5,6 +5,7 @@ import cn.edu.sdu.orz.bug.entity.UserRole;
 import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 public class UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -17,6 +18,8 @@ public class UserDTO implements Serializable {
     private TypeDTO role;
 
     private String email;
+
+    private Optional<Boolean> isLeader;
 
     public String getId() {
         return id;
@@ -56,6 +59,14 @@ public class UserDTO implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Optional<Boolean> isLeader() {
+        return isLeader;
+    }
+
+    public void setLeader(Boolean leader) {
+        isLeader = Optional.ofNullable(leader);
     }
 
     public static UserDTO toDTO(User original) {

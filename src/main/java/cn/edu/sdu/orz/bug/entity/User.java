@@ -77,6 +77,10 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public boolean isAdmin() {
+        return this.role.getName().equals("管理员");
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
