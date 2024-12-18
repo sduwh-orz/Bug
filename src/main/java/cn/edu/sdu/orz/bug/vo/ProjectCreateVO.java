@@ -9,13 +9,6 @@ public class ProjectCreateVO {
 
     private String owner;
 
-    public ProjectCreateVO(String name, String keyword, String description, String owner) {
-        this.name = name;
-        this.keyword = keyword;
-        this.description = description;
-        this.owner = owner;
-    }
-
     public String getName() {
         return name;
     }

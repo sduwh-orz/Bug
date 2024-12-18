@@ -25,8 +25,9 @@ public class Project implements Serializable {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "owner", nullable = false)
-    private String owner;
+    @ManyToOne
+    @JoinColumn(name = "owner", nullable = false)
+    private User owner;
 
     @Column(name = "created", nullable = false)
     private Timestamp created;
@@ -66,11 +67,11 @@ public class Project implements Serializable {
         return description;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 
-    public String getOwner() {
+    public User getOwner() {
         return owner;
     }
 

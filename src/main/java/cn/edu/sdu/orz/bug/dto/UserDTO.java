@@ -1,6 +1,8 @@
 package cn.edu.sdu.orz.bug.dto;
 
+import cn.edu.sdu.orz.bug.entity.User;
 import cn.edu.sdu.orz.bug.entity.UserRole;
+import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 
@@ -54,5 +56,11 @@ public class UserDTO implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public static UserDTO toDTO(User original) {
+        UserDTO bean = new UserDTO();
+        BeanUtils.copyProperties(original, bean);
+        return bean;
     }
 }

@@ -45,6 +45,21 @@ public class BugRecord implements Serializable {
     @Column(name = "time", nullable = false)
     private Timestamp time;
 
+    public BugRecord() {}
+
+    public BugRecord(String id, Bug bug, BugRecordType type, BugStatus previous, BugStatus after, BugSolveType solveType,
+                     String comment, User user, Timestamp time) {
+        this.bug = bug;
+        this.type = type;
+        this.previous = previous;
+        this.after = after;
+        this.solveType = solveType;
+        this.comment = comment;
+        this.user = user;
+        this.time = time;
+        this.id = id;
+    }
+
     public void setId(String id) {
         this.id = id;
     }

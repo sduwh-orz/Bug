@@ -12,13 +12,15 @@ public class BugDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private String id;
 
-    private FeatureDTO feature;
+    private BugFeatureDTO feature;
 
     private String name;
 
     private String description;
 
     private TypeDTO grade;
+
+    private UserBriefDTO developer;
 
     private UserBriefDTO reporter;
 
@@ -40,14 +42,12 @@ public class BugDTO implements Serializable {
         this.id = id;
     }
 
-    public FeatureDTO getFeature() {
+    public BugFeatureDTO getFeature() {
         return feature;
     }
 
     public void setFeature(Feature original) {
-        FeatureDTO bean = new FeatureDTO();
-        BeanUtils.copyProperties(original, bean);
-        this.feature = bean;
+        this.feature = BugFeatureDTO.toDTO(original);
     }
 
     public String getName() {
@@ -72,6 +72,14 @@ public class BugDTO implements Serializable {
 
     public void setGrade(BugGrade original) {
         this.grade = TypeDTO.toDTO(original);
+    }
+
+    public UserBriefDTO getDeveloper() {
+        return developer;
+    }
+
+    public void setDeveloper(UserBriefDTO developer) {
+        this.developer = developer;
     }
 
     public UserBriefDTO getReporter() {
@@ -129,10 +137,18 @@ public class BugDTO implements Serializable {
     }
 
     public void setRecords(List<BugRecord> records) {
-        this.records = records.stream().map(r -> {
-            BugRecordDTO bean = new BugRecordDTO();
-            BeanUtils.copyProperties(r, bean);
-            return bean;
-        }).toList();
+        this.records = records.stream().map(BugRecordDTO::toDTO).toList();
+    }
+
+    public static BugDTO toDTO(Bug original) {
+        if (original == null)
+            return null;
+        BugDTO bean = new BugDTO();
+        BeanUtils.copyProperties(original, bean);
+        User developer = original.getFeature().getOwner();
+        if (developer != null) {
+            bean.setDeveloper(UserBriefDTO.toDTO(developer));
+        }
+        return bean;
     }
 }

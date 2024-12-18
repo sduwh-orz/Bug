@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class BugQueryVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String projectId;
+    private String id;
 
     private String name;
 
@@ -28,12 +28,12 @@ public class BugQueryVO implements Serializable {
 
     private Integer size;
 
-    public String getProjectId() {
-        return projectId;
+    public String getId() {
+        return id;
     }
 
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

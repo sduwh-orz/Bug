@@ -1,12 +1,10 @@
 package cn.edu.sdu.orz.bug.controller;
 
-import cn.edu.sdu.orz.bug.dto.ModuleDTO;
 import cn.edu.sdu.orz.bug.dto.Response;
 import cn.edu.sdu.orz.bug.service.ModuleService;
 import cn.edu.sdu.orz.bug.vo.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,32 +16,6 @@ public class ModuleController {
 
     @Autowired
     private ModuleService moduleService;
-
-    @PostMapping
-    public String save(@RequestBody ModuleVO vO) {
-        return moduleService.save(vO);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") String id) {
-        moduleService.delete(id);
-    }
-
-    @PutMapping("/{id}")
-    public void update(@PathVariable("id") String id,
-                       @RequestBody ModuleUpdateVO vO) {
-        moduleService.update(id, vO);
-    }
-
-    @GetMapping("/{id}")
-    public ModuleDTO getById(@PathVariable("id") String id) {
-        return moduleService.getById(id);
-    }
-
-    @GetMapping
-    public Page<ModuleDTO> query(ModuleQueryVO vO) {
-        return moduleService.query(vO);
-    }
 
     @PostMapping("/create")
     public Response create(@RequestBody ModuleCreateVO vO, HttpSession session) {

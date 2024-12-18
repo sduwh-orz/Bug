@@ -35,7 +35,7 @@ public class Bug implements Serializable {
     private BugStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "solve_type")
+    @JoinColumn(name = "solve_type", nullable = false)
     private BugSolveType solveType;
 
     @Column(name = "created", nullable = false)

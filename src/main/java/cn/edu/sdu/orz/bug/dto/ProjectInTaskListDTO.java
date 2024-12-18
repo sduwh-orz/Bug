@@ -7,9 +7,9 @@ public class ProjectInTaskListDTO {
 
     private String owner;
 
-    private Long modules;
+    private Long totalFeatures;
 
-    private Long owners;
+    private Long totalDevelopers;
 
 
     public String getId() {
@@ -36,27 +36,27 @@ public class ProjectInTaskListDTO {
         this.owner = owner;
     }
 
-    public Long getModules() {
-        return modules;
+    public Long getTotalFeatures() {
+        return totalFeatures;
     }
 
-    public void setModules(Long modules) {
-        this.modules = modules;
+    public void setTotalFeatures(Long totalFeatures) {
+        this.totalFeatures = totalFeatures;
     }
 
-    public Long getOwners() {
-        return owners;
+    public Long getTotalDevelopers() {
+        return totalDevelopers;
     }
 
-    public void setOwners(Long owners) {
-        this.owners = owners;
+    public void setTotalDevelopers(Long developers) {
+        this.totalDevelopers = developers;
     }
 
-    public ProjectInTaskListDTO(String id, String name, String owner, Long modules, Long owners) {
+    public ProjectInTaskListDTO(String id, String name, String owner, Long totalFeatures, Long totalDevelopers) {
         this.id = id;
         this.name = name;
         this.owner = owner;
-        this.modules = modules;
-        this.owners = owners;
+        this.totalFeatures = totalFeatures;
+        this.totalDevelopers = totalDevelopers;
     }
 }

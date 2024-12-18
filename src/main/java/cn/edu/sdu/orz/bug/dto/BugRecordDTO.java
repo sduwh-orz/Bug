@@ -1,9 +1,6 @@
 package cn.edu.sdu.orz.bug.dto;
 
-import cn.edu.sdu.orz.bug.entity.BugRecordType;
-import cn.edu.sdu.orz.bug.entity.BugSolveType;
-import cn.edu.sdu.orz.bug.entity.BugStatus;
-import cn.edu.sdu.orz.bug.entity.User;
+import cn.edu.sdu.orz.bug.entity.*;
 import cn.edu.sdu.orz.bug.utils.Utils;
 import org.springframework.beans.BeanUtils;
 
@@ -14,7 +11,7 @@ public class BugRecordDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private String id;
 
-    private TypeDTO type;
+    private BugRecordTypeDTO type;
 
     private TypeDTO previous;
 
@@ -36,12 +33,12 @@ public class BugRecordDTO implements Serializable {
         this.id = id;
     }
 
-    public TypeDTO getType() {
+    public BugRecordTypeDTO getType() {
         return type;
     }
 
     public void setType(BugRecordType type) {
-        this.type = TypeDTO.toDTO(type);
+        this.type = BugRecordTypeDTO.toDTO(type);
     }
 
     public TypeDTO getPrevious() {
@@ -97,5 +94,11 @@ public class BugRecordDTO implements Serializable {
 
     public void setTime(Timestamp time) {
         this.time = time;
+    }
+
+    public static BugRecordDTO toDTO(BugRecord original) {
+        BugRecordDTO bean = new BugRecordDTO();
+        BeanUtils.copyProperties(original, bean);
+        return bean;
     }
 }

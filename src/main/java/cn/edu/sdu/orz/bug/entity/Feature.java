@@ -73,6 +73,14 @@ public class Feature implements Serializable {
         this.owner = owner;
     }
 
+    public List<Bug> getBugs() {
+        return bugs;
+    }
+
+    public void setBugs(List<Bug> bugs) {
+        this.bugs = bugs;
+    }
+
     @Override
     public String toString() {
         return "Feature{" +
