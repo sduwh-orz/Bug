@@ -1,6 +1,7 @@
 package cn.edu.sdu.orz.bug.service;
 
 import cn.edu.sdu.orz.bug.entity.Module;
+import cn.edu.sdu.orz.bug.entity.User;
 import cn.edu.sdu.orz.bug.repository.ModuleRepository;
 import cn.edu.sdu.orz.bug.utils.Utils;
 import cn.edu.sdu.orz.bug.vo.ModuleCreateVO;
@@ -24,8 +25,9 @@ public class ModuleService {
     @Autowired
     private UserService userService;
 
-    public boolean create(ModuleCreateVO moduleCreateVO, HttpSession httpSession) {
-        if (userService.isNotLoggedIn(httpSession)) {
+    public boolean create(ModuleCreateVO moduleCreateVO, HttpSession session) {
+        User user = userService.getLoggedInUser(session);
+        if (user == null) {
             return false;
         }
         try {
@@ -34,6 +36,8 @@ public class ModuleService {
             bean.setId(newID());
             bean.setName(moduleCreateVO.getName());
             bean.setProject(projectService.requireOne(moduleCreateVO.getProjectId()));
+            if (bean.hasNoPerm(user))
+                return false;
             moduleRepository.save(bean);
         } catch (Exception e) {
             return false;
@@ -41,12 +45,15 @@ public class ModuleService {
         return true;
     }
 
-    public boolean modify(ModuleUpdateVO vO, HttpSession httpSession) {
-        if (userService.isNotLoggedIn(httpSession)) {
+    public boolean modify(ModuleUpdateVO vO, HttpSession session) {
+        User user = userService.getLoggedInUser(session);
+        if (user == null) {
             return false;
         }
         try {
             Module bean = requireOne(vO.getId());
+            if (bean.hasNoPerm(user))
+                return false;
             BeanUtils.copyProperties(vO, bean, Utils.getNullPropertyNames(vO));
             moduleRepository.save(bean);
         } catch (Exception e) {
@@ -55,12 +62,15 @@ public class ModuleService {
         return true;
     }
 
-    public boolean remove(String id, HttpSession httpSession) {
-        if (userService.isNotLoggedIn(httpSession)) {
+    public boolean remove(String id, HttpSession session) {
+        User user = userService.getLoggedInUser(session);
+        if (user == null) {
             return false;
         }
         try {
             Module bean = requireOne(id);
+            if (bean.hasNoPerm(user))
+                return false;
             moduleRepository.delete(bean);
         } catch (Exception e) {
             return false;

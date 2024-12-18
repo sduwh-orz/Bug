@@ -91,6 +91,10 @@ public class Project implements Serializable {
         this.modules = modules;
     }
 
+    public boolean hasNoPerm(User user) {
+        return !owner.getId().equals(user.getId()) && !user.isAdmin();
+    }
+
     @Override
     public String toString() {
         return "Project{" +

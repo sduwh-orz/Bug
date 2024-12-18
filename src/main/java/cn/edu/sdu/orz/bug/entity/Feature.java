@@ -81,6 +81,10 @@ public class Feature implements Serializable {
         this.bugs = bugs;
     }
 
+    public boolean hasNoPerm(User user) {
+        return module.hasNoPerm(user);
+    }
+
     @Override
     public String toString() {
         return "Feature{" +

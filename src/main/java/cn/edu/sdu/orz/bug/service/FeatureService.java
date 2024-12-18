@@ -1,6 +1,7 @@
 package cn.edu.sdu.orz.bug.service;
 
 import cn.edu.sdu.orz.bug.entity.Feature;
+import cn.edu.sdu.orz.bug.entity.User;
 import cn.edu.sdu.orz.bug.repository.FeatureRepository;
 import cn.edu.sdu.orz.bug.utils.Utils;
 import cn.edu.sdu.orz.bug.vo.FeatureUpdateVO;
@@ -26,13 +27,17 @@ public class FeatureService {
     private FeatureRepository featureRepository;
 
     public boolean create(FeatureVO vO, HttpSession session) {
-        if (userService.isNotLoggedIn(session))
+        User user = userService.getLoggedInUser(session);
+        if (user == null) {
             return false;
+        }
         try {
             Feature bean = new Feature();
             BeanUtils.copyProperties(vO, bean, Utils.getNullPropertyNames(vO));
             bean.setId(newID());
             bean.setModule(moduleService.requireOne(vO.getModule()));
+            if (bean.hasNoPerm(user))
+                return false;
             featureRepository.save(bean);
         } catch (Exception e) {
             return false;
@@ -41,10 +46,14 @@ public class FeatureService {
     }
 
     public boolean modify(FeatureUpdateVO vO, HttpSession session) {
-        if (userService.isNotLoggedIn(session))
+        User user = userService.getLoggedInUser(session);
+        if (user == null) {
             return false;
+        }
         try {
             Feature bean = requireOne(vO.getId());
+            if (bean.hasNoPerm(user))
+                return false;
             BeanUtils.copyProperties(vO, bean, Utils.getNullPropertyNames(vO));
             if (vO.getOwner() != null)
                 bean.setOwner(userService.requireOne(vO.getOwner()));
@@ -56,32 +65,40 @@ public class FeatureService {
     }
 
     public boolean assign(TaskAssignVO vO, HttpSession session) {
-        if (userService.isNotLoggedIn(session))
+        User user = userService.getLoggedInUser(session);
+        if (user == null) {
             return false;
+        }
         try {
-            vO.getModules().forEach((module, features) -> {
+            vO.getModules().forEach((module, features) ->
                 features.forEach((id, feature) -> {
                     Feature now = requireOne(id);
-                    if (feature.getOwner() != null) {
-                        now.setOwner(userService.requireOne(feature.getOwner()));
-                    } else {
-                        now.setOwner(null);
+                    if (!now.hasNoPerm(user)) {
+                        if (feature.getOwner() != null) {
+                            now.setOwner(userService.requireOne(feature.getOwner()));
+                        } else {
+                            now.setOwner(null);
+                        }
+                        featureRepository.save(now);
                     }
-                    featureRepository.save(now);
-                });
-            });
+                })
+            );
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
         return true;
     }
 
     public boolean remove(String id, HttpSession session) {
-        if (userService.isNotLoggedIn(session))
+        User user = userService.getLoggedInUser(session);
+        if (user == null) {
             return false;
+        }
         try {
-            featureRepository.deleteById(id);
+            Feature bean = requireOne(id);
+            if (bean.hasNoPerm(user))
+                return false;
+            featureRepository.delete(bean);
         } catch (Exception e) {
             return false;
         }

@@ -22,8 +22,9 @@ public class ProjectController {
     private ProjectService projectService;
 
     @GetMapping("/{id}")
-    public ProjectDTO getProjectDetails(@PathVariable("id") String id) {
-        return projectService.getProjectDetails(id);
+    public ProjectDTO getProjectDetails(@PathVariable("id") String id,
+                                        HttpSession session) {
+        return projectService.getProjectDetails(id, session);
     }
 
     @PostMapping("/search")

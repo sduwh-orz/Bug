@@ -57,4 +57,8 @@ public class Module implements Serializable {
         this.features = features;
     }
 
+    public boolean hasNoPerm(User user) {
+        return project.hasNoPerm(user);
+    }
+
 }

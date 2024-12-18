@@ -42,7 +42,9 @@ public class UserService {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-    public Map<String, Object> search(UserQueryVO vO) {
+    public Map<String, Object> search(UserQueryVO vO, HttpSession session) {
+        if (isLoggedInUserNotAdmin(session))
+            return null;
         User example = new User();
         BeanUtils.copyProperties(vO, example);
         if (vO.getRole() != null)

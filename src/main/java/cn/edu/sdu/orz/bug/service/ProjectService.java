@@ -79,7 +79,7 @@ public class ProjectService {
 
     public boolean create(ProjectCreateVO projectCreateVO, HttpSession httpSession) {
         User user = userService.getLoggedInUser(httpSession);
-        if (user == null) {
+        if (user == null || !user.isAdmin()) {
             return false;
         }
         try {
@@ -96,22 +96,27 @@ public class ProjectService {
     }
 
     public boolean modify(ProjectUpdateVO vO, HttpSession httpSession) {
-        if (userService.isNotLoggedIn(httpSession)) {
+        User user = userService.getLoggedInUser(httpSession);
+        if (user == null) {
             return false;
         }
         try {
             Project bean = requireOne(vO.getId());
+            if (bean.hasNoPerm(user))
+                return false;
             BeanUtils.copyProperties(vO, bean, Utils.getNullPropertyNames(vO));
             bean.setOwner(userService.requireOne(vO.getOwner()));
             projectRepository.save(bean);
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
         return true;
     }
 
     public boolean remove(String id, HttpSession httpSession) {
-        if (userService.isNotLoggedIn(httpSession)) {
+        User user = userService.getLoggedInUser(httpSession);
+        if (user == null || !user.isAdmin()) {
             return false;
         }
         try {
@@ -122,8 +127,14 @@ public class ProjectService {
         return true;
     }
 
-    public ProjectDTO getProjectDetails(String projectId) {
+    public ProjectDTO getProjectDetails(String projectId, HttpSession httpSession) {
+        User user = userService.getLoggedInUser(httpSession);
+        if (user == null) {
+            return null;
+        }
         Project original = projectRepository.findById(projectId).orElse(null);
+        if (original == null || original.hasNoPerm(user))
+            return null;
         return ProjectDTO.toDTO(original);
     }
 
