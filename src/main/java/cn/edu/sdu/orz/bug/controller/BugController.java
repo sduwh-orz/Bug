@@ -46,6 +46,24 @@ public class BugController {
         return new Response(bugService.modify(vO, session));
     }
 
+    @PostMapping("/close")
+    public Response close(@RequestBody BugUpdateVO vO,
+                           HttpSession session) {
+        return new Response(bugService.close(vO, session));
+    }
+
+    @PostMapping("/comment")
+    public Response comment(@RequestBody BugUpdateVO vO,
+                           HttpSession session) {
+        return new Response(bugService.comment(vO, session));
+    }
+
+    @PostMapping("/solve")
+    public Response solve(@RequestBody BugUpdateVO vO,
+                           HttpSession session) {
+        return new Response(bugService.solve(vO, session));
+    }
+
     @GetMapping("/stats/{id}")
     public Map<String, Object> stats(@PathVariable("id") String id) {
         return bugService.stats(id);

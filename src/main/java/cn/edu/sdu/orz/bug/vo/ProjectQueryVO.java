@@ -7,16 +7,33 @@ import java.sql.Date;
 public class ProjectQueryVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String id;
-
     private String name;
 
-    private String keyword;
+    private Integer page;
 
-    private String description;
+    private Integer size;
 
-    private String owner;
+    public String getName() {
+        return name;
+    }
 
-    private Date created;
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
 }

@@ -1,6 +1,7 @@
 package cn.edu.sdu.orz.bug.service;
 
 import cn.edu.sdu.orz.bug.dto.BugDTO;
+import cn.edu.sdu.orz.bug.dto.StatsDTO;
 import cn.edu.sdu.orz.bug.dto.TypeDTO;
 import cn.edu.sdu.orz.bug.entity.Module;
 import cn.edu.sdu.orz.bug.entity.*;
@@ -8,7 +9,7 @@ import cn.edu.sdu.orz.bug.repository.*;
 import cn.edu.sdu.orz.bug.utils.Utils;
 import cn.edu.sdu.orz.bug.vo.BugCreateVO;
 import cn.edu.sdu.orz.bug.vo.BugQueryVO;
-import cn.edu.sdu.orz.bug.vo.BugVO;
+import cn.edu.sdu.orz.bug.vo.BugUpdateVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import static cn.edu.sdu.orz.bug.utils.Utils.getNullPropertyNames;
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 
 @Service
 public class BugService {
@@ -54,11 +56,28 @@ public class BugService {
 
     public Map<String, Object> search(BugQueryVO vO) {
         Bug example = new Bug();
-        BeanUtils.copyProperties(vO, example);
 
-        if (vO.getProjectId() != null) {
+        if (vO.getId() != null) {
             Feature featureExample = getFeatureExample(vO);
             example.setFeature(featureExample);
+        }
+
+        if (vO.getName() != null)
+            example.setName(vO.getName());
+        if (vO.getGrade() != null) {
+            BugGrade gradeExample = new BugGrade();
+            gradeExample.setId(vO.getGrade());
+            example.setGrade(gradeExample);
+        }
+        if (vO.getStatus() != null) {
+            BugStatus statusExample = new BugStatus();
+            statusExample.setId(vO.getStatus());
+            example.setStatus(statusExample);
+        }
+        if (vO.getSolveType() != null) {
+            BugSolveType solveTypeExample = new BugSolveType();
+            solveTypeExample.setId(vO.getSolveType());
+            example.setSolveType(solveTypeExample);
         }
 
         if (vO.getReporter() != null) {
@@ -68,19 +87,46 @@ public class BugService {
         }
 
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
+                .withMatcher("name", contains().ignoreCase());
 
         return Utils.pagination(
-                vO.getSize(),
                 vO.getPage(),
+                vO.getSize(),
                 pageable -> bugRepository.findAll(Example.of(example, matcher), pageable),
-                this::toDTO
+                BugDTO::toDTO
         );
+    }
+
+    private static Feature getFeatureExample(BugQueryVO vO) {
+        Feature featureExample = new Feature();
+        Module moduleExample = new Module();
+        Project projectExample = new Project();
+
+        if (vO.getFeature() != null) {
+            System.out.println(vO.getFeature());
+            featureExample.setId(vO.getFeature());
+        } else if (vO.getModule() != null) {
+            System.out.println(vO.getModule());
+            moduleExample.setId(vO.getModule());
+            featureExample.setModule(moduleExample);
+        } else {
+            projectExample.setId(vO.getId());
+            featureExample.setModule(moduleExample);
+            moduleExample.setProject(projectExample);
+        }
+
+
+        if (vO.getDeveloper() != null) {
+            User ownerExample = new User();
+            ownerExample.setId(vO.getDeveloper());
+            featureExample.setOwner(ownerExample);
+        }
+        return featureExample;
     }
 
     public BugDTO getById(String id) {
         Bug original = bugRepository.findById(id).orElse(null);
-        return toDTO(original);
+        return BugDTO.toDTO(original);
     }
 
     public boolean create(BugCreateVO vO, HttpSession session) {
@@ -94,6 +140,7 @@ public class BugService {
             bean.setGrade(bugGradeRepository.findById(vO.getGrade()).orElseThrow());
             bean.setFeature(featureService.requireOne(vO.getFeature()));
             bean.setStatus(bugStatusRepository.findByName("开放中").orElseThrow());
+            bean.setSolveType(bugSolveTypeRepository.findByName("未解决").orElseThrow());
             bean.setCreated(new Timestamp(System.currentTimeMillis()));
             bean.setReporter(user);
             bugRepository.save(bean);
@@ -103,13 +150,12 @@ public class BugService {
         return true;
     }
 
-    public boolean modify(BugVO vO, HttpSession session) {
+    public boolean modify(BugUpdateVO vO, HttpSession session) {
         User user = userService.getLoggedInUser(session);
         if (user == null)
             return false;
         try {
             Bug bug = requireOne(vO.getId());
-            BugRecord record = new BugRecord();
             BugStatus after = bug.getStatus();
             if (vO.getStatus() != null)
                 after = bugStatusRepository.findById(vO.getStatus()).orElseThrow();
@@ -117,33 +163,94 @@ public class BugService {
             if (vO.getSolveType() != null)
                 solveType = bugSolveTypeRepository.findById(vO.getSolveType()).orElseThrow();
             Timestamp time = new Timestamp(System.currentTimeMillis());
-
-            record.setId(newID());
-            record.setBug(bug);
-            record.setType(bugRecordTypeRepository.findByName("编辑问题").orElseThrow());
-            record.setPrevious(bug.getStatus());
-            record.setAfter(after);
-            record.setSolveType(solveType);
-            record.setComment(vO.getComment() != null ? vO.getComment() : "");
-            record.setUser(user);
-            record.setTime(time);
+            BugRecord record = new BugRecord(
+                    newID(), bug, bugRecordTypeRepository.findByName("编辑问题").orElseThrow(),
+                    bug.getStatus(), after, solveType, vO.getComment() != null ? vO.getComment() : "", user, time
+            );
             bugRecordRepository.save(record);
-
-            BeanUtils.copyProperties(vO, bug, getNullPropertyNames(vO));
-            if (vO.getGrade() != null)
-                bug.setGrade(bugGradeRepository.findById(vO.getGrade()).orElseThrow());
-            String feature = vO.getFeature();
-            if (feature != null)
-                bug.setFeature(featureService.requireOne(vO.getFeature()));
-            bug.setStatus(after);
-            bug.setSolveType(solveType);
-            bug.setModified(time);
-            bug.setReporter(user);
-            bugRepository.save(bug);
+            updateBug(vO, bug, after, solveType, time);
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
         return true;
+    }
+
+    public boolean solve(BugUpdateVO vO, HttpSession session) {
+        User user = userService.getLoggedInUser(session);
+        if (user == null)
+            return false;
+        try {
+            Bug bug = requireOne(vO.getId());
+            BugStatus after = bugStatusRepository.findByName("已解决").orElseThrow();
+            BugSolveType solveType = bugSolveTypeRepository.findById(vO.getSolveType()).orElseThrow();
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            BugRecord record = new BugRecord(
+                    newID(), bug, bugRecordTypeRepository.findByName("解决问题").orElseThrow(),
+                    bug.getStatus(), after, solveType, vO.getComment(), user, time
+            );
+            bugRecordRepository.save(record);
+            updateBug(vO, bug, after, solveType, time);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean close(BugUpdateVO vO, HttpSession session) {
+        User user = userService.getLoggedInUser(session);
+        if (user == null)
+            return false;
+        try {
+            Bug bug = requireOne(vO.getId());
+            BugStatus after = bugStatusRepository.findByName("已关闭").orElseThrow();
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            BugRecord record = new BugRecord(
+                    newID(), bug, bugRecordTypeRepository.findByName("关闭问题").orElseThrow(),
+                    bug.getStatus(), after, null, vO.getComment(), user, time
+            );
+            bugRecordRepository.save(record);
+            updateBug(vO, bug, after, bug.getSolveType(), time);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean comment(BugUpdateVO vO, HttpSession session) {
+        User user = userService.getLoggedInUser(session);
+        if (user == null)
+            return false;
+        try {
+            Bug bug = requireOne(vO.getId());
+            BugStatus after = bug.getStatus();
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            BugRecord record = new BugRecord(
+                    newID(), bug, bugRecordTypeRepository.findByName("写备注").orElseThrow(),
+                    bug.getStatus(), after, null, vO.getComment(), user, time
+            );
+            bugRecordRepository.save(record);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    private void updateBug(BugUpdateVO vO, Bug bug, BugStatus after, BugSolveType solveType,
+                           Timestamp time) {
+        BeanUtils.copyProperties(vO, bug, getNullPropertyNames(vO));
+        if (vO.getGrade() != null)
+            bug.setGrade(bugGradeRepository.findById(vO.getGrade()).orElseThrow());
+        String feature = vO.getFeature();
+        if (feature != null)
+            bug.setFeature(featureService.requireOne(vO.getFeature()));
+        bug.setStatus(after);
+        bug.setSolveType(solveType);
+        bug.setModified(time);
+        bugRepository.save(bug);
     }
 
     public Map<String, Object> stats(String projectId) {
@@ -157,22 +264,30 @@ public class BugService {
                 bug -> bug.getGrade().getName(),
                 Collectors.counting()
         )));
-        result.put("grade", grade);
+        result.put("grade", grade.entrySet().stream().map(entry ->
+                new StatsDTO(entry.getKey(), entry.getValue().toString())
+        ).collect(Collectors.toList()));
         Map<String, Object> status = bugStatusRepository.findAll().stream()
                 .collect(Collectors.toMap(BugStatus::getName, k -> 0));
         status.putAll(bugs.stream().collect(Collectors.groupingBy(
                 bug -> bug.getStatus().getName(),
                 Collectors.counting()
         )));
-        result.put("status", status);
+        result.put("status", status.entrySet().stream().map(entry ->
+                new StatsDTO(entry.getKey(), entry.getValue().toString())
+        ).collect(Collectors.toList()));
         result.put("developers", bugs.stream().collect(Collectors.groupingBy(
                 bug -> bug.getFeature().getOwner().getRealName(),
                 Collectors.counting()
-        )));
+        )).entrySet().stream().map(entry ->
+                new StatsDTO(entry.getKey(), entry.getValue().toString())
+        ).collect(Collectors.toList()));
         result.put("reporters", bugs.stream().collect(Collectors.groupingBy(
                 bug -> bug.getReporter().getRealName(),
                 Collectors.counting()
-        )));
+        )).entrySet().stream().map(entry ->
+                new StatsDTO(entry.getKey(), entry.getValue().toString())
+        ).collect(Collectors.toList()));
         return result;
     }
 
@@ -185,45 +300,11 @@ public class BugService {
     }
 
     public List<TypeDTO> getBugSolveTypes() {
-        return bugRecordTypeRepository.findAll().stream().map(TypeDTO::toDTO).toList();
+        return bugSolveTypeRepository.findAll().stream().map(TypeDTO::toDTO).toList();
     }
 
     public List<TypeDTO> getBugStatus() {
-        return bugRecordTypeRepository.findAll().stream().map(TypeDTO::toDTO).toList();
-    }
-
-    private static Feature getFeatureExample(BugQueryVO vO) {
-        Feature featureExample = new Feature();
-        Module moduleExample = new Module();
-        Project projectExample = new Project();
-        projectExample.setId(vO.getProjectId());
-
-        moduleExample.setProject(projectExample);
-        if (vO.getModule() != null)
-            moduleExample.setId(vO.getModule());
-
-        featureExample.setModule(moduleExample);
-        if (vO.getFeature() != null)
-            featureExample.setId(vO.getFeature());
-
-        if (vO.getDeveloper() != null) {
-            User ownerExample = new User();
-            ownerExample.setId(vO.getDeveloper());
-            featureExample.setOwner(ownerExample);
-        }
-        return featureExample;
-    }
-
-    private BugDTO toDTO(Bug original) {
-        if (original == null)
-            return null;
-        BugDTO bean = new BugDTO();
-        BeanUtils.copyProperties(original, bean);
-        bean.setFeature(original.getFeature());
-        bean.setGrade(original.getGrade());
-        bean.setStatus(original.getStatus());
-        bean.setSolveType(original.getSolveType());
-        return bean;
+        return bugStatusRepository.findAll().stream().map(TypeDTO::toDTO).toList();
     }
 
     private Bug requireOne(String id) {

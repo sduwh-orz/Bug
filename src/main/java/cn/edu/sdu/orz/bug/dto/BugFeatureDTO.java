@@ -8,13 +8,14 @@ import org.springframework.beans.BeanUtils;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class FeatureDTO implements Serializable {
+public class BugFeatureDTO implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private String id;
 
     private String name;
 
-    private String module;
+    private BugModuleDTO module;
 
     private BigDecimal hours;
 
@@ -36,12 +37,12 @@ public class FeatureDTO implements Serializable {
         this.name = name;
     }
 
-    public String getModule() {
+    public BugModuleDTO getModule() {
         return module;
     }
 
     public void setModule(Module module) {
-        this.module = module.getId();
+        this.module = BugModuleDTO.toDTO(module);
     }
 
     public BigDecimal getHours() {
@@ -61,8 +62,8 @@ public class FeatureDTO implements Serializable {
             this.owner = UserBriefDTO.toDTO(owner);
     }
 
-    public static FeatureDTO toDTO(Feature original) {
-        FeatureDTO bean = new FeatureDTO();
+    public static BugFeatureDTO toDTO(Feature original) {
+        BugFeatureDTO bean = new BugFeatureDTO();
         BeanUtils.copyProperties(original, bean);
         return bean;
     }

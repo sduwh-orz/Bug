@@ -1,13 +1,9 @@
 package cn.edu.sdu.orz.bug.dto;
 
-import cn.edu.sdu.orz.bug.entity.Project;
+import cn.edu.sdu.orz.bug.entity.BugRecordType;
 import org.springframework.beans.BeanUtils;
 
-import java.io.Serializable;
-
-public class ProjectBriefDTO implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class BugRecordTypeDTO {
     private String id;
 
     private String name;
@@ -28,8 +24,8 @@ public class ProjectBriefDTO implements Serializable {
         this.name = name;
     }
 
-    public static ProjectBriefDTO toDTO(Project original) {
-        ProjectBriefDTO bean = new ProjectBriefDTO();
+    public static BugRecordTypeDTO toDTO(BugRecordType original) {
+        BugRecordTypeDTO bean = new BugRecordTypeDTO();
         BeanUtils.copyProperties(original, bean);
         return bean;
     }

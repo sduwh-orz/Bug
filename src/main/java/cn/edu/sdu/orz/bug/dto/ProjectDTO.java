@@ -1,10 +1,16 @@
 package cn.edu.sdu.orz.bug.dto;
 
-
+import cn.edu.sdu.orz.bug.entity.Feature;
+import cn.edu.sdu.orz.bug.entity.Project;
+import cn.edu.sdu.orz.bug.entity.User;
+import cn.edu.sdu.orz.bug.entity.Module;
 import cn.edu.sdu.orz.bug.utils.Utils;
+import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class ProjectDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -16,9 +22,11 @@ public class ProjectDTO implements Serializable {
 
     private String description;
 
-    private String owner;
+    private UserDTO owner;
 
     private Timestamp created;
+
+    private List<ModuleDTO> modules;
 
     public String getId() {
         return id;
@@ -52,12 +60,12 @@ public class ProjectDTO implements Serializable {
         this.description = description;
     }
 
-    public String getOwner() {
+    public UserDTO getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setOwner(User owner) {
+        this.owner = UserDTO.toDTO(owner);
     }
 
     public String getCreated() {
@@ -71,15 +79,23 @@ public class ProjectDTO implements Serializable {
         this.created = created;
     }
 
-    public ProjectDTO() {
+    public List<ModuleDTO> getModules() {
+        return modules;
     }
 
-    public ProjectDTO(String id, String name, String keyword, String description, String owner, Timestamp created) {
-        this.id = id;
-        this.name = name;
-        this.keyword = keyword;
-        this.description = description;
-        this.owner = owner;
-        this.created = created;
+    public void setModules(List<Module> modules) {
+        this.modules = modules.stream().map(module -> {
+            ModuleDTO bean = ModuleDTO.toDTO(module);
+            bean.setFeatureHoursSum(module.getFeatures().stream()
+                    .map(Feature::getHours).reduce(BigDecimal.ZERO, BigDecimal::add)
+            );
+            return bean;
+        }).toList();
+    }
+
+    public static ProjectDTO toDTO(Project original) {
+        ProjectDTO bean = new ProjectDTO();
+        BeanUtils.copyProperties(original, bean);
+        return bean;
     }
 }

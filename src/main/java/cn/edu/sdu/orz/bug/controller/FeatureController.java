@@ -4,6 +4,7 @@ import cn.edu.sdu.orz.bug.dto.Response;
 import cn.edu.sdu.orz.bug.service.FeatureService;
 import cn.edu.sdu.orz.bug.vo.FeatureUpdateVO;
 import cn.edu.sdu.orz.bug.vo.FeatureVO;
+import cn.edu.sdu.orz.bug.vo.TaskAssignVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -34,5 +35,11 @@ public class FeatureController {
     public Response modify(@RequestBody FeatureUpdateVO vO,
                            HttpSession session) {
         return new Response(featureService.modify(vO, session));
+    }
+
+    @PostMapping("/assign")
+    public Response assign(@RequestBody TaskAssignVO vO,
+                           HttpSession session) {
+        return new Response(featureService.assign(vO, session));
     }
 }

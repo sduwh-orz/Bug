@@ -5,14 +5,13 @@ import cn.edu.sdu.orz.bug.service.ProjectService;
 import cn.edu.sdu.orz.bug.vo.ProjectCreateVO;
 import cn.edu.sdu.orz.bug.vo.ProjectQueryVO;
 import cn.edu.sdu.orz.bug.vo.ProjectUpdateVO;
-import cn.edu.sdu.orz.bug.vo.ProjectVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Validated
 @RestController
@@ -23,50 +22,24 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-    @PostMapping
-    public String save(@RequestBody ProjectVO vO) {
-        return projectService.save(vO);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") String id) {
-        projectService.delete(id);
-    }
-
-    @PutMapping("/{id}")
-    public void update(@PathVariable("id") String id,
-                       @RequestBody ProjectUpdateVO vO) {
-        projectService.update(id, vO);
-    }
-
-//    @GetMapping("/{id}")
-//    public ProjectDTO getById(@PathVariable("id") String id) {
-//        return projectService.getById(id);
-//    }
-
     @GetMapping("/{id}")
-    public ProjectBriefDTO getProjectDetails(@PathVariable("id") String id) {
+    public ProjectDTO getProjectDetails(@PathVariable("id") String id) {
         return projectService.getProjectDetails(id);
     }
 
-    @GetMapping
-    public Page<ProjectDTO> query(ProjectQueryVO vO) {
-        return projectService.query(vO);
+    @PostMapping("/search")
+    public Map<String, Object> search(@RequestBody ProjectQueryVO vO) {
+        return projectService.search(vO);
     }
 
-    @GetMapping("/search")
-    public List<ProjectDTO> search(@RequestParam(value = "name") String projectName) {
-        return projectService.findByName(projectName);
+    @PostMapping("/task_search")
+    public Map<String, Object> searchProjectsInTaskList(@RequestBody ProjectQueryVO vO) {
+        return projectService.findProjectsWithModuleAndOwnerCount(vO);
     }
 
-    @GetMapping("/task_search")
-    public List<ProjectInTaskListDTO> searchProjectsInTaskList(@RequestParam(value = "name") String projectName) {
-        return projectService.findProjectsWithModuleAndOwnerCount(projectName);
-    }
-
-    @GetMapping("/bug_search")
-    public List<ProjectInBugListDTO> searchProjectsInBugList(@RequestParam(value = "name") String projectName) {
-        return projectService.findProjectsWithBugCount(projectName);
+    @PostMapping("/bug_search")
+    public Map<String, Object> searchProjectsInBugList(@RequestBody ProjectQueryVO vO) {
+        return projectService.findProjectsWithBugCount(vO);
     }
 
     @PostMapping("/create")
@@ -74,11 +47,10 @@ public class ProjectController {
         return new Response(projectService.create(vO, httpSession));
     }
 
-    @PostMapping("/modify/{id}")
-    public Response modify(@PathVariable("id") String id,
-                           @RequestBody ProjectUpdateVO vO,
+    @PostMapping("/modify")
+    public Response modify(@RequestBody ProjectUpdateVO vO,
                            HttpSession httpSession) {
-        return new Response(projectService.modify(id, vO, httpSession));
+        return new Response(projectService.modify(vO, httpSession));
     }
 
     @GetMapping("/remove/{id}")

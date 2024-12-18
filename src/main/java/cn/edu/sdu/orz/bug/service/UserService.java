@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
 
 @Service
 public class UserService {
@@ -43,9 +44,8 @@ public class UserService {
             example.setRole(new UserRole(vO.getRole()));
         example.setDeleted(0);
 
-        System.out.println(example);
-
         ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("role.id", exact())
                 .withMatcher("username", contains().ignoreCase())
                 .withMatcher("realName", contains().ignoreCase())
                 .withMatcher("email", contains().ignoreCase());
@@ -64,7 +64,7 @@ public class UserService {
     }
 
     public List<UserBriefDTO> all() {
-        return userRepository.findAllyByDeletedFalse().stream().map(UserService::toBriefDTO).toList();
+        return userRepository.findAllyByDeletedFalse().stream().map(UserBriefDTO::toDTO).toList();
     }
 
     public boolean create(UserCreateVO vO, HttpSession session) {
@@ -75,6 +75,7 @@ public class UserService {
             BeanUtils.copyProperties(vO, bean);
             bean.setId(newID());
             bean.setDeleted(0);
+            bean.setPassword(DigestUtils.md5DigestAsHex(vO.getPassword().getBytes(StandardCharsets.UTF_8)));
             bean.setRole(userRoleRepository.findById(vO.getRole()).orElseThrow());
             userRepository.save(bean);
         } catch (Exception e) {
@@ -89,6 +90,7 @@ public class UserService {
         try {
             User bean = requireOne(vO.getId());
             BeanUtils.copyProperties(vO, bean, Utils.getNullPropertyNames(vO));
+            bean.setRole(userRoleRepository.findById(vO.getRole()).orElseThrow());
             userRepository.save(bean);
         } catch (Exception e) {
             return false;
@@ -216,15 +218,7 @@ public class UserService {
     private static UserDTO toDTO(User original) {
         if (original == null)
             return null;
-        UserDTO bean = new UserDTO();
-        BeanUtils.copyProperties(original, bean);
-        return bean;
-    }
-
-    private static UserBriefDTO toBriefDTO(User original) {
-        UserBriefDTO bean = new UserBriefDTO();
-        BeanUtils.copyProperties(original, bean);
-        return bean;
+        return UserDTO.toDTO(original);
     }
 
     public User requireOne(String id) {
