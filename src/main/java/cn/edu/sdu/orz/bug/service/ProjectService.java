@@ -135,7 +135,7 @@ public class ProjectService {
             return null;
         }
         Project original = projectRepository.findById(projectId).orElse(null);
-        if (original == null || original.hasNoPerm(user))
+        if (original == null)
             return null;
         return ProjectDTO.toDTO(original);
     }
