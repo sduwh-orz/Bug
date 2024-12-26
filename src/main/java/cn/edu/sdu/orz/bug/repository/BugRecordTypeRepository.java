@@ -6,6 +6,15 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.Optional;
 
+/**
+ * Bug record type Repository
+ */
 public interface BugRecordTypeRepository extends JpaRepository<BugRecordType, String>, JpaSpecificationExecutor<BugRecordType> {
+    /**
+     * Find by name optional.
+     *
+     * @param name the name
+     * @return the optional
+     */
     Optional<BugRecordType> findByName(String name);
 }

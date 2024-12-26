@@ -10,9 +10,25 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+/**
+ * Project Repository
+ */
 public interface ProjectRepository extends JpaRepository<Project, String>, JpaSpecificationExecutor<Project> {
+    /**
+     * Count project by owner's ID.
+     *
+     * @param owner the owner
+     * @return the integer
+     */
     Integer countProjectByOwner_Id(String owner);
 
+    /**
+     * Get Tasks list if User is admin.
+     *
+     * @param name     the name
+     * @param pageable the pageable
+     * @return the page
+     */
     @Query("select new cn.edu.sdu.orz.bug.dto.ProjectInTaskListDTO ( " +
             "p.id, p.name, uu.realName, count(distinct f.id), count(distinct u.id) " +
             ") from Project p " +
@@ -25,6 +41,14 @@ public interface ProjectRepository extends JpaRepository<Project, String>, JpaSp
             "order by p.created DESC")
     Page<ProjectInTaskListDTO> taskListAdmin(@Param("name") String name, Pageable pageable);
 
+    /**
+     * Get Tasks list.
+     *
+     * @param name     the name
+     * @param user     the user
+     * @param pageable the pageable
+     * @return the page
+     */
     @Query("select new cn.edu.sdu.orz.bug.dto.ProjectInTaskListDTO ( " +
             "p.id, p.name, uu.realName, count(distinct f.id), count(distinct u.id) " +
             ") from Project p " +
@@ -37,6 +61,13 @@ public interface ProjectRepository extends JpaRepository<Project, String>, JpaSp
             "order by p.created DESC")
     Page<ProjectInTaskListDTO> taskList(@Param("name") String name, @Param("owner") String user, Pageable pageable);
 
+    /**
+     * Find projects with bug count page.
+     *
+     * @param name     the name
+     * @param pageable the pageable
+     * @return the page
+     */
     @Query("select new cn.edu.sdu.orz.bug.dto.ProjectInBugListDTO ( " +
             "p.id, p.name, u.realName, count(distinct b.id) " +
             ") " +

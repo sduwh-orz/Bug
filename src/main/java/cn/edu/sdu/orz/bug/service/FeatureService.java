@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Feature Service
+ */
 @Service
 public class FeatureService {
 
@@ -26,6 +29,13 @@ public class FeatureService {
     @Autowired
     private FeatureRepository featureRepository;
 
+    /**
+     * Create Feature.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the boolean
+     */
     public boolean create(FeatureVO vO, HttpSession session) {
         User user = userService.getLoggedInUser(session);
         if (user == null) {
@@ -45,6 +55,13 @@ public class FeatureService {
         return true;
     }
 
+    /**
+     * Modify Feature.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the boolean
+     */
     public boolean modify(FeatureUpdateVO vO, HttpSession session) {
         User user = userService.getLoggedInUser(session);
         if (user == null) {
@@ -64,6 +81,13 @@ public class FeatureService {
         return true;
     }
 
+    /**
+     * Assign Feature.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the boolean
+     */
     public boolean assign(TaskAssignVO vO, HttpSession session) {
         User user = userService.getLoggedInUser(session);
         if (user == null) {
@@ -89,6 +113,13 @@ public class FeatureService {
         return true;
     }
 
+    /**
+     * Remove Feature.
+     *
+     * @param id      the id
+     * @param session the session
+     * @return the boolean
+     */
     public boolean remove(String id, HttpSession session) {
         User user = userService.getLoggedInUser(session);
         if (user == null) {
@@ -105,6 +136,12 @@ public class FeatureService {
         return true;
     }
 
+    /**
+     * Require one Feature.
+     *
+     * @param id the id
+     * @return the feature
+     */
     public Feature requireOne(String id) {
         return featureRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Resource not found: " + id));

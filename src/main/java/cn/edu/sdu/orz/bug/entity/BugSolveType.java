@@ -7,6 +7,9 @@ import jakarta.persistence.Table;
 
 import java.io.Serializable;
 
+/**
+ * The type Bug solve type.
+ */
 @Entity
 @Table(name = "bug_solve_type")
 public class BugSolveType implements Serializable {
@@ -18,18 +21,38 @@ public class BugSolveType implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }

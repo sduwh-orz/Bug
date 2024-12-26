@@ -16,9 +16,21 @@ import java.util.stream.Collectors;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
+/**
+ * The Utils methods.
+ */
 public class Utils {
+    /**
+     * The standard dateFormat.
+     */
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+    /**
+     * Get null property names for BeanUtils.copyProperties().
+     *
+     * @param source the source
+     * @return the null properties
+     */
     public static String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);
         java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
@@ -33,6 +45,17 @@ public class Utils {
         return emptyNames.toArray(new String[0]);
     }
 
+    /**
+     * Get result with pagination.
+     *
+     * @param <E>       the type parameter
+     * @param <R>       the type parameter
+     * @param queryPage the query page
+     * @param querySize the query size
+     * @param query     the query
+     * @param toDTO     the toDTO method
+     * @return the result with pagination
+     */
     public static <E, R> Map<String, Object> pagination(
             Integer queryPage,
             Integer querySize,
@@ -58,6 +81,11 @@ public class Utils {
         return result;
     }
 
+    /**
+     * Get a new random ID.
+     *
+     * @return the new random ID
+     */
     public static String newRandomID() {
         return DigestUtils.md5DigestAsHex(String.valueOf(new Random().nextLong()).getBytes(StandardCharsets.UTF_8))
                 .toUpperCase();

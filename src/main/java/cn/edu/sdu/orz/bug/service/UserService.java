@@ -31,6 +31,9 @@ import java.util.stream.Collectors;
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
 
+/**
+ * User Service
+ */
 @Service
 public class UserService {
 
@@ -43,6 +46,13 @@ public class UserService {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
+    /**
+     * Search Users.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the result with pagination
+     */
     public Map<String, Object> search(UserQueryVO vO, HttpSession session) {
         if (isLoggedInUserNotAdmin(session))
             return null;
@@ -66,15 +76,33 @@ public class UserService {
         );
     }
 
+    /**
+     * Gets by id.
+     *
+     * @param id the id
+     * @return the by id
+     */
     public UserDTO getById(String id) {
         User original = userRepository.findById(id).orElse(null);
         return toDTO(original);
     }
 
+    /**
+     * All Users list.
+     *
+     * @return the list
+     */
     public List<UserBriefDTO> all() {
-        return userRepository.findAllyByDeletedFalse().stream().map(UserBriefDTO::toDTO).collect(Collectors.toList());
+        return userRepository.findAllByDeletedFalse().stream().map(UserBriefDTO::toDTO).collect(Collectors.toList());
     }
 
+    /**
+     * Create User.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the pair
+     */
     public Pair<Boolean, String> create(UserCreateVO vO, HttpSession session) {
         if (isLoggedInUserNotAdmin(session))
             return Pair.of(false, "未登录");
@@ -94,6 +122,13 @@ public class UserService {
         return Pair.of(true, "");
     }
 
+    /**
+     * Modify User.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the boolean
+     */
     public boolean modify(UserUpdateVO vO, HttpSession session) {
         if (isLoggedInUserNotAdmin(session))
             return false;
@@ -108,6 +143,13 @@ public class UserService {
         return true;
     }
 
+    /**
+     * Change User's password.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the pair
+     */
     public Pair<Boolean, String> password(UserPasswordVO vO, HttpSession session) {
         User user = getLoggedInUser(session);
         if (user == null)
@@ -127,6 +169,13 @@ public class UserService {
         return Pair.of(true, "");
     }
 
+    /**
+     * Remove User.
+     *
+     * @param id      the id
+     * @param session the session
+     * @return the boolean
+     */
     public boolean remove(String id, HttpSession session) {
         if (isLoggedInUserNotAdmin(session))
             return false;
@@ -140,6 +189,12 @@ public class UserService {
         return true;
     }
 
+    /**
+     * My User info.
+     *
+     * @param session the session
+     * @return the user dto
+     */
     public UserDTO myInfo(HttpSession session) {
         User user = getLoggedInUser(session);
         if (user == null)
@@ -149,10 +204,22 @@ public class UserService {
         return bean;
     }
 
+    /**
+     * Get User by username.
+     *
+     * @param username the username
+     * @return the by username
+     */
     public User getByUsername(String username) {
         return userRepository.findByUsernameAndDeletedFalse(username);
     }
 
+    /**
+     * Get logged-in user.
+     *
+     * @param session the session
+     * @return the logged-in user
+     */
     public User getLoggedInUser(HttpSession session) {
         if (session.getAttribute("id") == null)
             return null;
@@ -172,10 +239,22 @@ public class UserService {
         return user;
     }
 
+    /**
+     * Is User logged in.
+     *
+     * @param session the session
+     * @return the boolean
+     */
     public boolean isLoggedIn(HttpSession session) {
         return getLoggedInUser(session) != null;
     }
 
+    /**
+     * Is logged-in User admin.
+     *
+     * @param session the session
+     * @return the boolean
+     */
     public boolean isLoggedInUserAdmin(HttpSession session) {
         User user = getLoggedInUser(session);
         if (user == null)
@@ -183,10 +262,24 @@ public class UserService {
         return user.getRole().getName().equals("管理员");
     }
 
+    /**
+     * Is logged-in user not admin.
+     *
+     * @param session the session
+     * @return the boolean
+     */
     public boolean isLoggedInUserNotAdmin(HttpSession session) {
         return !isLoggedInUserAdmin(session);
     }
 
+    /**
+     * User Login.
+     *
+     * @param username the username
+     * @param password the password
+     * @param session  the session
+     * @return the boolean
+     */
     public boolean login(String username, String password, HttpSession session) {
         User user = getByUsername(username);
         if (user == null) {
@@ -203,11 +296,21 @@ public class UserService {
         }
     }
 
+    /**
+     * User Logout.
+     *
+     * @param session the session
+     */
     public void logout(HttpSession session) {
         session.removeAttribute("user");
         session.removeAttribute("password");
     }
 
+    /**
+     * Get User roles.
+     *
+     * @return the user roles
+     */
     public List<TypeDTO> getUserRoles() {
         return userRoleRepository.findAll().stream().map(TypeDTO::toDTO).collect(Collectors.toList());
     }
@@ -227,6 +330,12 @@ public class UserService {
         return UserDTO.toDTO(original);
     }
 
+    /**
+     * Require one User.
+     *
+     * @param id the id
+     * @return the user
+     */
     public User requireOne(String id) {
         return userRepository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new NoSuchElementException("Resource not found: " + id));

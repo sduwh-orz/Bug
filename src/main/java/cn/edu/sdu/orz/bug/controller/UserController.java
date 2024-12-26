@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * User Controller
+ */
 @Validated
 @RestController
 @CrossOrigin
@@ -23,27 +26,60 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Gets by User id.
+     *
+     * @param id the id
+     * @return the by id
+     */
     @GetMapping("/{id}")
     public UserDTO getById(@PathVariable("id") String id) {
         return userService.getById(id);
     }
 
+    /**
+     * Get my User info.
+     *
+     * @param session the session
+     * @return the user dto
+     */
     @GetMapping("/me")
     public UserDTO myInfo(HttpSession session) {
         return userService.myInfo(session);
     }
 
+    /**
+     * Search Users.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the result with pagination
+     */
     @PostMapping("/search")
     public Map<String, Object> search(@RequestBody UserQueryVO vO, HttpSession session) {
         return userService.search(vO, session);
     }
 
+    /**
+     * Create User.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the response
+     */
     @PostMapping("/create")
     public Response create(@RequestBody UserCreateVO vO,
                            HttpSession session) {
         return new Response(userService.create(vO, session));
     }
 
+    /**
+     * Modify User.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the response
+     */
     @PostMapping("/modify")
     public Response modify(@RequestBody UserUpdateVO vO,
                            HttpSession session
@@ -51,12 +87,26 @@ public class UserController {
         return new Response(userService.modify(vO, session));
     }
 
+    /**
+     * Remove User.
+     *
+     * @param id      the id
+     * @param session the session
+     * @return the response
+     */
     @GetMapping("/remove/{id}")
     public Response remove(@PathVariable("id") String id,
                            HttpSession session) {
         return new Response(userService.remove(id, session));
     }
 
+    /**
+     * Login using username and password.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the response
+     */
     @PostMapping("/login")
     public Response login(@RequestBody UserLoginVO vO,
                           HttpSession session) {
@@ -70,23 +120,46 @@ public class UserController {
         }
     }
 
+    /**
+     * Logout User.
+     *
+     * @param session the session
+     * @return the response
+     */
     @GetMapping("/logout")
     public Response logout(HttpSession session) {
         userService.logout(session);
         return new Response(true);
     }
 
+    /**
+     * Password change.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the response
+     */
     @PostMapping("/password")
     public Response password(@RequestBody UserPasswordVO vO,
                              HttpSession session) {
         return new Response(userService.password(vO, session));
     }
 
+    /**
+     * Get all Users.
+     *
+     * @return the list
+     */
     @GetMapping("/all")
     public List<UserBriefDTO> all() {
         return userService.all();
     }
 
+    /**
+     * Get User Roles list.
+     *
+     * @return the list
+     */
     @GetMapping("/roles")
     public List<TypeDTO> roles() {
         return userService.getUserRoles();

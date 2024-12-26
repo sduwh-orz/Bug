@@ -23,6 +23,9 @@ import java.util.NoSuchElementException;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 
+/**
+ * Project Service
+ */
 @Service
 public class ProjectService {
 
@@ -32,6 +35,13 @@ public class ProjectService {
     @Autowired
     private UserService userService;
 
+    /**
+     * Search Project.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the result with pagination
+     */
     public Map<String, Object> search(ProjectQueryVO vO, HttpSession session) {
         User user = userService.getLoggedInUser(session);
         if (user == null)
@@ -53,6 +63,13 @@ public class ProjectService {
         );
     }
 
+    /**
+     * Get Tasks list.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the result with pagination
+     */
     public Map<String, Object> taskList(ProjectQueryVO vO, HttpSession session) {
         User user = userService.getLoggedInUser(session);
         if (user == null)
@@ -72,6 +89,12 @@ public class ProjectService {
         );
     }
 
+    /**
+     * Find projects with bug count.
+     *
+     * @param vO the vO
+     * @return the result with pagination
+     */
     public Map<String, Object> findProjectsWithBugCount(ProjectQueryVO vO) {
         return Utils.pagination(
                 vO.getPage(),
@@ -81,6 +104,13 @@ public class ProjectService {
         );
     }
 
+    /**
+     * Create Project.
+     *
+     * @param projectCreateVO the project create vo
+     * @param httpSession     the http session
+     * @return the boolean
+     */
     public boolean create(ProjectCreateVO projectCreateVO, HttpSession httpSession) {
         User user = userService.getLoggedInUser(httpSession);
         if (user == null || !user.isAdmin()) {
@@ -99,6 +129,13 @@ public class ProjectService {
         return true;
     }
 
+    /**
+     * Modify Project.
+     *
+     * @param vO          the vO
+     * @param httpSession the http session
+     * @return the boolean
+     */
     public boolean modify(ProjectUpdateVO vO, HttpSession httpSession) {
         User user = userService.getLoggedInUser(httpSession);
         if (user == null) {
@@ -117,6 +154,13 @@ public class ProjectService {
         return true;
     }
 
+    /**
+     * Remove Project.
+     *
+     * @param id          the id
+     * @param httpSession the http session
+     * @return the boolean
+     */
     public boolean remove(String id, HttpSession httpSession) {
         User user = userService.getLoggedInUser(httpSession);
         if (user == null || !user.isAdmin()) {
@@ -130,6 +174,13 @@ public class ProjectService {
         return true;
     }
 
+    /**
+     * Gets project details.
+     *
+     * @param projectId   the project id
+     * @param httpSession the http session
+     * @return the project details
+     */
     public ProjectDTO getProjectDetails(String projectId, HttpSession httpSession) {
         User user = userService.getLoggedInUser(httpSession);
         if (user == null) {
@@ -141,6 +192,12 @@ public class ProjectService {
         return ProjectDTO.toDTO(original);
     }
 
+    /**
+     * Require one Project.
+     *
+     * @param id the id
+     * @return the project
+     */
     public Project requireOne(String id) {
         return projectRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Resource not found: " + id));

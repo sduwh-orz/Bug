@@ -5,27 +5,56 @@ import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 
+/**
+ * The type Type dto.
+ */
 public class TypeDTO implements Serializable {
     private Integer id;
 
     private String name;
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * To dto type dto.
+     *
+     * @param type the type
+     * @return the type dto
+     */
     public static TypeDTO toDTO(Object type) {
         TypeDTO bean = new TypeDTO();
         BeanUtils.copyProperties(type, bean);

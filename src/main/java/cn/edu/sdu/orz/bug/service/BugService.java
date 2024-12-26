@@ -27,6 +27,9 @@ import java.util.stream.Collectors;
 import static cn.edu.sdu.orz.bug.utils.Utils.getNullPropertyNames;
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 
+/**
+ * Bug Service
+ */
 @Service
 public class BugService {
 
@@ -54,6 +57,12 @@ public class BugService {
     @Autowired
     private FeatureService featureService;
 
+    /**
+     * Search Bugs.
+     *
+     * @param vO the vO
+     * @return the result with pagination
+     */
     public Map<String, Object> search(BugQueryVO vO) {
         Bug example = new Bug();
 
@@ -122,11 +131,24 @@ public class BugService {
         return featureExample;
     }
 
+    /**
+     * Get Bug by id.
+     *
+     * @param id the id
+     * @return the by id
+     */
     public BugDTO getById(String id) {
         Bug original = bugRepository.findById(id).orElse(null);
         return BugDTO.toDTO(original);
     }
 
+    /**
+     * Create Bug.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the boolean
+     */
     public boolean create(BugCreateVO vO, HttpSession session) {
         User user = userService.getLoggedInUser(session);
         if (user == null)
@@ -148,6 +170,13 @@ public class BugService {
         return true;
     }
 
+    /**
+     * Modify Bug.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the boolean
+     */
     public boolean modify(BugUpdateVO vO, HttpSession session) {
         User user = userService.getLoggedInUser(session);
         if (user == null)
@@ -170,6 +199,13 @@ public class BugService {
         return true;
     }
 
+    /**
+     * Solve Bug.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the boolean
+     */
     public boolean solve(BugUpdateVO vO, HttpSession session) {
         User user = userService.getLoggedInUser(session);
         if (user == null)
@@ -191,6 +227,13 @@ public class BugService {
         return true;
     }
 
+    /**
+     * Open Bug.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the boolean
+     */
     public boolean open(BugUpdateVO vO, HttpSession session) {
         User user = userService.getLoggedInUser(session);
         if (user == null)
@@ -211,6 +254,13 @@ public class BugService {
         return true;
     }
 
+    /**
+     * Close Bug.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the boolean
+     */
     public boolean close(BugUpdateVO vO, HttpSession session) {
         User user = userService.getLoggedInUser(session);
         if (user == null)
@@ -231,6 +281,13 @@ public class BugService {
         return true;
     }
 
+    /**
+     * Comment Bug.
+     *
+     * @param vO      the vO
+     * @param session the session
+     * @return the boolean
+     */
     public boolean comment(BugUpdateVO vO, HttpSession session) {
         User user = userService.getLoggedInUser(session);
         if (user == null)
@@ -265,6 +322,12 @@ public class BugService {
         bugRepository.save(bug);
     }
 
+    /**
+     * Bug Stats.
+     *
+     * @param projectId the project id
+     * @return the result with pagination
+     */
     public Map<String, Object> stats(String projectId) {
         if (projectId == null)
             return null;
@@ -303,18 +366,38 @@ public class BugService {
         return result;
     }
 
+    /**
+     * Gets bug grades.
+     *
+     * @return the bug grades
+     */
     public List<TypeDTO> getBugGrades() {
         return bugGradeRepository.findAll().stream().map(TypeDTO::toDTO).collect(Collectors.toList());
     }
 
+    /**
+     * Gets bug record types.
+     *
+     * @return the bug record types
+     */
     public List<TypeDTO> getBugRecordTypes() {
         return bugRecordTypeRepository.findAll().stream().map(TypeDTO::toDTO).collect(Collectors.toList());
     }
 
+    /**
+     * Gets bug solve types.
+     *
+     * @return the bug solve types
+     */
     public List<TypeDTO> getBugSolveTypes() {
         return bugSolveTypeRepository.findAll().stream().map(TypeDTO::toDTO).collect(Collectors.toList());
     }
 
+    /**
+     * Gets bug status.
+     *
+     * @return the bug status
+     */
     public List<TypeDTO> getBugStatus() {
         return bugStatusRepository.findAll().stream().map(TypeDTO::toDTO).collect(Collectors.toList());
     }

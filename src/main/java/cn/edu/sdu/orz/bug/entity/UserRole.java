@@ -7,6 +7,9 @@ import jakarta.persistence.Table;
 
 import java.io.Serializable;
 
+/**
+ * The type User role.
+ */
 @Entity
 @Table(name = "user_role")
 public class UserRole implements Serializable {
@@ -19,26 +22,54 @@ public class UserRole implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    /**
+     * Instantiates a new User role.
+     */
     public UserRole() {
         super();
     }
 
+    /**
+     * Instantiates a new User role.
+     *
+     * @param id the id
+     */
     public UserRole(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }

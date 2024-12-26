@@ -13,6 +13,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The type Project dto.
+ */
 public class ProjectDTO implements Serializable {
     private String id;
 
@@ -28,46 +31,101 @@ public class ProjectDTO implements Serializable {
 
     private List<ModuleDTO> modules;
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets keyword.
+     *
+     * @return the keyword
+     */
     public String getKeyword() {
         return keyword;
     }
 
+    /**
+     * Sets keyword.
+     *
+     * @param keyword the keyword
+     */
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
 
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets description.
+     *
+     * @param description the description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Gets owner.
+     *
+     * @return the owner
+     */
     public UserDTO getOwner() {
         return owner;
     }
 
+    /**
+     * Sets owner.
+     *
+     * @param owner the owner
+     */
     public void setOwner(User owner) {
         this.owner = UserDTO.toDTO(owner);
     }
 
+    /**
+     * Gets created.
+     *
+     * @return the created
+     */
     public String getCreated() {
         if (created != null) {
             return Utils.dateFormat.format(created);
@@ -75,14 +133,29 @@ public class ProjectDTO implements Serializable {
         return "";
     }
 
+    /**
+     * Sets created.
+     *
+     * @param created the created
+     */
     public void setCreated(Timestamp created) {
         this.created = created;
     }
 
+    /**
+     * Gets modules.
+     *
+     * @return the modules
+     */
     public List<ModuleDTO> getModules() {
         return modules;
     }
 
+    /**
+     * Sets modules.
+     *
+     * @param modules the modules
+     */
     public void setModules(List<Module> modules) {
         this.modules = modules.stream().map(module -> {
             ModuleDTO bean = ModuleDTO.toDTO(module);
@@ -93,6 +166,12 @@ public class ProjectDTO implements Serializable {
         }).collect(Collectors.toList());
     }
 
+    /**
+     * To dto project dto.
+     *
+     * @param original the original
+     * @return the project dto
+     */
     public static ProjectDTO toDTO(Project original) {
         ProjectDTO bean = new ProjectDTO();
         BeanUtils.copyProperties(original, bean);

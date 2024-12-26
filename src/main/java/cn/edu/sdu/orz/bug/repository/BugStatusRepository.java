@@ -6,6 +6,15 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.Optional;
 
+/**
+ * Bug status Repository
+ */
 public interface BugStatusRepository extends JpaRepository<BugStatus, Integer>, JpaSpecificationExecutor<BugStatus> {
+    /**
+     * Find by name optional.
+     *
+     * @param name the name
+     * @return the optional
+     */
     Optional<BugStatus> findByName(String name);
 }
