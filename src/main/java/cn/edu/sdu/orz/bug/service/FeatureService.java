@@ -4,8 +4,8 @@ import cn.edu.sdu.orz.bug.entity.Feature;
 import cn.edu.sdu.orz.bug.entity.User;
 import cn.edu.sdu.orz.bug.repository.FeatureRepository;
 import cn.edu.sdu.orz.bug.utils.Utils;
+import cn.edu.sdu.orz.bug.vo.FeatureCreateVO;
 import cn.edu.sdu.orz.bug.vo.FeatureUpdateVO;
-import cn.edu.sdu.orz.bug.vo.FeatureVO;
 import cn.edu.sdu.orz.bug.vo.TaskAssignVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.BeanUtils;
@@ -36,7 +36,7 @@ public class FeatureService {
      * @param session the session
      * @return the boolean
      */
-    public boolean create(FeatureVO vO, HttpSession session) {
+    public boolean create(FeatureCreateVO vO, HttpSession session) {
         User user = userService.getLoggedInUser(session);
         if (user == null) {
             return false;

@@ -4,7 +4,6 @@ import cn.edu.sdu.orz.bug.entity.*;
 import cn.edu.sdu.orz.bug.utils.Utils;
 import org.springframework.beans.BeanUtils;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * The type Bug dto.
  */
-public class BugDTO implements Serializable {
+public class BugDTO {
     private String id;
 
     private BugFeatureDTO feature;

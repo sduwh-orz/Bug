@@ -2,7 +2,6 @@ package cn.edu.sdu.orz.bug.entity;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -11,7 +10,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "project")
-public class Project implements Serializable {
+public class Project {
 
     @Id
     @Column(name = "id", nullable = false)

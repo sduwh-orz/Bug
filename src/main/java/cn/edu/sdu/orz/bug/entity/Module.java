@@ -2,7 +2,6 @@ package cn.edu.sdu.orz.bug.entity;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +9,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "module")
-public class Module implements Serializable {
+public class Module {
 
     @Id
     @Column(name = "id", nullable = false)

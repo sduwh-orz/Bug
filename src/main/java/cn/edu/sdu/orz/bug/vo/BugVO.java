@@ -1,65 +1,14 @@
 package cn.edu.sdu.orz.bug.vo;
 
-
-import java.io.Serializable;
-
-
 /**
  * The type Bug vo.
  */
-public class BugVO implements Serializable {
-
-    private String id;
-
-    private String feature;
-
+public class BugVO {
     private String name;
-
-    private String description;
 
     private Integer grade;
 
-    private Integer status;
-
-    private Integer solveType;
-
-    private String comment;
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Gets feature.
-     *
-     * @return the feature
-     */
-    public String getFeature() {
-        return feature;
-    }
-
-    /**
-     * Sets feature.
-     *
-     * @param feature the feature
-     */
-    public void setFeature(String feature) {
-        this.feature = feature;
-    }
+    private String feature;
 
     /**
      * Gets name.
@@ -77,24 +26,6 @@ public class BugVO implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Gets description.
-     *
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Sets description.
-     *
-     * @param description the description
-     */
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     /**
@@ -116,56 +47,40 @@ public class BugVO implements Serializable {
     }
 
     /**
-     * Gets status.
+     * Gets feature.
      *
-     * @return the status
+     * @return the feature
      */
-    public Integer getStatus() {
-        return status;
+    public String getFeature() {
+        return feature;
     }
 
     /**
-     * Sets status.
+     * Sets feature.
      *
-     * @param status the status
+     * @param feature the feature
      */
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setFeature(String feature) {
+        this.feature = feature;
     }
 
     /**
-     * Gets solve type.
-     *
-     * @return the solve type
+     * Instantiates a new Bug vo.
      */
-    public Integer getSolveType() {
-        return solveType;
+    public BugVO() {
+        super();
     }
 
     /**
-     * Sets solve type.
+     * Instantiates a new Bug vo.
      *
-     * @param solveType the solve type
+     * @param name    the name
+     * @param grade   the grade
+     * @param feature the feature
      */
-    public void setSolveType(Integer solveType) {
-        this.solveType = solveType;
-    }
-
-    /**
-     * Gets comment.
-     *
-     * @return the comment
-     */
-    public String getComment() {
-        return comment;
-    }
-
-    /**
-     * Sets comment.
-     *
-     * @param comment the comment
-     */
-    public void setComment(String comment) {
-        this.comment = comment;
+    public BugVO(String name, Integer grade, String feature) {
+        setName(name);
+        setGrade(grade);
+        setFeature(feature);
     }
 }

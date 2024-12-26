@@ -5,14 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-import java.io.Serializable;
-
 /**
  * The type Bug status.
  */
 @Entity
 @Table(name = "bug_status")
-public class BugStatus implements Serializable {
+public class BugStatus {
 
     @Id
     @Column(name = "id", nullable = false)

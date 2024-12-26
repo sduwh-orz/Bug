@@ -4,13 +4,12 @@ import cn.edu.sdu.orz.bug.entity.*;
 import cn.edu.sdu.orz.bug.utils.Utils;
 import org.springframework.beans.BeanUtils;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * The type Bug record dto.
  */
-public class BugRecordDTO implements Serializable {
+public class BugRecordDTO {
     private String id;
 
     private BugRecordTypeDTO type;

@@ -1,12 +1,10 @@
 package cn.edu.sdu.orz.bug.vo;
 
 
-import java.io.Serializable;
-
 /**
  * The type User create vo.
  */
-public class UserCreateVO extends UserVO implements Serializable {
+public class UserCreateVO extends UserVO {
 
     private String password;
 

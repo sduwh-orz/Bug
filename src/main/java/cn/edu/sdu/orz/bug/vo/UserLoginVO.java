@@ -1,12 +1,10 @@
 package cn.edu.sdu.orz.bug.vo;
 
 
-import java.io.Serializable;
-
 /**
  * The type User login vo.
  */
-public class UserLoginVO implements Serializable {
+public class UserLoginVO {
 
     private String username;
 

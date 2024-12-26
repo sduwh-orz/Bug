@@ -1,11 +1,9 @@
 package cn.edu.sdu.orz.bug.dto;
 
-import java.io.Serializable;
-
 /**
  * The type Stats dto.
  */
-public class StatsDTO implements Serializable {
+public class StatsDTO {
 
     private String name;
 

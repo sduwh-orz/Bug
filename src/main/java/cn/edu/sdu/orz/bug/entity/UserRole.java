@@ -5,14 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-import java.io.Serializable;
-
 /**
  * The type User role.
  */
 @Entity
 @Table(name = "user_role")
-public class UserRole implements Serializable {
+public class UserRole {
 
 
     @Id

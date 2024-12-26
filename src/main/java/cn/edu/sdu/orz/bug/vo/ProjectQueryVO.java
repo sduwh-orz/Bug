@@ -1,36 +1,13 @@
 package cn.edu.sdu.orz.bug.vo;
 
-
-import java.io.Serializable;
-
 /**
  * The type Project query vo.
  */
-public class ProjectQueryVO implements Serializable {
-
-    private String name;
+public class ProjectQueryVO extends ProjectVO {
 
     private Integer page;
 
     private Integer size;
-
-    /**
-     * Gets name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
 
     /**
      * Gets page.

@@ -2,7 +2,6 @@ package cn.edu.sdu.orz.bug.entity;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -11,7 +10,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "feature")
-public class Feature implements Serializable {
+public class Feature {
 
     @Id
     @Column(name = "id", nullable = false)

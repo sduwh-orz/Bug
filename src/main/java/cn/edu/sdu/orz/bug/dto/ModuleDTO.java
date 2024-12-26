@@ -4,7 +4,6 @@ import cn.edu.sdu.orz.bug.entity.Feature;
 import cn.edu.sdu.orz.bug.entity.Module;
 import org.springframework.beans.BeanUtils;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * The type Module dto.
  */
-public class ModuleDTO implements Serializable {
+public class ModuleDTO {
 
     private String id;
 

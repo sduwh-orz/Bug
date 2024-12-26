@@ -4,13 +4,12 @@ import cn.edu.sdu.orz.bug.entity.User;
 import cn.edu.sdu.orz.bug.entity.UserRole;
 import org.springframework.beans.BeanUtils;
 
-import java.io.Serializable;
 import java.util.Optional;
 
 /**
  * The type User dto.
  */
-public class UserDTO implements Serializable {
+public class UserDTO {
     private String id;
 
     private String username;

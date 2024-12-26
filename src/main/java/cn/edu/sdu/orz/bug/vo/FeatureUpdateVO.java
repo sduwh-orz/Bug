@@ -1,20 +1,13 @@
 package cn.edu.sdu.orz.bug.vo;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-
 /**
  * The type Feature update vo.
  */
-public class FeatureUpdateVO implements Serializable {
+public class FeatureUpdateVO extends FeatureVO {
 
     private String id;
 
-    private String name;
-
     private String owner;
-
-    private BigDecimal hours;
 
     /**
      * Gets id.
@@ -35,24 +28,6 @@ public class FeatureUpdateVO implements Serializable {
     }
 
     /**
-     * Gets name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * Gets owner.
      *
      * @return the owner
@@ -68,23 +43,5 @@ public class FeatureUpdateVO implements Serializable {
      */
     public void setOwner(String owner) {
         this.owner = owner;
-    }
-
-    /**
-     * Gets hours.
-     *
-     * @return the hours
-     */
-    public BigDecimal getHours() {
-        return hours;
-    }
-
-    /**
-     * Sets hours.
-     *
-     * @param hours the hours
-     */
-    public void setHours(BigDecimal hours) {
-        this.hours = hours;
     }
 }

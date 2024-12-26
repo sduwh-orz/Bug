@@ -1,12 +1,11 @@
 package cn.edu.sdu.orz.bug.vo;
 
-import java.io.Serializable;
 import java.util.Map;
 
 /**
  * The type Task assign vo.
  */
-public class TaskAssignVO implements Serializable {
+public class TaskAssignVO {
 
     private String projectId;
 

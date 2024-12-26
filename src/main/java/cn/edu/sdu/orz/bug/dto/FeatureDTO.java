@@ -5,13 +5,12 @@ import cn.edu.sdu.orz.bug.entity.Module;
 import cn.edu.sdu.orz.bug.entity.User;
 import org.springframework.beans.BeanUtils;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * The type Feature dto.
  */
-public class FeatureDTO implements Serializable {
+public class FeatureDTO {
     private String id;
 
     private String name;

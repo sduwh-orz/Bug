@@ -2,8 +2,8 @@ package cn.edu.sdu.orz.bug.controller;
 
 import cn.edu.sdu.orz.bug.dto.Response;
 import cn.edu.sdu.orz.bug.service.FeatureService;
+import cn.edu.sdu.orz.bug.vo.FeatureCreateVO;
 import cn.edu.sdu.orz.bug.vo.FeatureUpdateVO;
-import cn.edu.sdu.orz.bug.vo.FeatureVO;
 import cn.edu.sdu.orz.bug.vo.TaskAssignVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class FeatureController {
      * @return the response
      */
     @PostMapping("/create")
-    public Response create(@RequestBody FeatureVO vO,
+    public Response create(@RequestBody FeatureCreateVO vO,
                            HttpSession session) {
         return new Response(featureService.create(vO, session));
     }

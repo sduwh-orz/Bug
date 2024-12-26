@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BugApplication {
     /**
      * Entry point of application.
+     *
      * @param args Arguments passed to application.
      */
     public static void main(String[] args) {

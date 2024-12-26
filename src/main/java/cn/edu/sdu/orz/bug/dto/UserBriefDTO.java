@@ -4,12 +4,10 @@ package cn.edu.sdu.orz.bug.dto;
 import cn.edu.sdu.orz.bug.entity.User;
 import org.springframework.beans.BeanUtils;
 
-import java.io.Serializable;
-
 /**
  * The type User brief dto.
  */
-public class UserBriefDTO implements Serializable {
+public class UserBriefDTO {
     private String id;
 
     private String realName;

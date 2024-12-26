@@ -5,12 +5,10 @@ import cn.edu.sdu.orz.bug.entity.Module;
 import cn.edu.sdu.orz.bug.entity.Project;
 import org.springframework.beans.BeanUtils;
 
-import java.io.Serializable;
-
 /**
  * The type Bug module dto.
  */
-public class BugModuleDTO implements Serializable {
+public class BugModuleDTO {
     private String id;
 
     private String name;

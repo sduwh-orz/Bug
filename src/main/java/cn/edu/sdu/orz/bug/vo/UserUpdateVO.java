@@ -1,12 +1,10 @@
 package cn.edu.sdu.orz.bug.vo;
 
 
-import java.io.Serializable;
-
 /**
  * The type User update vo.
  */
-public class UserUpdateVO extends UserVO implements Serializable {
+public class UserUpdateVO extends UserVO {
 
     private String id;
 

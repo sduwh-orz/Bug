@@ -7,7 +7,6 @@ import cn.edu.sdu.orz.bug.entity.User;
 import cn.edu.sdu.orz.bug.utils.Utils;
 import org.springframework.beans.BeanUtils;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * The type Project dto.
  */
-public class ProjectDTO implements Serializable {
+public class ProjectDTO {
     private String id;
 
     private String name;

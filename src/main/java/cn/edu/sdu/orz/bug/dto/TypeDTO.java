@@ -3,12 +3,10 @@ package cn.edu.sdu.orz.bug.dto;
 
 import org.springframework.beans.BeanUtils;
 
-import java.io.Serializable;
-
 /**
  * The type Type dto.
  */
-public class TypeDTO implements Serializable {
+public class TypeDTO {
     private Integer id;
 
     private String name;

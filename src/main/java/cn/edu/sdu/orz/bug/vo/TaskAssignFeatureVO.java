@@ -1,11 +1,9 @@
 package cn.edu.sdu.orz.bug.vo;
 
-import java.io.Serializable;
-
 /**
  * The type Task assign feature vo.
  */
-public class TaskAssignFeatureVO implements Serializable {
+public class TaskAssignFeatureVO {
 
     private String id;
 

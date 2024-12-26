@@ -3,11 +3,9 @@ package cn.edu.sdu.orz.bug.vo;
 /**
  * The type Module update vo.
  */
-public class ModuleUpdateVO {
+public class ModuleUpdateVO extends ModuleVO {
 
     private String id;
-
-    private String name;
 
     /**
      * Gets id.
@@ -27,21 +25,4 @@ public class ModuleUpdateVO {
         this.id = projectId;
     }
 
-    /**
-     * Gets name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
 }

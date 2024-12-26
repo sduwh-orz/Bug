@@ -1,22 +1,14 @@
 package cn.edu.sdu.orz.bug.vo;
 
 
-import java.io.Serializable;
-
 /**
  * The type Bug query vo.
  */
-public class BugQueryVO implements Serializable {
+public class BugQueryVO extends BugVO {
 
     private String id;
 
-    private String name;
-
-    private Integer grade;
-
     private String module;
-
-    private String feature;
 
     private String developer;
 
@@ -29,6 +21,37 @@ public class BugQueryVO implements Serializable {
     private Integer page;
 
     private Integer size;
+
+    /**
+     * Instantiates a new Bug query vo.
+     */
+    public BugQueryVO() {
+        super();
+    }
+
+    /**
+     * Instantiates a new Bug query vo.
+     *
+     * @param id        the id
+     * @param module    the module
+     * @param developer the developer
+     * @param reporter  the reporter
+     * @param status    the status
+     * @param solveType the solve type
+     * @param page      the page
+     * @param size      the size
+     */
+    public BugQueryVO(String id, String module, String developer, String reporter, Integer status, Integer solveType,
+                      Integer page, Integer size) {
+        setId(id);
+        setModule(module);
+        setDeveloper(developer);
+        setReporter(reporter);
+        setStatus(status);
+        setSolveType(solveType);
+        setPage(page);
+        setSize(size);
+    }
 
     /**
      * Gets id.
@@ -49,42 +72,6 @@ public class BugQueryVO implements Serializable {
     }
 
     /**
-     * Gets name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Gets grade.
-     *
-     * @return the grade
-     */
-    public Integer getGrade() {
-        return grade;
-    }
-
-    /**
-     * Sets grade.
-     *
-     * @param grade the grade
-     */
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
-
-    /**
      * Gets module.
      *
      * @return the module
@@ -100,24 +87,6 @@ public class BugQueryVO implements Serializable {
      */
     public void setModule(String module) {
         this.module = module;
-    }
-
-    /**
-     * Gets feature.
-     *
-     * @return the feature
-     */
-    public String getFeature() {
-        return feature;
-    }
-
-    /**
-     * Sets feature.
-     *
-     * @param feature the feature
-     */
-    public void setFeature(String feature) {
-        this.feature = feature;
     }
 
     /**

@@ -3,11 +3,16 @@ package cn.edu.sdu.orz.bug.vo;
 /**
  * The type Module create vo.
  */
-public class ModuleCreateVO {
+public class ModuleCreateVO extends ModuleVO {
 
     private String projectId;
 
-    private String name;
+    /**
+     * Instantiates a new Module create vo.
+     */
+    public ModuleCreateVO() {
+        super();
+    }
 
     /**
      * Instantiates a new Module create vo.
@@ -16,8 +21,8 @@ public class ModuleCreateVO {
      * @param name      the name
      */
     public ModuleCreateVO(String projectId, String name) {
-        this.projectId = projectId;
-        this.name = name;
+        setProjectId(projectId);
+        setName(name);
     }
 
     /**
@@ -36,23 +41,5 @@ public class ModuleCreateVO {
      */
     public void setProjectId(String projectId) {
         this.projectId = projectId;
-    }
-
-    /**
-     * Gets name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 }
