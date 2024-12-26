@@ -10,10 +10,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+/**
+ * BugApplication test.
+ */
 @SpringBootTest
 public class BugApplicationTest {
     @Mock
     private ModuleRepository moduleRepository;
+
+    /**
+     * Test entities.
+     */
     @Test
     void testEntities() {
         Module module = new Module(
