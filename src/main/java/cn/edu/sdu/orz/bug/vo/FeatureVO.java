@@ -64,12 +64,4 @@ public class FeatureVO {
         setName(name);
         setHours(hours);
     }
-
-    @Override
-    public String toString() {
-        return "FeatureVO{" +
-                "name='" + getName() + '\'' +
-                ", hours=" + getHours() +
-                '}';
-    }
 }
