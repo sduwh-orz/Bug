@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ModuleDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -24,7 +25,7 @@ public class ModuleDTO implements Serializable {
     }
 
     public void setFeatures(List<Feature> features) {
-        this.features = features.stream().map(FeatureDTO::toDTO).toList();
+        this.features = features.stream().map(FeatureDTO::toDTO).collect(Collectors.toList());
     }
 
     public BigDecimal getFeatureHoursSum() {

@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BugDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -137,7 +138,7 @@ public class BugDTO implements Serializable {
     }
 
     public void setRecords(List<BugRecord> records) {
-        this.records = records.stream().map(BugRecordDTO::toDTO).toList();
+        this.records = records.stream().map(BugRecordDTO::toDTO).collect(Collectors.toList());
     }
 
     public static BugDTO toDTO(Bug original) {

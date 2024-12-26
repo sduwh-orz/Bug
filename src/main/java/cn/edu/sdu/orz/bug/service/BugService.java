@@ -304,19 +304,19 @@ public class BugService {
     }
 
     public List<TypeDTO> getBugGrades() {
-        return bugGradeRepository.findAll().stream().map(TypeDTO::toDTO).toList();
+        return bugGradeRepository.findAll().stream().map(TypeDTO::toDTO).collect(Collectors.toList());
     }
 
     public List<TypeDTO> getBugRecordTypes() {
-        return bugRecordTypeRepository.findAll().stream().map(TypeDTO::toDTO).toList();
+        return bugRecordTypeRepository.findAll().stream().map(TypeDTO::toDTO).collect(Collectors.toList());
     }
 
     public List<TypeDTO> getBugSolveTypes() {
-        return bugSolveTypeRepository.findAll().stream().map(TypeDTO::toDTO).toList();
+        return bugSolveTypeRepository.findAll().stream().map(TypeDTO::toDTO).collect(Collectors.toList());
     }
 
     public List<TypeDTO> getBugStatus() {
-        return bugStatusRepository.findAll().stream().map(TypeDTO::toDTO).toList();
+        return bugStatusRepository.findAll().stream().map(TypeDTO::toDTO).collect(Collectors.toList());
     }
 
     private Bug requireOne(String id) {

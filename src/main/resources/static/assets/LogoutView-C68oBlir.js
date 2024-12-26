@@ -1,0 +1,1 @@
+import{d as e,u as t,_ as n}from"./index-lKMbzYlX.js";const r=e({name:"LogoutView",mounted(){t.logout().then(()=>{localStorage.removeItem("loggedIn"),this.$store.commit("clearUser"),this.$router.push("/login")}).catch(o=>{console.log(o)})}});function s(o,c,a,u,i,l){return null}const p=n(r,[["render",s]]);export{p as default};

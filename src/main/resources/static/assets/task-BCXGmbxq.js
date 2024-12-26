@@ -1,0 +1,1 @@
+import{$ as s}from"./index-lKMbzYlX.js";const n={search:async function(a,t,o){return(await s.post("/project/task_search",{name:a,page:t,size:o})).data},modify:async function(a,t){return(await s.post("/feature/assign",{projectId:a,modules:t})).data}};export{n as t};

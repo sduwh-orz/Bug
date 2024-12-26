@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -50,7 +51,7 @@ public class Utils {
         Page<E> data = query.apply(pageable);
 
         Map<String, Object> result = new HashMap<>();
-        result.put("data", data.getContent().stream().map(toDTO).toList());
+        result.put("data", data.getContent().stream().map(toDTO).collect(Collectors.toList()));
         result.put("total", data.getTotalElements());
         result.put("start", min((long) page * pageSize + 1, data.getTotalElements()));
         result.put("end", min((long) (page + 1) * pageSize, data.getTotalElements()));

@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProjectDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -90,7 +91,7 @@ public class ProjectDTO implements Serializable {
                     .map(Feature::getHours).reduce(BigDecimal.ZERO, BigDecimal::add)
             );
             return bean;
-        }).toList();
+        }).collect(Collectors.toList());
     }
 
     public static ProjectDTO toDTO(Project original) {

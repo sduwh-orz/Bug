@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="AntMavenPackage" basedir="." default="maven-package">
+<project name="AntMavenPackage" basedir="." default="compile">
 
     <!-- Default target that calls the Maven package goal -->
-    <target name="maven-package">
+    <target name="compile">
         <exec executable="mvn">
             <arg value="package" />
         </exec>

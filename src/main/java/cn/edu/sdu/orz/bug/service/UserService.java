@@ -26,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.exact;
@@ -71,7 +72,7 @@ public class UserService {
     }
 
     public List<UserBriefDTO> all() {
-        return userRepository.findAllyByDeletedFalse().stream().map(UserBriefDTO::toDTO).toList();
+        return userRepository.findAllyByDeletedFalse().stream().map(UserBriefDTO::toDTO).collect(Collectors.toList());
     }
 
     public Pair<Boolean, String> create(UserCreateVO vO, HttpSession session) {
@@ -212,7 +213,7 @@ public class UserService {
     }
 
     public List<TypeDTO> getUserRoles() {
-        return userRoleRepository.findAll().stream().map(TypeDTO::toDTO).toList();
+        return userRoleRepository.findAll().stream().map(TypeDTO::toDTO).collect(Collectors.toList());
     }
 
     private String newID() {
