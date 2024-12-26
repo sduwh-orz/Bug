@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 /**
  * The type Module dto.
  */
+@SuppressWarnings("unused")
 public class ModuleDTO {
 
     private String id;

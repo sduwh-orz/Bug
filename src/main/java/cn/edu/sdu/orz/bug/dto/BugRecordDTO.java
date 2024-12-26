@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 /**
  * The type Bug record dto.
  */
+@SuppressWarnings("unused")
 public class BugRecordDTO {
     private String id;
 

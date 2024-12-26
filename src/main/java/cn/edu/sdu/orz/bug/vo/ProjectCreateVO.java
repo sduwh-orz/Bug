@@ -3,6 +3,7 @@ package cn.edu.sdu.orz.bug.vo;
 /**
  * The type Project create vo.
  */
+@SuppressWarnings("unused")
 public class ProjectCreateVO extends ProjectVO {
     private String keyword;
 

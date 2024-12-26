@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Bug Repository
  */
+@SuppressWarnings("unused")
 public interface BugRepository extends JpaRepository<Bug, String>, JpaSpecificationExecutor<Bug> {
     /**
      * Find Bugs by Project's ID.

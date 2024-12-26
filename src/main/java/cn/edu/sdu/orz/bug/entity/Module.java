@@ -9,6 +9,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "module")
+@SuppressWarnings("unused")
 public class Module {
 
     @Id

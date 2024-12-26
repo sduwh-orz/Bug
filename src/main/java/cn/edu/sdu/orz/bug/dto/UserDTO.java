@@ -9,6 +9,7 @@ import java.util.Optional;
 /**
  * The type User dto.
  */
+@SuppressWarnings("unused")
 public class UserDTO {
     private String id;
 

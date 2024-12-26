@@ -4,6 +4,7 @@ package cn.edu.sdu.orz.bug.vo;
 /**
  * The type User query vo.
  */
+@SuppressWarnings("unused")
 public class UserQueryVO extends UserVO {
 
     private Integer page;

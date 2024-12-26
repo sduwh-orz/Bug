@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 /**
  * Bug record Repository
  */
+@SuppressWarnings("unused")
 public interface BugRecordRepository extends JpaRepository<BugRecord, String>, JpaSpecificationExecutor<BugRecord> {
 
 }

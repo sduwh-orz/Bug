@@ -3,6 +3,7 @@ package cn.edu.sdu.orz.bug.vo;
 /**
  * The type Feature vo.
  */
+@SuppressWarnings("unused")
 public class FeatureCreateVO extends FeatureVO {
 
     private String module;

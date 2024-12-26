@@ -4,6 +4,7 @@ package cn.edu.sdu.orz.bug.vo;
 /**
  * The type User update vo.
  */
+@SuppressWarnings("unused")
 public class UserUpdateVO extends UserVO {
 
     private String id;

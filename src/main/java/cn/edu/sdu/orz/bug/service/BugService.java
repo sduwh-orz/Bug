@@ -31,6 +31,7 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
  * Bug Service
  */
 @Service
+@SuppressWarnings("unused")
 public class BugService {
 
     @Autowired

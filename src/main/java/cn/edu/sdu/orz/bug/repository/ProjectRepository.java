@@ -13,6 +13,7 @@ import org.springframework.data.repository.query.Param;
 /**
  * Project Repository
  */
+@SuppressWarnings("unused")
 public interface ProjectRepository extends JpaRepository<Project, String>, JpaSpecificationExecutor<Project> {
     /**
      * Count project by owner's ID.

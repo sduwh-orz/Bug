@@ -3,6 +3,7 @@ package cn.edu.sdu.orz.bug.vo;
 /**
  * The type Bug vo.
  */
+@SuppressWarnings("unused")
 public class BugVO {
     private String name;
 
@@ -62,25 +63,5 @@ public class BugVO {
      */
     public void setFeature(String feature) {
         this.feature = feature;
-    }
-
-    /**
-     * Instantiates a new Bug vo.
-     */
-    public BugVO() {
-        super();
-    }
-
-    /**
-     * Instantiates a new Bug vo.
-     *
-     * @param name    the name
-     * @param grade   the grade
-     * @param feature the feature
-     */
-    public BugVO(String name, Integer grade, String feature) {
-        setName(name);
-        setGrade(grade);
-        setFeature(feature);
     }
 }

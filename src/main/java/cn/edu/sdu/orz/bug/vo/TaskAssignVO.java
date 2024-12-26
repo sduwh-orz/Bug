@@ -5,6 +5,7 @@ import java.util.Map;
 /**
  * The type Task assign vo.
  */
+@SuppressWarnings("unused")
 public class TaskAssignVO {
 
     private String projectId;

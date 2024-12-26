@@ -3,6 +3,7 @@ package cn.edu.sdu.orz.bug.vo;
 /**
  * The type Project query vo.
  */
+@SuppressWarnings("unused")
 public class ProjectQueryVO extends ProjectVO {
 
     private Integer page;

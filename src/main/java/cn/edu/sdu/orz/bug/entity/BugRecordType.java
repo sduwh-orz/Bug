@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "bug_record_type")
+@SuppressWarnings("unused")
 public class BugRecordType {
 
     @Id

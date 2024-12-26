@@ -3,6 +3,7 @@ package cn.edu.sdu.orz.bug.dto;
 /**
  * The type Project in task list dto.
  */
+@SuppressWarnings("unused")
 public class ProjectInTaskListDTO {
     private String id;
 

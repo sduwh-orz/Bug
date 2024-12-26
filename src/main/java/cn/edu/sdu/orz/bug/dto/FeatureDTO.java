@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 /**
  * The type Feature dto.
  */
+@SuppressWarnings("unused")
 public class FeatureDTO {
     private String id;
 

@@ -9,6 +9,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "bug_record")
+@SuppressWarnings("unused")
 public class BugRecord {
 
     @Id

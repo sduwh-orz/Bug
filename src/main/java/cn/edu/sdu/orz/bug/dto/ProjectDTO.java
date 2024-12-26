@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 /**
  * The type Project dto.
  */
+@SuppressWarnings("unused")
 public class ProjectDTO {
     private String id;
 

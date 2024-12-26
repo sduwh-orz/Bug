@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "bug_status")
+@SuppressWarnings("unused")
 public class BugStatus {
 
     @Id

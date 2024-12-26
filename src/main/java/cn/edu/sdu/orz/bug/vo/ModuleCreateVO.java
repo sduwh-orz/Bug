@@ -3,6 +3,7 @@ package cn.edu.sdu.orz.bug.vo;
 /**
  * The type Module create vo.
  */
+@SuppressWarnings("unused")
 public class ModuleCreateVO extends ModuleVO {
 
     private String projectId;

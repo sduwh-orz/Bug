@@ -3,6 +3,7 @@ package cn.edu.sdu.orz.bug.dto;
 /**
  * The type Stats dto.
  */
+@SuppressWarnings("unused")
 public class StatsDTO {
 
     private String name;

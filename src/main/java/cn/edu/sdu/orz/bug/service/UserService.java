@@ -35,6 +35,7 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
  * User Service
  */
 @Service
+@SuppressWarnings("unused")
 public class UserService {
 
     @Autowired

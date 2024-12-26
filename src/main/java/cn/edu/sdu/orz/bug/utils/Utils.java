@@ -19,6 +19,7 @@ import static java.lang.Math.min;
 /**
  * The Utils methods.
  */
+@SuppressWarnings("unused")
 public class Utils {
     /**
      * The standard dateFormat.

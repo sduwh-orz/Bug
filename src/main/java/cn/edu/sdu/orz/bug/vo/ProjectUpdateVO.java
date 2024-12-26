@@ -3,6 +3,7 @@ package cn.edu.sdu.orz.bug.vo;
 /**
  * The type Project update vo.
  */
+@SuppressWarnings("unused")
 public class ProjectUpdateVO extends ProjectCreateVO {
 
     private String id;

@@ -4,6 +4,7 @@ package cn.edu.sdu.orz.bug.vo;
 /**
  * The type User create vo.
  */
+@SuppressWarnings("unused")
 public class UserCreateVO extends UserVO {
 
     private String password;

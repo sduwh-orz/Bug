@@ -1,12 +1,12 @@
 package cn.edu.sdu.orz.bug.dto;
 
-
 import cn.edu.sdu.orz.bug.entity.User;
 import org.springframework.beans.BeanUtils;
 
 /**
  * The type User brief dto.
  */
+@SuppressWarnings("unused")
 public class UserBriefDTO {
     private String id;
 

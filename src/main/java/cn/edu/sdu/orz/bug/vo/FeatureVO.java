@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 /**
  * The type Feature vo.
  */
+@SuppressWarnings("unused")
 public class FeatureVO {
     private String name;
 

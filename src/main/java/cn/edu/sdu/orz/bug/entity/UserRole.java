@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "user_role")
+@SuppressWarnings("unused")
 public class UserRole {
 
 

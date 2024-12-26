@@ -1,9 +1,9 @@
 package cn.edu.sdu.orz.bug.vo;
 
-
 /**
  * The type Bug create vo.
  */
+@SuppressWarnings("unused")
 public class BugCreateVO extends BugVO {
     private String description;
 
@@ -23,28 +23,5 @@ public class BugCreateVO extends BugVO {
      */
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    /**
-     * Instantiates a new Bug create vo.
-     */
-    public BugCreateVO() {
-        super();
-    }
-
-    /**
-     * Instantiates a new Bug create vo.
-     *
-     * @param description the description
-     */
-    public BugCreateVO(String description) {
-        setDescription(description);
-    }
-
-    @Override
-    public String toString() {
-        return "BugCreateVO{" +
-                "description='" + getDescription() + '\'' +
-                '}';
     }
 }

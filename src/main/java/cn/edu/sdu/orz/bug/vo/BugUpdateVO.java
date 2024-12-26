@@ -1,11 +1,10 @@
 package cn.edu.sdu.orz.bug.vo;
 
-
 /**
  * The type Bug vo.
  */
+@SuppressWarnings("unused")
 public class BugUpdateVO extends BugVO {
-
     private String id;
 
     private String description;
@@ -104,40 +103,5 @@ public class BugUpdateVO extends BugVO {
      */
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    /**
-     * Instantiates a new Bug update vo.
-     */
-    public BugUpdateVO() {
-        super();
-    }
-
-    /**
-     * Instantiates a new Bug update vo.
-     *
-     * @param id          the id
-     * @param description the description
-     * @param status      the status
-     * @param solveType   the solve type
-     * @param comment     the comment
-     */
-    public BugUpdateVO(String id, String description, Integer status, Integer solveType, String comment) {
-        setId(id);
-        setDescription(description);
-        setStatus(status);
-        setSolveType(solveType);
-        setComment(comment);
-    }
-
-    @Override
-    public String toString() {
-        return "BugUpdateVO{" +
-                "id='" + getId() + '\'' +
-                ", description='" + getDescription() + '\'' +
-                ", status=" + getStatus() +
-                ", solveType=" + getSolveType() +
-                ", comment='" + getComment() + '\'' +
-                '}';
     }
 }

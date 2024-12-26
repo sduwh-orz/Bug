@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 /**
  * The type Bug module dto.
  */
+@SuppressWarnings("unused")
 public class BugModuleDTO {
     private String id;
 

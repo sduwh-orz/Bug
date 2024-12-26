@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 /**
  * The type Bug record type dto.
  */
+@SuppressWarnings("unused")
 public class BugRecordTypeDTO {
     private String id;
 

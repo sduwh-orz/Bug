@@ -10,6 +10,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "bug")
+@SuppressWarnings("unused")
 public class Bug {
 
     @Id

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 /**
  * Module Repository
  */
+@SuppressWarnings("unused")
 public interface ModuleRepository extends JpaRepository<Module, String>, JpaSpecificationExecutor<Module> {
 
 }

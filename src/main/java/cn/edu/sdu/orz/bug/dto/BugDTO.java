@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 /**
  * The type Bug dto.
  */
+@SuppressWarnings("unused")
 public class BugDTO {
     private String id;
 

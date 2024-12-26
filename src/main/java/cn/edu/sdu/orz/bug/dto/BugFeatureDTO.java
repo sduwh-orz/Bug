@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 /**
  * The type Bug feature dto.
  */
+@SuppressWarnings("unused")
 public class BugFeatureDTO {
 
     private String id;

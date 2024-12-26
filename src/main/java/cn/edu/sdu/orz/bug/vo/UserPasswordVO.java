@@ -4,6 +4,7 @@ package cn.edu.sdu.orz.bug.vo;
 /**
  * The type User password vo.
  */
+@SuppressWarnings("unused")
 public class UserPasswordVO {
 
     private String previous;

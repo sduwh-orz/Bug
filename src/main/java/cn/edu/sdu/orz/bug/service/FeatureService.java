@@ -18,6 +18,7 @@ import java.util.NoSuchElementException;
  * Feature Service
  */
 @Service
+@SuppressWarnings("unused")
 public class FeatureService {
 
     @Autowired

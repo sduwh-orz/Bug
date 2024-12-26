@@ -5,6 +5,7 @@ import org.springframework.data.util.Pair;
 /**
  * The type Response.
  */
+@SuppressWarnings("unused")
 public class Response {
     /**
      * The Success.

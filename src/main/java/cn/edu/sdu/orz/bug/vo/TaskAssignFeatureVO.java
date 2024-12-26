@@ -3,6 +3,7 @@ package cn.edu.sdu.orz.bug.vo;
 /**
  * The type Task assign feature vo.
  */
+@SuppressWarnings("unused")
 public class TaskAssignFeatureVO {
 
     private String id;

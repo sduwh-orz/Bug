@@ -3,6 +3,7 @@ package cn.edu.sdu.orz.bug.dto;
 /**
  * The type Project in bug list dto.
  */
+@SuppressWarnings("unused")
 public class ProjectInBugListDTO {
     private String id;
 

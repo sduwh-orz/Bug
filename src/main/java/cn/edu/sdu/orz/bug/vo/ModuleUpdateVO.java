@@ -3,6 +3,7 @@ package cn.edu.sdu.orz.bug.vo;
 /**
  * The type Module update vo.
  */
+@SuppressWarnings("unused")
 public class ModuleUpdateVO extends ModuleVO {
 
     private String id;

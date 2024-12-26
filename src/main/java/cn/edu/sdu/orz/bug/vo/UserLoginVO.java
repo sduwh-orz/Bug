@@ -4,6 +4,7 @@ package cn.edu.sdu.orz.bug.vo;
 /**
  * The type User login vo.
  */
+@SuppressWarnings("unused")
 public class UserLoginVO {
 
     private String username;
