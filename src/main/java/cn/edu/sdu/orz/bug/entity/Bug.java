@@ -10,7 +10,6 @@ import java.util.List;
 @Table(name = "bug")
 public class Bug implements Serializable {
 
-
     @Id
     @Column(name = "id", nullable = false)
     private String id;
@@ -139,19 +138,40 @@ public class Bug implements Serializable {
         this.records = records;
     }
 
+    public Bug(String id, String name, String description, BugGrade grade, User reporter,
+               BugStatus status, BugSolveType solveType, Timestamp created, Timestamp modified,
+               Feature feature, List<BugRecord> records) {
+        setId(id);
+        setName(name);
+        setGrade(grade);
+        setReporter(reporter);
+        setStatus(status);
+        setSolveType(solveType);
+        setCreated(created);
+        setModified(modified);
+        setFeature(feature);
+        setDescription(description);
+        setRecords(records);
+    }
+
+    public Bug() {
+        super();
+    }
+
     @Override
     public String toString() {
         return "Bug{" +
-                "id=" + id + '\'' +
-                "feature=" + (feature != null ? feature.getId() : null) + '\'' +
-                "name=" + name + '\'' +
-                "description=" + description + '\'' +
-                "grade=" + grade + '\'' +
-                "reporter=" + reporter + '\'' +
-                "status=" + status + '\'' +
-                "solveType=" + solveType + '\'' +
-                "created=" + created + '\'' +
-                "modified=" + modified + '\'' +
+                "id='" + getId() + '\'' +
+                ", name='" + getName() + '\'' +
+                ", description='" + getDescription() + '\'' +
+                ", grade=" + getGrade().getName() +
+                ", reporter=" + getReporter().getRealName() +
+                ", status=" + getStatus().getName() +
+                ", solveType=" + getSolveType().getName() +
+                ", created=" + getCreated() +
+                ", modified=" + getModified() +
+                ", feature=" + getFeature().getName() +
+                ", records=" + getRecords() +
                 '}';
     }
 }

@@ -10,7 +10,6 @@ import java.util.List;
 @Table(name = "project")
 public class Project implements Serializable {
 
-
     @Id
     @Column(name = "id", nullable = false)
     private String id;
@@ -34,6 +33,21 @@ public class Project implements Serializable {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OrderBy("name")
     private List<Module> modules;
+
+    public Project() {
+        super();
+    }
+
+    public Project(String id, String name, String keyword, String description, User owner, Timestamp created,
+                   List<Module> modules) {
+        setId(id);
+        setName(name);
+        setKeyword(keyword);
+        setDescription(description);
+        setOwner(owner);
+        setCreated(created);
+        setModules(modules);
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -98,12 +112,13 @@ public class Project implements Serializable {
     @Override
     public String toString() {
         return "Project{" +
-                "id=" + id + '\'' +
-                "name=" + name + '\'' +
-                "keyword=" + keyword + '\'' +
-                "description=" + description + '\'' +
-                "owner=" + owner + '\'' +
-                "created=" + created + '\'' +
+                "id=" + getId() + '\'' +
+                "name=" + getName() + '\'' +
+                "keyword=" + getKeyword() + '\'' +
+                "description=" + getDescription() + '\'' +
+                "owner=" + getOwner() + '\'' +
+                "created=" + getCreated() + '\'' +
+                "modules=" + getModules() + '\'' +
                 '}';
     }
 }

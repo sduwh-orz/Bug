@@ -10,7 +10,6 @@ import java.util.List;
 @Table(name = "feature")
 public class Feature implements Serializable {
 
-
     @Id
     @Column(name = "id", nullable = false)
     private String id;
@@ -32,6 +31,19 @@ public class Feature implements Serializable {
     @OneToMany(mappedBy = "feature", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @OrderBy("name")
     private List<Bug> bugs;
+
+    public Feature() {
+        super();
+    }
+
+    public Feature(String id, String name, BigDecimal hours, Module module, User owner, List<Bug> bugs) {
+        setId(id);
+        setName(name);
+        setHours(hours);
+        setModule(module);
+        setOwner(owner);
+        setBugs(bugs);
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -88,11 +100,12 @@ public class Feature implements Serializable {
     @Override
     public String toString() {
         return "Feature{" +
-                "id=" + id + '\'' +
-                "name=" + name + '\'' +
+                "id=" + getId() + '\'' +
+                "name=" + getName() + '\'' +
                 "module=" + (module != null ? module.getId() : null) + '\'' +
-                "hours=" + hours + '\'' +
+                "hours=" + getHours() + '\'' +
                 "owner=" + (owner != null ? owner.getId() : null) + '\'' +
+                "bugs=" + getBugs() +
                 '}';
     }
 }

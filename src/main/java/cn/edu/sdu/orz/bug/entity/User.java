@@ -9,7 +9,6 @@ import java.util.List;
 @Table(name = "user")
 public class User implements Serializable {
 
-
     @Id
     @Column(name = "id", nullable = false)
     private String id;
@@ -35,6 +34,22 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Feature> features;
+
+    public User() {
+        super();
+    }
+
+    public User(String id, String username, String password, String realName, UserRole role, String email,
+                Integer deleted, List<Feature> features) {
+        setId(id);
+        setUsername(username);
+        setPassword(password);
+        setRealName(realName);
+        setRole(role);
+        setEmail(email);
+        setDeleted(deleted);
+        setFeatures(features);
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -96,16 +111,24 @@ public class User implements Serializable {
         return deleted;
     }
 
+    public List<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(List<Feature> features) {
+        this.features = features;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id + '\'' +
-                "username=" + username + '\'' +
-                "password=" + password + '\'' +
-                "realName=" + realName + '\'' +
-                "role=" + role + '\'' +
-                "email=" + email + '\'' +
-                "deleted=" + deleted + '\'' +
+                "id='" + getId() + '\'' +
+                ", username='" + getUsername() + '\'' +
+                ", realName='" + getRealName() + '\'' +
+                ", role=" + getRole().getName() +
+                ", email='" + getEmail() + '\'' +
+                ", deleted=" + getDeleted() +
+                ", features=" + getFeatures() +
                 '}';
     }
 }

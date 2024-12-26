@@ -8,20 +8,13 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "bug_record_type")
 public class BugRecordType {
+
     @Id
     @Column(name = "id", nullable = false)
     private String id;
 
     @Column(name = "name", nullable = false)
     private String name;
-
-    public BugRecordType() {
-
-    }
-
-    public BugRecordType(String id) {
-        this.id = id;
-    }
 
     public void setId(String id) {
         this.id = id;

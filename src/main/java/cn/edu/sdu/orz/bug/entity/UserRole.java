@@ -20,7 +20,7 @@ public class UserRole implements Serializable {
     private String name;
 
     public UserRole() {
-
+        super();
     }
 
     public UserRole(Integer id) {

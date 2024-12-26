@@ -11,21 +11,12 @@ import java.io.Serializable;
 @Table(name = "bug_solve_type")
 public class BugSolveType implements Serializable {
 
-
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
 
     @Column(name = "name", nullable = false)
     private String name;
-
-    public BugSolveType() {
-
-    }
-
-    public BugSolveType(Integer id) {
-        this.id = id;
-    }
 
     public void setId(Integer id) {
         this.id = id;

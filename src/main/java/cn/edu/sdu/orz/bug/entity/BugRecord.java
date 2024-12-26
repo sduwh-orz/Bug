@@ -9,7 +9,6 @@ import java.sql.Timestamp;
 @Table(name = "bug_record")
 public class BugRecord implements Serializable {
 
-
     @Id
     @Column(name = "id", nullable = false)
     private String id;
@@ -45,19 +44,20 @@ public class BugRecord implements Serializable {
     private Timestamp time;
 
     public BugRecord() {
+        super();
     }
 
     public BugRecord(String id, Bug bug, BugRecordType type, BugStatus previous, BugStatus after, BugSolveType solveType,
                      String comment, User user, Timestamp time) {
-        this.bug = bug;
-        this.type = type;
-        this.previous = previous;
-        this.after = after;
-        this.solveType = solveType;
-        this.comment = comment;
-        this.user = user;
-        this.time = time;
-        this.id = id;
+        setId(id);
+        setBug(bug);
+        setType(type);
+        setPrevious(previous);
+        setAfter(after);
+        setSolveType(solveType);
+        setComment(comment);
+        setUser(user);
+        setTime(time);
     }
 
     public void setId(String id) {
@@ -135,15 +135,15 @@ public class BugRecord implements Serializable {
     @Override
     public String toString() {
         return "BugRecord{" +
-                "id=" + id + '\'' +
-                "bug=" + bug + '\'' +
-                "type=" + type + '\'' +
-                "previous=" + previous + '\'' +
-                "after=" + after + '\'' +
-                "solveType=" + solveType + '\'' +
-                "comment=" + comment + '\'' +
-                "user=" + user + '\'' +
-                "time=" + time + '\'' +
+                "id=" + getId() + '\'' +
+                "bug=" + getBug().getId() + '\'' +
+                "type=" + getType().getName() + '\'' +
+                "previous=" + getPrevious().getName() + '\'' +
+                "after=" + getAfter().getName() + '\'' +
+                "solveType=" + getSolveType().getName() + '\'' +
+                "comment=" + getComment() + '\'' +
+                "user=" + getUser().getRealName() + '\'' +
+                "time=" + getTime() + '\'' +
                 '}';
     }
 }

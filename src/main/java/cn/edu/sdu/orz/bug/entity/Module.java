@@ -9,7 +9,6 @@ import java.util.List;
 @Table(name = "module")
 public class Module implements Serializable {
 
-
     @Id
     @Column(name = "id", nullable = false)
     private String id;
@@ -24,6 +23,17 @@ public class Module implements Serializable {
     @OneToMany(mappedBy = "module", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @OrderBy("name")
     private List<Feature> features;
+
+    public Module() {
+        super();
+    }
+
+    public Module(String id, String name, Project project, List<Feature> features) {
+        setId(id);
+        setName(name);
+        setProject(project);
+        setFeatures(features);
+    }
 
     public void setId(String id) {
         this.id = id;
