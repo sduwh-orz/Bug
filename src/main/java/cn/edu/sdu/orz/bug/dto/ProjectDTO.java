@@ -1,9 +1,9 @@
 package cn.edu.sdu.orz.bug.dto;
 
 import cn.edu.sdu.orz.bug.entity.Feature;
+import cn.edu.sdu.orz.bug.entity.Module;
 import cn.edu.sdu.orz.bug.entity.Project;
 import cn.edu.sdu.orz.bug.entity.User;
-import cn.edu.sdu.orz.bug.entity.Module;
 import cn.edu.sdu.orz.bug.utils.Utils;
 import org.springframework.beans.BeanUtils;
 
@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProjectDTO implements Serializable {
-    private static final long serialVersionUID = 1L;
     private String id;
 
     private String name;

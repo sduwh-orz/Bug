@@ -176,10 +176,6 @@ public class UserService {
         return getLoggedInUser(session) != null;
     }
 
-    public boolean isNotLoggedIn(HttpSession session) {
-        return !isLoggedIn(session);
-    }
-
     public boolean isLoggedInUserAdmin(HttpSession session) {
         User user = getLoggedInUser(session);
         if (user == null)

@@ -24,6 +24,7 @@ public interface ProjectRepository extends JpaRepository<Project, String>, JpaSp
             "group by p.id, p.name, uu.realName " +
             "order by p.created DESC")
     Page<ProjectInTaskListDTO> taskListAdmin(@Param("name") String name, Pageable pageable);
+
     @Query("select new cn.edu.sdu.orz.bug.dto.ProjectInTaskListDTO ( " +
             "p.id, p.name, uu.realName, count(distinct f.id), count(distinct u.id) " +
             ") from Project p " +

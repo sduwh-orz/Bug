@@ -71,17 +71,17 @@ public class FeatureService {
         }
         try {
             vO.getModules().forEach((module, features) ->
-                features.forEach((id, feature) -> {
-                    Feature now = requireOne(id);
-                    if (!now.hasNoPerm(user)) {
-                        if (feature.getOwner() != null) {
-                            now.setOwner(userService.requireOne(feature.getOwner()));
-                        } else {
-                            now.setOwner(null);
+                    features.forEach((id, feature) -> {
+                        Feature now = requireOne(id);
+                        if (!now.hasNoPerm(user)) {
+                            if (feature.getOwner() != null) {
+                                now.setOwner(userService.requireOne(feature.getOwner()));
+                            } else {
+                                now.setOwner(null);
+                            }
+                            featureRepository.save(now);
                         }
-                        featureRepository.save(now);
-                    }
-                })
+                    })
             );
         } catch (Exception e) {
             return false;

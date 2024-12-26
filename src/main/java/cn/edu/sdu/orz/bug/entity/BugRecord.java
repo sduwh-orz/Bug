@@ -9,7 +9,6 @@ import java.sql.Timestamp;
 @Table(name = "bug_record")
 public class BugRecord implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -45,7 +44,8 @@ public class BugRecord implements Serializable {
     @Column(name = "time", nullable = false)
     private Timestamp time;
 
-    public BugRecord() {}
+    public BugRecord() {
+    }
 
     public BugRecord(String id, Bug bug, BugRecordType type, BugStatus previous, BugStatus after, BugSolveType solveType,
                      String comment, User user, Timestamp time) {

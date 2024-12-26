@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Map;
 
 public class TaskAssignVO implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     private String projectId;
 

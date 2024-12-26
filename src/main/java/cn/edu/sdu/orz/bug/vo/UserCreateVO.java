@@ -4,7 +4,6 @@ package cn.edu.sdu.orz.bug.vo;
 import java.io.Serializable;
 
 public class UserCreateVO extends UserVO implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     private String password;
 

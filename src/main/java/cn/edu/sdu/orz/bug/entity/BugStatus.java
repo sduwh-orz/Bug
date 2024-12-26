@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Table(name = "bug_status")
 public class BugStatus implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "id", nullable = false)

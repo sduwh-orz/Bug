@@ -2,7 +2,8 @@ package cn.edu.sdu.orz.bug.controller;
 
 import cn.edu.sdu.orz.bug.dto.Response;
 import cn.edu.sdu.orz.bug.service.ModuleService;
-import cn.edu.sdu.orz.bug.vo.*;
+import cn.edu.sdu.orz.bug.vo.ModuleCreateVO;
+import cn.edu.sdu.orz.bug.vo.ModuleUpdateVO;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

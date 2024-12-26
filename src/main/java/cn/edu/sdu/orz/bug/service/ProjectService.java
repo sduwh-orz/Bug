@@ -1,6 +1,6 @@
 package cn.edu.sdu.orz.bug.service;
 
-import cn.edu.sdu.orz.bug.dto.*;
+import cn.edu.sdu.orz.bug.dto.ProjectDTO;
 import cn.edu.sdu.orz.bug.entity.Project;
 import cn.edu.sdu.orz.bug.entity.User;
 import cn.edu.sdu.orz.bug.repository.ProjectRepository;
@@ -18,7 +18,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 

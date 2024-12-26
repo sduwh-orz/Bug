@@ -48,25 +48,25 @@ public class BugController {
 
     @PostMapping("/open")
     public Response open(@RequestBody BugUpdateVO vO,
-                          HttpSession session) {
+                         HttpSession session) {
         return new Response(bugService.open(vO, session));
     }
 
     @PostMapping("/close")
     public Response close(@RequestBody BugUpdateVO vO,
-                           HttpSession session) {
+                          HttpSession session) {
         return new Response(bugService.close(vO, session));
     }
 
     @PostMapping("/comment")
     public Response comment(@RequestBody BugUpdateVO vO,
-                           HttpSession session) {
+                            HttpSession session) {
         return new Response(bugService.comment(vO, session));
     }
 
     @PostMapping("/solve")
     public Response solve(@RequestBody BugUpdateVO vO,
-                           HttpSession session) {
+                          HttpSession session) {
         return new Response(bugService.solve(vO, session));
     }
 
