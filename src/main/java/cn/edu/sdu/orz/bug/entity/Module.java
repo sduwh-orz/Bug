@@ -28,28 +28,6 @@ public class Module {
     private List<Feature> features;
 
     /**
-     * Instantiates a new Module.
-     */
-    public Module() {
-        super();
-    }
-
-    /**
-     * Instantiates a new Module.
-     *
-     * @param id       the id
-     * @param name     the name
-     * @param project  the project
-     * @param features the features
-     */
-    public Module(String id, String name, Project project, List<Feature> features) {
-        setId(id);
-        setName(name);
-        setProject(project);
-        setFeatures(features);
-    }
-
-    /**
      * Sets id.
      *
      * @param id the id

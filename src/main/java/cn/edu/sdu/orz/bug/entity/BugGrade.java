@@ -55,12 +55,4 @@ public class BugGrade {
     public String getName() {
         return name;
     }
-
-    @Override
-    public String toString() {
-        return "BugGrade{" +
-                "id=" + id + '\'' +
-                "name=" + name + '\'' +
-                '}';
-    }
 }

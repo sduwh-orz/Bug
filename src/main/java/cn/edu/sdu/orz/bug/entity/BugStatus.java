@@ -55,12 +55,4 @@ public class BugStatus {
     public String getName() {
         return name;
     }
-
-    @Override
-    public String toString() {
-        return "BugStatus{" +
-                "id=" + id + '\'' +
-                "name=" + name + '\'' +
-                '}';
-    }
 }

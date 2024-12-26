@@ -240,19 +240,4 @@ public class BugRecord {
     public Timestamp getTime() {
         return time;
     }
-
-    @Override
-    public String toString() {
-        return "BugRecord{" +
-                "id=" + getId() + '\'' +
-                "bug=" + getBug().getId() + '\'' +
-                "type=" + getType().getName() + '\'' +
-                "previous=" + getPrevious().getName() + '\'' +
-                "after=" + getAfter().getName() + '\'' +
-                "solveType=" + getSolveType().getName() + '\'' +
-                "comment=" + getComment() + '\'' +
-                "user=" + getUser().getRealName() + '\'' +
-                "time=" + getTime() + '\'' +
-                '}';
-    }
 }

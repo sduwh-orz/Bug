@@ -36,32 +36,6 @@ public class Feature {
     private List<Bug> bugs;
 
     /**
-     * Instantiates a new Feature.
-     */
-    public Feature() {
-        super();
-    }
-
-    /**
-     * Instantiates a new Feature.
-     *
-     * @param id     the id
-     * @param name   the name
-     * @param hours  the hours
-     * @param module the module
-     * @param owner  the owner
-     * @param bugs   the bugs
-     */
-    public Feature(String id, String name, BigDecimal hours, Module module, User owner, List<Bug> bugs) {
-        setId(id);
-        setName(name);
-        setHours(hours);
-        setModule(module);
-        setOwner(owner);
-        setBugs(bugs);
-    }
-
-    /**
      * Sets id.
      *
      * @param id the id
@@ -177,17 +151,5 @@ public class Feature {
      */
     public boolean hasNoPerm(User user) {
         return module.hasNoPerm(user);
-    }
-
-    @Override
-    public String toString() {
-        return "Feature{" +
-                "id=" + getId() + '\'' +
-                "name=" + getName() + '\'' +
-                "module=" + (module != null ? module.getId() : null) + '\'' +
-                "hours=" + getHours() + '\'' +
-                "owner=" + (owner != null ? owner.getId() : null) + '\'' +
-                "bugs=" + getBugs() +
-                '}';
     }
 }

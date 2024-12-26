@@ -55,12 +55,4 @@ public class BugRecordType {
     public String getName() {
         return name;
     }
-
-    @Override
-    public String toString() {
-        return "BugRecordType{" +
-                "id=" + id + '\'' +
-                "name=" + name + '\'' +
-                '}';
-    }
 }

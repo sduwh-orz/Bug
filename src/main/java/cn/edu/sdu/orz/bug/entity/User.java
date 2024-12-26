@@ -39,37 +39,6 @@ public class User {
     private List<Feature> features;
 
     /**
-     * Instantiates a new User.
-     */
-    public User() {
-        super();
-    }
-
-    /**
-     * Instantiates a new User.
-     *
-     * @param id       the id
-     * @param username the username
-     * @param password the password
-     * @param realName the real name
-     * @param role     the role
-     * @param email    the email
-     * @param deleted  the deleted
-     * @param features the features
-     */
-    public User(String id, String username, String password, String realName, UserRole role, String email,
-                Integer deleted, List<Feature> features) {
-        setId(id);
-        setUsername(username);
-        setPassword(password);
-        setRealName(realName);
-        setRole(role);
-        setEmail(email);
-        setDeleted(deleted);
-        setFeatures(features);
-    }
-
-    /**
      * Sets id.
      *
      * @param id the id
@@ -220,18 +189,5 @@ public class User {
      */
     public void setFeatures(List<Feature> features) {
         this.features = features;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + getId() + '\'' +
-                ", username='" + getUsername() + '\'' +
-                ", realName='" + getRealName() + '\'' +
-                ", role=" + getRole().getName() +
-                ", email='" + getEmail() + '\'' +
-                ", deleted=" + getDeleted() +
-                ", features=" + getFeatures() +
-                '}';
     }
 }
