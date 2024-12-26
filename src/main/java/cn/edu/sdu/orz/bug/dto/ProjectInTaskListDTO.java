@@ -4,53 +4,12 @@ package cn.edu.sdu.orz.bug.dto;
  * The type Project in task list dto.
  */
 @SuppressWarnings("unused")
-public class ProjectInTaskListDTO {
-    private String id;
-
-    private String name;
-
+public class ProjectInTaskListDTO extends ProjectBaseDTO {
     private String owner;
 
     private Long totalFeatures;
 
     private Long totalDevelopers;
-
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Gets name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
 
     /**
      * Gets owner.
@@ -116,10 +75,10 @@ public class ProjectInTaskListDTO {
      * @param totalDevelopers the total developers
      */
     public ProjectInTaskListDTO(String id, String name, String owner, Long totalFeatures, Long totalDevelopers) {
-        this.id = id;
-        this.name = name;
-        this.owner = owner;
-        this.totalFeatures = totalFeatures;
-        this.totalDevelopers = totalDevelopers;
+        setId(id);
+        setName(name);
+        setOwner(owner);
+        setTotalFeatures(totalFeatures);
+        setTotalDevelopers(totalDevelopers);
     }
 }

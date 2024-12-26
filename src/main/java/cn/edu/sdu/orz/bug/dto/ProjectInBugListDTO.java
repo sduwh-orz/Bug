@@ -4,50 +4,10 @@ package cn.edu.sdu.orz.bug.dto;
  * The type Project in bug list dto.
  */
 @SuppressWarnings("unused")
-public class ProjectInBugListDTO {
-    private String id;
-
-    private String name;
-
+public class ProjectInBugListDTO extends ProjectBaseDTO {
     private String owner;
 
     private Long bugs;
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Gets name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
 
     /**
      * Gets owner.
@@ -94,9 +54,9 @@ public class ProjectInBugListDTO {
      * @param bugs  the bugs
      */
     public ProjectInBugListDTO(String id, String name, String owner, Long bugs) {
-        this.id = id;
-        this.name = name;
-        this.owner = owner;
-        this.bugs = bugs;
+        setId(id);
+        setName(name);
+        setOwner(owner);
+        setBugs(bugs);
     }
 }
