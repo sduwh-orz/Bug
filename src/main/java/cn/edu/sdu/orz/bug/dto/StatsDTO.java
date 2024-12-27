@@ -15,13 +15,6 @@ public class StatsDTO {
 
     /**
      * Instantiates a new Stats dto.
-     */
-    public StatsDTO() {
-        super();
-    }
-
-    /**
-     * Instantiates a new Stats dto.
      *
      * @param name  the name
      * @param count the count

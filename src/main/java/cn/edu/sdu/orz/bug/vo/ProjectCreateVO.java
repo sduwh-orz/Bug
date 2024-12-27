@@ -10,9 +10,9 @@ import lombok.Setter;
 @Getter
 @SuppressWarnings("unused")
 public class ProjectCreateVO extends ProjectVO {
-    private String keyword;
+    protected String keyword;
 
-    private String description;
+    protected String description;
 
-    private String owner;
+    protected String owner;
 }

@@ -10,9 +10,9 @@ import lombok.Setter;
 @Getter
 @SuppressWarnings("unused")
 public class BugVO {
-    private String name;
+    protected String name;
 
-    private Integer grade;
+    protected Integer grade;
 
-    private String feature;
+    protected String feature;
 }

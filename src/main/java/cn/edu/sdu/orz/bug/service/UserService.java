@@ -59,8 +59,11 @@ public class UserService {
             return null;
         User example = new User();
         BeanUtils.copyProperties(vO, example);
-        if (vO.getRole() != null)
-            example.setRole(new UserRole(vO.getRole()));
+        if (vO.getRole() != null) {
+            UserRole role = new UserRole();
+            role.setId(vO.getRole());
+            example.setRole(role);
+        }
         example.setDeleted(0);
 
         ExampleMatcher matcher = ExampleMatcher.matching()

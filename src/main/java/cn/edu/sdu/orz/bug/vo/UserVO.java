@@ -11,11 +11,11 @@ import lombok.Setter;
 @Getter
 @SuppressWarnings("unused")
 public class UserVO {
-    private String username;
+    protected String username;
 
-    private String realName;
+    protected String realName;
 
-    private Integer role;
+    protected Integer role;
 
-    private String email;
+    protected String email;
 }

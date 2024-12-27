@@ -1,5 +1,6 @@
 package cn.edu.sdu.orz.bug.entity;
 
+import cn.edu.sdu.orz.bug.utils.Utils;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -53,7 +54,7 @@ public class BugRecord {
      * Instantiates a new Bug record.
      */
     public BugRecord() {
-        super();
+        setId(Utils.newRandomID());
     }
 
     /**
@@ -81,5 +82,4 @@ public class BugRecord {
         setUser(user);
         setTime(time);
     }
-
 }

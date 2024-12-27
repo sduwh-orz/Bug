@@ -15,8 +15,8 @@ import lombok.Setter;
 public class Type {
     @Id
     @Column(name = "id", nullable = false)
-    private Integer id;
+    protected Integer id;
 
     @Column(name = "name", nullable = false)
-    private String name;
+    protected String name;
 }

@@ -22,5 +22,4 @@ public class BugRecordType {
 
     @Column(name = "name", nullable = false)
     private String name;
-
 }

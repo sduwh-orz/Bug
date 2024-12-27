@@ -10,5 +10,5 @@ import lombok.Setter;
 @Getter
 @SuppressWarnings("unused")
 public class ModuleVO {
-    private String name;
+    protected String name;
 }
