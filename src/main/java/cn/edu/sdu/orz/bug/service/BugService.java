@@ -200,6 +200,30 @@ public class BugService {
         return true;
     }
 
+    private boolean changeStatus(BugUpdateVO vO, User user,
+                                 String status, String recordType, BugSolveType solveType,
+                                 boolean update) {
+        try {
+            Bug bug = requireOne(vO.getId());
+            BugStatus after = bug.getStatus();
+            if (status != null) {
+                bugStatusRepository.findByName(status).orElseThrow();
+            }
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            BugRecord record = new BugRecord(
+                    newID(), bug, bugRecordTypeRepository.findByName(recordType).orElseThrow(),
+                    bug.getStatus(), after, solveType, vO.getComment(), user, time
+            );
+            bugRecordRepository.save(record);
+            if (update) {
+                updateBug(vO, bug, after, solveType, time);
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Solve Bug.
      *
@@ -212,20 +236,11 @@ public class BugService {
         if (user == null)
             return false;
         try {
-            Bug bug = requireOne(vO.getId());
-            BugStatus after = bugStatusRepository.findByName("已解决").orElseThrow();
             BugSolveType solveType = bugSolveTypeRepository.findById(vO.getSolveType()).orElseThrow();
-            Timestamp time = new Timestamp(System.currentTimeMillis());
-            BugRecord record = new BugRecord(
-                    newID(), bug, bugRecordTypeRepository.findByName("解决问题").orElseThrow(),
-                    bug.getStatus(), after, solveType, vO.getComment(), user, time
-            );
-            bugRecordRepository.save(record);
-            updateBug(vO, bug, after, solveType, time);
+            return changeStatus(vO, user, "已解决", "解决问题", solveType, true);
         } catch (Exception e) {
             return false;
         }
-        return true;
     }
 
     /**
@@ -240,19 +255,10 @@ public class BugService {
         if (user == null)
             return false;
         try {
-            Bug bug = requireOne(vO.getId());
-            BugStatus after = bugStatusRepository.findByName("开放中").orElseThrow();
-            Timestamp time = new Timestamp(System.currentTimeMillis());
-            BugRecord record = new BugRecord(
-                    newID(), bug, bugRecordTypeRepository.findByName("打开问题").orElseThrow(),
-                    bug.getStatus(), after, null, vO.getComment(), user, time
-            );
-            bugRecordRepository.save(record);
-            updateBug(vO, bug, after, bug.getSolveType(), time);
+            return changeStatus(vO, user, "开放中", "打开问题", null, true);
         } catch (Exception e) {
             return false;
         }
-        return true;
     }
 
     /**
@@ -267,19 +273,10 @@ public class BugService {
         if (user == null)
             return false;
         try {
-            Bug bug = requireOne(vO.getId());
-            BugStatus after = bugStatusRepository.findByName("已关闭").orElseThrow();
-            Timestamp time = new Timestamp(System.currentTimeMillis());
-            BugRecord record = new BugRecord(
-                    newID(), bug, bugRecordTypeRepository.findByName("关闭问题").orElseThrow(),
-                    bug.getStatus(), after, null, vO.getComment(), user, time
-            );
-            bugRecordRepository.save(record);
-            updateBug(vO, bug, after, bug.getSolveType(), time);
+            return changeStatus(vO, user, "已关闭", "关闭问题", null, true);
         } catch (Exception e) {
             return false;
         }
-        return true;
     }
 
     /**
@@ -294,18 +291,10 @@ public class BugService {
         if (user == null)
             return false;
         try {
-            Bug bug = requireOne(vO.getId());
-            BugStatus after = bug.getStatus();
-            Timestamp time = new Timestamp(System.currentTimeMillis());
-            BugRecord record = new BugRecord(
-                    newID(), bug, bugRecordTypeRepository.findByName("写备注").orElseThrow(),
-                    bug.getStatus(), after, null, vO.getComment(), user, time
-            );
-            bugRecordRepository.save(record);
+            return changeStatus(vO, user, null, "写备注", null, false);
         } catch (Exception e) {
             return false;
         }
-        return true;
     }
 
     private void updateBug(BugUpdateVO vO, Bug bug, BugStatus after, BugSolveType solveType,
