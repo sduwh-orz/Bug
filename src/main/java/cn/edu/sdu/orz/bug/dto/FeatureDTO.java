@@ -3,6 +3,8 @@ package cn.edu.sdu.orz.bug.dto;
 import cn.edu.sdu.orz.bug.entity.Bug;
 import cn.edu.sdu.orz.bug.entity.Feature;
 import cn.edu.sdu.orz.bug.entity.Module;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 import java.util.List;
@@ -10,21 +12,13 @@ import java.util.List;
 /**
  * The type Feature dto.
  */
+@Getter
+@Setter
 @SuppressWarnings("unused")
 public class FeatureDTO extends FeatureBaseDTO {
-
     private String module;
 
     private Integer bugs = 0;
-
-    /**
-     * Gets module.
-     *
-     * @return the module
-     */
-    public String getModule() {
-        return module;
-    }
 
     /**
      * Sets module.
@@ -33,24 +27,6 @@ public class FeatureDTO extends FeatureBaseDTO {
      */
     public void setModule(Module module) {
         this.module = module.getId();
-    }
-
-    /**
-     * Gets bugs.
-     *
-     * @return the bugs
-     */
-    public Integer getBugs() {
-        return bugs;
-    }
-
-    /**
-     * Sets module.
-     *
-     * @param module the module
-     */
-    public void setModule(String module) {
-        this.module = module;
     }
 
     /**

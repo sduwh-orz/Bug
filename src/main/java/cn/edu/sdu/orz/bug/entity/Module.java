@@ -1,6 +1,8 @@
 package cn.edu.sdu.orz.bug.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -9,9 +11,10 @@ import java.util.List;
  */
 @Entity
 @Table(name = "module")
+@Getter
+@Setter
 @SuppressWarnings("unused")
 public class Module {
-
     @Id
     @Column(name = "id", nullable = false)
     private String id;
@@ -26,78 +29,6 @@ public class Module {
     @OneToMany(mappedBy = "module", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @OrderBy("name")
     private List<Feature> features;
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Gets name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Gets project.
-     *
-     * @return the project
-     */
-    public Project getProject() {
-        return project;
-    }
-
-    /**
-     * Sets project.
-     *
-     * @param project the project
-     */
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    /**
-     * Gets features.
-     *
-     * @return the features
-     */
-    public List<Feature> getFeatures() {
-        return features;
-    }
-
-    /**
-     * Sets features.
-     *
-     * @param features the features
-     */
-    public void setFeatures(List<Feature> features) {
-        this.features = features;
-    }
 
     /**
      * Has no perm boolean.

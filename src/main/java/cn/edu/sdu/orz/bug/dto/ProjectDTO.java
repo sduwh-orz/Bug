@@ -5,6 +5,8 @@ import cn.edu.sdu.orz.bug.entity.Module;
 import cn.edu.sdu.orz.bug.entity.Project;
 import cn.edu.sdu.orz.bug.entity.User;
 import cn.edu.sdu.orz.bug.utils.Utils;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
@@ -15,8 +17,10 @@ import java.util.stream.Collectors;
 /**
  * The type Project dto.
  */
+@Getter
+@Setter
 @SuppressWarnings("unused")
-public class ProjectDTO extends ProjectBaseDTO {
+public class ProjectDTO extends BaseDTO {
     private String keyword;
 
     private String description;
@@ -26,51 +30,6 @@ public class ProjectDTO extends ProjectBaseDTO {
     private Timestamp created;
 
     private List<ModuleDTO> modules;
-
-    /**
-     * Gets keyword.
-     *
-     * @return the keyword
-     */
-    public String getKeyword() {
-        return keyword;
-    }
-
-    /**
-     * Sets keyword.
-     *
-     * @param keyword the keyword
-     */
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
-    }
-
-    /**
-     * Gets description.
-     *
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Sets description.
-     *
-     * @param description the description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * Gets owner.
-     *
-     * @return the owner
-     */
-    public UserDTO getOwner() {
-        return owner;
-    }
 
     /**
      * Sets owner.
@@ -91,24 +50,6 @@ public class ProjectDTO extends ProjectBaseDTO {
             return Utils.dateFormat.format(created);
         }
         return "";
-    }
-
-    /**
-     * Sets created.
-     *
-     * @param created the created
-     */
-    public void setCreated(Timestamp created) {
-        this.created = created;
-    }
-
-    /**
-     * Gets modules.
-     *
-     * @return the modules
-     */
-    public List<ModuleDTO> getModules() {
-        return modules;
     }
 
     /**

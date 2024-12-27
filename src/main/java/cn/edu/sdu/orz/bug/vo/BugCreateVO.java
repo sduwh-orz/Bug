@@ -1,27 +1,14 @@
 package cn.edu.sdu.orz.bug.vo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * The type Bug create vo.
  */
+@Setter
+@Getter
 @SuppressWarnings("unused")
 public class BugCreateVO extends BugVO {
     private String description;
-
-    /**
-     * Gets description.
-     *
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Sets description.
-     *
-     * @param description the description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

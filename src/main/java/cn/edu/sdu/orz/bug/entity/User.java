@@ -1,6 +1,8 @@
 package cn.edu.sdu.orz.bug.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -9,9 +11,10 @@ import java.util.List;
  */
 @Entity
 @Table(name = "user")
+@Getter
+@Setter
 @SuppressWarnings("unused")
 public class User {
-
     @Id
     @Column(name = "id", nullable = false)
     private String id;
@@ -39,96 +42,6 @@ public class User {
     private List<Feature> features;
 
     /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets username.
-     *
-     * @param username the username
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    /**
-     * Gets username.
-     *
-     * @return the username
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * Sets password.
-     *
-     * @param password the password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * Gets password.
-     *
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * Sets real name.
-     *
-     * @param realName the real name
-     */
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
-
-    /**
-     * Gets real name.
-     *
-     * @return the real name
-     */
-    public String getRealName() {
-        return realName;
-    }
-
-    /**
-     * Gets role.
-     *
-     * @return the role
-     */
-    public UserRole getRole() {
-        return role;
-    }
-
-    /**
-     * Sets role.
-     *
-     * @param role the role
-     */
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
-    /**
      * Return if the User is admin.
      *
      * @return the boolean
@@ -137,57 +50,4 @@ public class User {
         return this.role.getName().equals("管理员");
     }
 
-    /**
-     * Sets email.
-     *
-     * @param email the email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * Gets email.
-     *
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Sets deleted.
-     *
-     * @param deleted the deleted
-     */
-    public void setDeleted(Integer deleted) {
-        this.deleted = deleted;
-    }
-
-    /**
-     * Gets deleted.
-     *
-     * @return the deleted
-     */
-    public Integer getDeleted() {
-        return deleted;
-    }
-
-    /**
-     * Gets features.
-     *
-     * @return the features
-     */
-    public List<Feature> getFeatures() {
-        return features;
-    }
-
-    /**
-     * Sets features.
-     *
-     * @param features the features
-     */
-    public void setFeatures(List<Feature> features) {
-        this.features = features;
-    }
 }

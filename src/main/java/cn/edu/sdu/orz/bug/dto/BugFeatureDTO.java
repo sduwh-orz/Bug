@@ -2,24 +2,18 @@ package cn.edu.sdu.orz.bug.dto;
 
 import cn.edu.sdu.orz.bug.entity.Feature;
 import cn.edu.sdu.orz.bug.entity.Module;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 /**
  * The type Bug feature dto.
  */
+@Getter
+@Setter
 @SuppressWarnings("unused")
 public class BugFeatureDTO extends FeatureBaseDTO {
-
     private BugModuleDTO module;
-
-    /**
-     * Gets module.
-     *
-     * @return the module
-     */
-    public BugModuleDTO getModule() {
-        return module;
-    }
 
     /**
      * Sets module.

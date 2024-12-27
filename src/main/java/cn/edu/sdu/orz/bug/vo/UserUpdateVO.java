@@ -1,29 +1,15 @@
 package cn.edu.sdu.orz.bug.vo;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * The type User update vo.
  */
+@Setter
+@Getter
 @SuppressWarnings("unused")
 public class UserUpdateVO extends UserVO {
-
     private String id;
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 }

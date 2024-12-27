@@ -1,10 +1,14 @@
 package cn.edu.sdu.orz.bug.dto;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.util.Pair;
 
 /**
  * The type Response.
  */
+@Getter
+@Setter
 @SuppressWarnings("unused")
 public class Response {
     /**
@@ -17,21 +21,23 @@ public class Response {
     public String message;
 
     /**
-     * Gets success.
+     * Instantiates a new Response.
      *
-     * @return the success
+     * @param success the success
      */
-    public boolean getSuccess() {
-        return success;
+    public Response(boolean success) {
+        this.success = success;
     }
 
     /**
-     * Is success boolean.
+     * Instantiates a new Response.
      *
-     * @return the boolean
+     * @param success the success
+     * @param message the message
      */
-    public boolean isSuccess() {
-        return success;
+    public Response(boolean success, String message) {
+        this.success = success;
+        this.message = message;
     }
 
     /**
@@ -55,15 +61,6 @@ public class Response {
     }
 
     /**
-     * Sets message.
-     *
-     * @param message the message
-     */
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    /**
      * Instantiates a new Response.
      *
      * @param response the response
@@ -71,25 +68,5 @@ public class Response {
     public Response(Pair<Boolean, String> response) {
         this.success = response.getFirst();
         this.message = response.getSecond();
-    }
-
-    /**
-     * Instantiates a new Response.
-     *
-     * @param success the success
-     */
-    public Response(boolean success) {
-        this.success = success;
-    }
-
-    /**
-     * Instantiates a new Response.
-     *
-     * @param success the success
-     * @param message the message
-     */
-    public Response(boolean success, String message) {
-        this.success = success;
-        this.message = message;
     }
 }

@@ -1,27 +1,17 @@
 package cn.edu.sdu.orz.bug.vo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * The type Project vo.
  */
+@Setter
+@Getter
 @SuppressWarnings("unused")
 public class ProjectVO {
-    private String name;
-
     /**
-     * Gets name.
-     *
-     * @return the name
+     * The Name.
      */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+    protected String name;
 }

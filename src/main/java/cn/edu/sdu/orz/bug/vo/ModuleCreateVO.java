@@ -1,11 +1,15 @@
 package cn.edu.sdu.orz.bug.vo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * The type Module create vo.
  */
+@Setter
+@Getter
 @SuppressWarnings("unused")
 public class ModuleCreateVO extends ModuleVO {
-
     private String projectId;
 
     /**
@@ -24,23 +28,5 @@ public class ModuleCreateVO extends ModuleVO {
     public ModuleCreateVO(String projectId, String name) {
         setProjectId(projectId);
         setName(name);
-    }
-
-    /**
-     * Gets project id.
-     *
-     * @return the project id
-     */
-    public String getProjectId() {
-        return projectId;
-    }
-
-    /**
-     * Sets project id.
-     *
-     * @param projectId the project id
-     */
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
     }
 }

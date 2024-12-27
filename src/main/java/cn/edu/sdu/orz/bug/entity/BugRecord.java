@@ -1,6 +1,8 @@
 package cn.edu.sdu.orz.bug.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
@@ -9,9 +11,10 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "bug_record")
+@Getter
+@Setter
 @SuppressWarnings("unused")
 public class BugRecord {
-
     @Id
     @Column(name = "id", nullable = false)
     private String id;
@@ -66,8 +69,8 @@ public class BugRecord {
      * @param user      the user
      * @param time      the time
      */
-    public BugRecord(String id, Bug bug, BugRecordType type, BugStatus previous, BugStatus after, BugSolveType solveType,
-                     String comment, User user, Timestamp time) {
+    public BugRecord(String id, Bug bug, BugRecordType type, BugStatus previous, BugStatus after,
+                     BugSolveType solveType, String comment, User user, Timestamp time) {
         setId(id);
         setBug(bug);
         setType(type);
@@ -79,165 +82,4 @@ public class BugRecord {
         setTime(time);
     }
 
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets bug.
-     *
-     * @param bug the bug
-     */
-    public void setBug(Bug bug) {
-        this.bug = bug;
-    }
-
-    /**
-     * Gets bug.
-     *
-     * @return the bug
-     */
-    public Bug getBug() {
-        return bug;
-    }
-
-    /**
-     * Gets type.
-     *
-     * @return the type
-     */
-    public BugRecordType getType() {
-        return type;
-    }
-
-    /**
-     * Sets type.
-     *
-     * @param type the type
-     */
-    public void setType(BugRecordType type) {
-        this.type = type;
-    }
-
-    /**
-     * Gets previous.
-     *
-     * @return the previous
-     */
-    public BugStatus getPrevious() {
-        return previous;
-    }
-
-    /**
-     * Sets previous.
-     *
-     * @param previous the previous
-     */
-    public void setPrevious(BugStatus previous) {
-        this.previous = previous;
-    }
-
-    /**
-     * Gets after.
-     *
-     * @return the after
-     */
-    public BugStatus getAfter() {
-        return after;
-    }
-
-    /**
-     * Sets after.
-     *
-     * @param after the after
-     */
-    public void setAfter(BugStatus after) {
-        this.after = after;
-    }
-
-    /**
-     * Gets solve type.
-     *
-     * @return the solve type
-     */
-    public BugSolveType getSolveType() {
-        return solveType;
-    }
-
-    /**
-     * Sets solve type.
-     *
-     * @param solveType the solve type
-     */
-    public void setSolveType(BugSolveType solveType) {
-        this.solveType = solveType;
-    }
-
-    /**
-     * Sets comment.
-     *
-     * @param comment the comment
-     */
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    /**
-     * Gets comment.
-     *
-     * @return the comment
-     */
-    public String getComment() {
-        return comment;
-    }
-
-    /**
-     * Sets user.
-     *
-     * @param user the user
-     */
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    /**
-     * Gets user.
-     *
-     * @return the user
-     */
-    public User getUser() {
-        return user;
-    }
-
-    /**
-     * Sets time.
-     *
-     * @param time the time
-     */
-    public void setTime(Timestamp time) {
-        this.time = time;
-    }
-
-    /**
-     * Gets time.
-     *
-     * @return the time
-     */
-    public Timestamp getTime() {
-        return time;
-    }
 }

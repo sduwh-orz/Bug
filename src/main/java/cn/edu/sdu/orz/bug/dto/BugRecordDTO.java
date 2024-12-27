@@ -2,6 +2,8 @@ package cn.edu.sdu.orz.bug.dto;
 
 import cn.edu.sdu.orz.bug.entity.*;
 import cn.edu.sdu.orz.bug.utils.Utils;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 import java.sql.Timestamp;
@@ -9,11 +11,13 @@ import java.sql.Timestamp;
 /**
  * The type Bug record dto.
  */
+@Getter
+@Setter
 @SuppressWarnings("unused")
 public class BugRecordDTO {
     private String id;
 
-    private BugRecordTypeDTO type;
+    private BaseDTO type;
 
     private TypeDTO previous;
 
@@ -28,48 +32,12 @@ public class BugRecordDTO {
     private Timestamp time;
 
     /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Gets type.
-     *
-     * @return the type
-     */
-    public BugRecordTypeDTO getType() {
-        return type;
-    }
-
-    /**
      * Sets type.
      *
      * @param type the type
      */
     public void setType(BugRecordType type) {
-        this.type = BugRecordTypeDTO.toDTO(type);
-    }
-
-    /**
-     * Gets previous.
-     *
-     * @return the previous
-     */
-    public TypeDTO getPrevious() {
-        return previous;
+        this.type = BaseDTO.toDTO(type);
     }
 
     /**
@@ -82,30 +50,12 @@ public class BugRecordDTO {
     }
 
     /**
-     * Gets after.
-     *
-     * @return the after
-     */
-    public TypeDTO getAfter() {
-        return after;
-    }
-
-    /**
      * Sets after.
      *
      * @param after the after
      */
     public void setAfter(BugStatus after) {
         this.after = TypeDTO.toDTO(after);
-    }
-
-    /**
-     * Gets solve type.
-     *
-     * @return the solve type
-     */
-    public TypeDTO getSolveType() {
-        return solveType;
     }
 
     /**
@@ -117,33 +67,6 @@ public class BugRecordDTO {
         if (solveType != null) {
             this.solveType = TypeDTO.toDTO(solveType);
         }
-    }
-
-    /**
-     * Gets comment.
-     *
-     * @return the comment
-     */
-    public String getComment() {
-        return comment;
-    }
-
-    /**
-     * Sets comment.
-     *
-     * @param comment the comment
-     */
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    /**
-     * Gets user.
-     *
-     * @return the user
-     */
-    public UserBriefDTO getUser() {
-        return user;
     }
 
     /**
@@ -167,15 +90,6 @@ public class BugRecordDTO {
             return Utils.dateFormat.format(time);
         }
         return "";
-    }
-
-    /**
-     * Sets time.
-     *
-     * @param time the time
-     */
-    public void setTime(Timestamp time) {
-        this.time = time;
     }
 
     /**

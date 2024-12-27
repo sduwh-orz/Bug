@@ -1,69 +1,20 @@
 package cn.edu.sdu.orz.bug.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * The type Project in task list dto.
  */
+@Getter
+@Setter
 @SuppressWarnings("unused")
-public class ProjectInTaskListDTO extends ProjectBaseDTO {
+public class ProjectInTaskListDTO extends BaseDTO {
     private String owner;
 
     private Long totalFeatures;
 
     private Long totalDevelopers;
-
-    /**
-     * Gets owner.
-     *
-     * @return the owner
-     */
-    public String getOwner() {
-        return owner;
-    }
-
-    /**
-     * Sets owner.
-     *
-     * @param owner the owner
-     */
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    /**
-     * Gets total features.
-     *
-     * @return the total features
-     */
-    public Long getTotalFeatures() {
-        return totalFeatures;
-    }
-
-    /**
-     * Sets total features.
-     *
-     * @param totalFeatures the total features
-     */
-    public void setTotalFeatures(Long totalFeatures) {
-        this.totalFeatures = totalFeatures;
-    }
-
-    /**
-     * Gets total developers.
-     *
-     * @return the total developers
-     */
-    public Long getTotalDevelopers() {
-        return totalDevelopers;
-    }
-
-    /**
-     * Sets total developers.
-     *
-     * @param developers the developers
-     */
-    public void setTotalDevelopers(Long developers) {
-        this.totalDevelopers = developers;
-    }
 
     /**
      * Instantiates a new Project in task list dto.

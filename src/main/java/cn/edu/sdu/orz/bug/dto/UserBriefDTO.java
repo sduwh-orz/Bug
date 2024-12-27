@@ -1,52 +1,26 @@
 package cn.edu.sdu.orz.bug.dto;
 
 import cn.edu.sdu.orz.bug.entity.User;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 /**
  * The type User brief dto.
  */
+@Getter
+@Setter
 @SuppressWarnings("unused")
 public class UserBriefDTO {
-    private String id;
-
-    private String realName;
+    /**
+     * The Id.
+     */
+    protected String id;
 
     /**
-     * Gets id.
-     *
-     * @return the id
+     * The Real name.
      */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Gets real name.
-     *
-     * @return the real name
-     */
-    public String getRealName() {
-        return realName;
-    }
-
-    /**
-     * Sets real name.
-     *
-     * @param realName the real name
-     */
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
+    protected String realName;
 
     /**
      * To dto user brief dto.

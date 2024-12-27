@@ -10,7 +10,6 @@ import jakarta.persistence.Table;
 @Table(name = "user_role")
 @SuppressWarnings("unused")
 public class UserRole extends Type {
-
     /**
      * Instantiates a new User role.
      */

@@ -1,19 +1,23 @@
 package cn.edu.sdu.orz.bug.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * The type Stats dto.
  */
+@Getter
+@Setter
 @SuppressWarnings("unused")
 public class StatsDTO {
-
     private String name;
-
     private String count;
 
     /**
      * Instantiates a new Stats dto.
      */
     public StatsDTO() {
+        super();
     }
 
     /**
@@ -27,39 +31,4 @@ public class StatsDTO {
         this.count = count;
     }
 
-    /**
-     * Gets name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Gets count.
-     *
-     * @return the count
-     */
-    public String getCount() {
-        return count;
-    }
-
-    /**
-     * Sets count.
-     *
-     * @param count the count
-     */
-    public void setCount(String count) {
-        this.count = count;
-    }
 }

@@ -2,6 +2,8 @@ package cn.edu.sdu.orz.bug.dto;
 
 import cn.edu.sdu.orz.bug.entity.*;
 import cn.edu.sdu.orz.bug.utils.Utils;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 import java.sql.Timestamp;
@@ -11,13 +13,11 @@ import java.util.stream.Collectors;
 /**
  * The type Bug dto.
  */
+@Getter
+@Setter
 @SuppressWarnings("unused")
-public class BugDTO {
-    private String id;
-
+public class BugDTO extends BaseDTO {
     private BugFeatureDTO feature;
-
-    private String name;
 
     private String description;
 
@@ -38,33 +38,6 @@ public class BugDTO {
     private List<BugRecordDTO> records;
 
     /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Gets feature.
-     *
-     * @return the feature
-     */
-    public BugFeatureDTO getFeature() {
-        return feature;
-    }
-
-    /**
      * Sets feature.
      *
      * @param original the original
@@ -74,84 +47,12 @@ public class BugDTO {
     }
 
     /**
-     * Gets name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets name.
-     *
-     * @param name the name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Gets description.
-     *
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Sets description.
-     *
-     * @param description the description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * Gets grade.
-     *
-     * @return the grade
-     */
-    public TypeDTO getGrade() {
-        return grade;
-    }
-
-    /**
      * Sets grade.
      *
      * @param original the original
      */
     public void setGrade(BugGrade original) {
         this.grade = TypeDTO.toDTO(original);
-    }
-
-    /**
-     * Gets developer.
-     *
-     * @return the developer
-     */
-    public UserBriefDTO getDeveloper() {
-        return developer;
-    }
-
-    /**
-     * Sets developer.
-     *
-     * @param developer the developer
-     */
-    public void setDeveloper(UserBriefDTO developer) {
-        this.developer = developer;
-    }
-
-    /**
-     * Gets reporter.
-     *
-     * @return the reporter
-     */
-    public UserBriefDTO getReporter() {
-        return reporter;
     }
 
     /**
@@ -166,30 +67,12 @@ public class BugDTO {
     }
 
     /**
-     * Gets status.
-     *
-     * @return the status
-     */
-    public TypeDTO getStatus() {
-        return status;
-    }
-
-    /**
      * Sets status.
      *
      * @param original the original
      */
     public void setStatus(BugStatus original) {
         this.status = TypeDTO.toDTO(original);
-    }
-
-    /**
-     * Gets solve type.
-     *
-     * @return the solve type
-     */
-    public TypeDTO getSolveType() {
-        return solveType;
     }
 
     /**
@@ -216,15 +99,6 @@ public class BugDTO {
     }
 
     /**
-     * Sets created.
-     *
-     * @param created the created
-     */
-    public void setCreated(Timestamp created) {
-        this.created = created;
-    }
-
-    /**
      * Gets modified.
      *
      * @return the modified
@@ -234,24 +108,6 @@ public class BugDTO {
             return Utils.dateFormat.format(modified);
         }
         return "";
-    }
-
-    /**
-     * Sets modified.
-     *
-     * @param modified the modified
-     */
-    public void setModified(Timestamp modified) {
-        this.modified = modified;
-    }
-
-    /**
-     * Gets records.
-     *
-     * @return the records
-     */
-    public List<BugRecordDTO> getRecords() {
-        return records;
     }
 
     /**
