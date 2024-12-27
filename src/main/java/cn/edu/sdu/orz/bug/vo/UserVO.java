@@ -7,15 +7,27 @@ import lombok.Setter;
 /**
  * The type User vo.
  */
-@Setter
 @Getter
+@Setter
 @SuppressWarnings("unused")
 public class UserVO {
+    /**
+     * The Username.
+     */
     protected String username;
 
+    /**
+     * The Real name.
+     */
     protected String realName;
 
+    /**
+     * The Role.
+     */
     protected Integer role;
 
+    /**
+     * The Email.
+     */
     protected String email;
 }

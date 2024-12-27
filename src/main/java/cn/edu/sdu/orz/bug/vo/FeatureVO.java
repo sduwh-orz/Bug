@@ -8,11 +8,17 @@ import java.math.BigDecimal;
 /**
  * The type Feature vo.
  */
-@Setter
 @Getter
+@Setter
 @SuppressWarnings("unused")
 public class FeatureVO {
+    /**
+     * The Name.
+     */
     protected String name;
 
+    /**
+     * The Hours.
+     */
     protected BigDecimal hours;
 }

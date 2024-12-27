@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 @RestController
 @CrossOrigin
+@SuppressWarnings("unused")
 @RequestMapping("/module")
 public class ModuleController {
 

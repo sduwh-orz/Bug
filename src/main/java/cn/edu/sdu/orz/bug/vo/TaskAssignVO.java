@@ -8,8 +8,8 @@ import java.util.Map;
 /**
  * The type Task assign vo.
  */
-@Setter
 @Getter
+@Setter
 @SuppressWarnings("unused")
 public class TaskAssignVO {
     private String projectId;

@@ -7,8 +7,8 @@ import lombok.Setter;
 /**
  * The type User create vo.
  */
-@Setter
 @Getter
+@Setter
 @SuppressWarnings("unused")
 public class UserCreateVO extends UserVO {
     private String password;

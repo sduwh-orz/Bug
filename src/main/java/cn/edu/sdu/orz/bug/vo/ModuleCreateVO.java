@@ -6,8 +6,8 @@ import lombok.Setter;
 /**
  * The type Module create vo.
  */
-@Setter
 @Getter
+@Setter
 @SuppressWarnings("unused")
 public class ModuleCreateVO extends ModuleVO {
     private String projectId;

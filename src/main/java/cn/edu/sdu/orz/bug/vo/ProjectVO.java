@@ -6,8 +6,8 @@ import lombok.Setter;
 /**
  * The type Project vo.
  */
-@Setter
 @Getter
+@Setter
 @SuppressWarnings("unused")
 public class ProjectVO {
     /**

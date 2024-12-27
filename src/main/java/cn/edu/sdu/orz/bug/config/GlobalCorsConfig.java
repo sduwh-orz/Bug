@@ -10,6 +10,7 @@ import org.springframework.web.filter.CorsFilter;
  * The type Global cors config.
  */
 @Configuration
+@SuppressWarnings("unused")
 public class GlobalCorsConfig {
     /**
      * Cors filter cors filter.

@@ -20,6 +20,7 @@ import java.util.Map;
 @Validated
 @RestController
 @CrossOrigin
+@SuppressWarnings("unused")
 @RequestMapping("/user")
 public class UserController {
 

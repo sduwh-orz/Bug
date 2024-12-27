@@ -7,8 +7,8 @@ import lombok.Setter;
 /**
  * The type User login vo.
  */
-@Setter
 @Getter
+@Setter
 @SuppressWarnings("unused")
 public class UserLoginVO {
     private String username;

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 @RestController
 @CrossOrigin
+@SuppressWarnings("unused")
 @RequestMapping("/feature")
 public class FeatureController {
 

@@ -6,8 +6,8 @@ import lombok.Setter;
 /**
  * The type Feature vo.
  */
-@Setter
 @Getter
+@Setter
 @SuppressWarnings("unused")
 public class FeatureCreateVO extends FeatureVO {
     private String module;

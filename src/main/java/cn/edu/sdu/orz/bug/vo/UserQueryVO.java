@@ -6,8 +6,8 @@ import lombok.Setter;
 /**
  * The type User query vo.
  */
-@Setter
 @Getter
+@Setter
 @SuppressWarnings("unused")
 public class UserQueryVO extends UserVO {
     private Integer page;

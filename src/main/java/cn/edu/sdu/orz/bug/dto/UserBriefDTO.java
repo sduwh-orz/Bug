@@ -13,7 +13,7 @@ import org.springframework.beans.BeanUtils;
 @SuppressWarnings("unused")
 public class UserBriefDTO {
     /**
-     * The Id.
+     * The ID.
      */
     protected String id;
 

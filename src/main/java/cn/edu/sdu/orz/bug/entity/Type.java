@@ -12,11 +12,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @MappedSuperclass
+@SuppressWarnings("unused")
 public class Type {
+    /**
+     * The Id.
+     */
     @Id
     @Column(name = "id", nullable = false)
     protected Integer id;
 
+    /**
+     * The Name.
+     */
     @Column(name = "name", nullable = false)
     protected String name;
 }

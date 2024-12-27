@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
  */
 @Getter
 @Setter
+@SuppressWarnings("unused")
 public class BaseDTO {
     /**
      * The ID.

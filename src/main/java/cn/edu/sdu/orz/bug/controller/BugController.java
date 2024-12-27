@@ -21,6 +21,7 @@ import java.util.Map;
 @Validated
 @RestController
 @CrossOrigin
+@SuppressWarnings("unused")
 @RequestMapping("/bug")
 public class BugController {
 

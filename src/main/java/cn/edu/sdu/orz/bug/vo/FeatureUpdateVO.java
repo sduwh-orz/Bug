@@ -6,8 +6,8 @@ import lombok.Setter;
 /**
  * The type Feature update vo.
  */
-@Setter
 @Getter
+@Setter
 @SuppressWarnings("unused")
 public class FeatureUpdateVO extends FeatureVO {
     private String id;

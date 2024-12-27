@@ -19,6 +19,7 @@ import java.util.Map;
 @Validated
 @RestController
 @CrossOrigin
+@SuppressWarnings("unused")
 @RequestMapping("/project")
 public class ProjectController {
 

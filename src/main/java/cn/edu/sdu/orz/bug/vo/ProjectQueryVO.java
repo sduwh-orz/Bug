@@ -6,8 +6,8 @@ import lombok.Setter;
 /**
  * The type Project query vo.
  */
-@Setter
 @Getter
+@Setter
 @SuppressWarnings("unused")
 public class ProjectQueryVO extends ProjectVO {
     private Integer page;

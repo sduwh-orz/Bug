@@ -6,8 +6,8 @@ import lombok.Setter;
 /**
  * The type Task assign feature vo.
  */
-@Setter
 @Getter
+@Setter
 @SuppressWarnings("unused")
 public class TaskAssignFeatureVO {
     private String id;
